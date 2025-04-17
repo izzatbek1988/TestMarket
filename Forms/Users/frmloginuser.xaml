@@ -1,0 +1,76 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Users.FrmLoginUser"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Users"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:my="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Closing="FrmLoginUser_OnClosing" Loaded="FrmLoginUser_OnLoaded" Style="{StaticResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmLoginUser_ВходВСистему}"
+                        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ThreeDBorderWindow"
+                        SizeToContent="WidthAndHeight" FocusManager.FocusedElement="{Binding ElementName=ListUsersAuth}">
+  <FrameworkElement.DataContext>
+    <local:LoginUsersViewModel/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <ContextMenu x:Key="{x:Static local:LoginUsersViewModel.AlsoMenuKey}" FontSize="25">
+      <MenuItem Name="MenuItem_restorePassword" Header="{x:Static localizations:Translate.ВосстановитьПароль}"
+                Command="{Binding Path=RestorePasswordForUserCommand}"/>
+    </ContextMenu>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="420"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid Name="ListUsersAuth" Grid.Row="0" Grid.Column="0" HeadersVisibility="None" SelectionMode="Single"
+              Height="327" HorizontalScrollBarVisibility="Auto" VerticalAlignment="Top" Margin="8,8,0,0"
+              IsSynchronizedWithCurrentItem="True" FontSize="36" xaml:FocusExtension.IsFocused="true"
+              SelectedIndex="0" ItemsSource="{Binding Path=UserList}"
+              SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
+      <UIElement.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding PressEnter}"/>
+      </UIElement.InputBindings>
+      <FrameworkElement.Resources>
+        <xaml:BindingProxy x:Key="proxy" Data="{Binding}"/>
+      </FrameworkElement.Resources>
+      <DataGrid.Columns>
+        <DataGridTemplateColumn Width="1*" my:Extensions.Guid="A0B0E6E1-1CE5-489A-9F58-8A74A0261ECE">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Grid>
+                <TextBlock Text="{Binding User.Alias}" Foreground="{Binding Color}">
+                  <UIElement.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Data.ActionUser, Source={StaticResource proxy}}"/>
+                  </UIElement.InputBindings>
+                </TextBlock>
+              </Grid>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="0" Grid.Column="1" Margin=" 4" HorizontalAlignment="Center">
+      <Button Name="ButtonInOut" Style="{DynamicResource btnAction}" Command="{Binding Path=ActionUser}">
+        <Image Source="{Binding IconButton, UpdateSourceTrigger=PropertyChanged}"/>
+      </Button>
+      <Button Name="ButtonMore" Style="{DynamicResource btnAction}" Command="{Binding ShowMenuCommand}"
+              CommandParameter="{Binding ElementName=GridWaybillItems, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconMore}"/>
+      </Button>
+    </StackPanel>
+    <userControls:ConfirmPanelControl1 x:Name="ConfirmPanelControl" VerticalAlignment="Bottom" IsTabStop="true"
+                                       OkButtonText="{x:Static localizations:Translate.FormSelectGroup_ГОТОВО}" Grid.Row="1"
+                                       Grid.ColumnSpan="2" Grid.Column="0" OkButtonCommand="{Binding Path=DoneCommand}"
+                                       VisibilityCancelButton="{Binding VisibilityClose}"
+                                       CancelButtonCommand="{Binding Path=CloseCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

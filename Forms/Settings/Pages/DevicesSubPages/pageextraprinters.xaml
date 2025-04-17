@@ -1,0 +1,52 @@
+<Page x:Class="Gbs.Forms.Settings.Pages.DevicesSubPages.PageExtraPrinters"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Gbs.Forms.Settings.Pages.DevicesSubPages"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      Title="PageExtraPrinters">
+  <FrameworkElement.DataContext>
+    <local:ExtraPrintersViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <CheckBox Name="CheckBoxActive"
+              Content="{x:Static localizations:Translate.ОтправлятьДанныеНаДополнительныеПринтеры}"
+              Margin="5, 10, 10,0" IsChecked="{Binding Devices.ExtraPrinters.IsActive}"/>
+    <Grid Height="Auto">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <DataGrid Name="ListPrinters" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Auto"
+                Grid.Column="0" VerticalAlignment="Stretch" MinHeight="400" ItemsSource="{Binding Printers}">
+        <UIElement.InputBindings>
+          <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditPrinterCommand}"
+                        CommandParameter="{Binding ElementName=ListPrinters, Path=SelectedItems}"/>
+        </UIElement.InputBindings>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodModificationCard_Название}" Width="*"
+                              Binding="{Binding Name}"/>
+          <DataGridCheckBoxColumn Header="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Статус}"
+                                  Binding="{Binding IsActive}"/>
+        </DataGrid.Columns>
+      </DataGrid>
+      <StackPanel HorizontalAlignment="Right" Grid.Column="1">
+        <Button Style="{DynamicResource btnAction}" VerticalAlignment="Top" HorizontalAlignment="Center"
+                Command="{Binding Path=AddPrinterCommand}">
+          <Image Source="{DynamicResource IconAdd}"/>
+        </Button>
+        <Button Style="{DynamicResource btnAction}" VerticalAlignment="Top" HorizontalAlignment="Center"
+                Command="{Binding Path=EditPrinterCommand}"
+                CommandParameter="{Binding ElementName=ListPrinters, Path=SelectedItems}">
+          <Image Source="{DynamicResource IconEdit}"/>
+        </Button>
+        <Button VerticalAlignment="Top" Style="{DynamicResource btnAction}" HorizontalAlignment="Center"
+                CommandParameter="{Binding ElementName=ListPrinters, Path=SelectedItems}"
+                Command="{Binding Path=DeletePrinterCommand}">
+          <Image Source="{DynamicResource IconDelete}"/>
+        </Button>
+      </StackPanel>
+    </Grid>
+  </StackPanel>
+</Page>

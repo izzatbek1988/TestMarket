@@ -1,0 +1,74 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmSecondMonitor"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:global="clr-namespace:Gbs.Core.Entities"
+                        xmlns:shared="clr-namespace:Gbs.Forms._shared"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        MouseEnter="FrmSecondMonitor_OnMouseEnter" MouseLeave="FrmSecondMonitor_OnMouseLeave"
+                        WindowState="Maximized" Style="{DynamicResource sWindow}" WindowStyle="None"
+                        Title="{x:Static localizations:Translate.ВторойМонитор}" Height="450" Width="800"
+                        ResizeMode="NoResize">
+  <FrameworkElement.DataContext>
+    <shared:SecondMonitorViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="127*"/>
+      <ColumnDefinition Width="273*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="80"/>
+    </Grid.RowDefinitions>
+    <Button Name="CloseButton" Style="{DynamicResource btnAction}" Width="Auto" Height="35" Grid.Row="0"
+            Grid.Column="1" HorizontalAlignment="Right" Margin="5" Visibility="{Binding VisibilityCloseButton}"
+            Command="{Binding CloseMeCommand}">
+      <StackPanel Orientation="Horizontal">
+        <Image Source="{DynamicResource IconClose}"/>
+      </StackPanel>
+    </Button>
+    <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2"
+           Source="{Binding ImageCurrent.Value}" Visibility="{Binding VisibilityImage}"/>
+    <DataGrid Name="ItemsDataGrid" Margin="5" Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0"
+              ItemsSource="{Binding Basket.Items}"
+              FontSize="{Binding FontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+              Visibility="{Binding VisibilityBasket}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}" Width="400"
+                            uiElement:Extensions.Guid="B6C9CBF6-01EC-4399-BDDF-E593637FBF4C" MinWidth="100"
+                            ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding DisplayedName}"/>
+        <DataGridTextColumn Width="120" Header="{x:Static localizations:Translate.FrmMainWindow_Цена}"
+                            uiElement:Extensions.Guid="FBF89246-F36A-4FB7-AE92-451C22290045"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding SalePrice, StringFormat=N2}"/>
+        <DataGridTextColumn Width="120" Header="{x:Static localizations:Translate.FrmMainWindow_КолВо}"
+                            uiElement:Extensions.Guid="68E23365-2CD3-487F-BDFF-FE88FA341B93"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Quantity, StringFormat=N2}"/>
+        <DataGridTextColumn Width="120" Header="{x:Static localizations:Translate.FrmMainWindow_Скидка}"
+                            uiElement:Extensions.Guid="0570736C-05AD-4A2C-9ACC-06DDE8491CC4"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            Binding="{Binding Discount.Value, StringFormat={0:N2}}"/>
+        <DataGridTextColumn Width="140" Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}"
+                            uiElement:Extensions.Guid="728592F7-C8D8-4FFF-A601-B159CA4AE359"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding TotalSum, StringFormat=N2}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="2" Grid.Column="0" Margin="5" Orientation="Horizontal"
+                Visibility="{Binding VisibilityClientInfo}">
+      <TextBlock Text="{x:Static localizations:Translate.ВашиБаллы}" FontWeight="Bold" FontSize="18"/>
+      <TextBlock FontWeight="Bold" FontSize="18" Margin="5, 0"
+                 Text="{Binding Basket.Client.TotalBonusSum, StringFormat=N2}"/>
+    </StackPanel>
+    <StackPanel Grid.Row="2" Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Right"
+                Visibility="{Binding VisibilityBasket}">
+      <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_СУММА}" FontWeight="Bold" Margin="5"
+                 FontSize="40"/>
+      <TextBlock FontWeight="Bold" Margin="30 5 5 5" FontSize="40" Text="{Binding Basket.TotalSum, StringFormat=N2}"/>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

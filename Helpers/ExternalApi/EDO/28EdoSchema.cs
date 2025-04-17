@@ -1,0 +1,48 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Gbs.Helpers.ФайлДокументСвСчФактДокПодтвОтгр
+// Assembly: Market, Version=6.6.12.2634, Culture=neutral, PublicKeyToken=null
+// MVID: 1F63B1D6-03C1-4223-9A1B-4EA2EB09E32F
+// Assembly location: C:\Program Files (x86)\F-Lab\Market 6\Market.exe
+
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+#nullable disable
+namespace Gbs.Helpers
+{
+  [GeneratedCode("xsd", "4.7.3081.0")]
+  [DebuggerStepThrough]
+  [DesignerCategory("code")]
+  [XmlType(AnonymousType = true)]
+  [Serializable]
+  public class ФайлДокументСвСчФактДокПодтвОтгр
+  {
+    private string наимДокОтгрField;
+    private string номДокОтгрField;
+    private string датаДокОтгрField;
+
+    [XmlAttribute]
+    public string НаимДокОтгр
+    {
+      get => this.наимДокОтгрField;
+      set => this.наимДокОтгрField = value;
+    }
+
+    [XmlAttribute]
+    public string НомДокОтгр
+    {
+      get => this.номДокОтгрField;
+      set => this.номДокОтгрField = value;
+    }
+
+    [XmlAttribute]
+    public string ДатаДокОтгр
+    {
+      get => this.датаДокОтгрField;
+      set => this.датаДокОтгрField = value;
+    }
+  }
+}

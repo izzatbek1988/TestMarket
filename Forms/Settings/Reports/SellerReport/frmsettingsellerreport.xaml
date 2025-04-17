@@ -1,0 +1,51 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Reports.SellerReport.FrmSettingSellerReport"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Reports.SellerReport"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        SizeToContent="WidthAndHeight" Style="{DynamicResource sWindow}" ResizeMode="NoResize"
+                        Title="{x:Static localizations:Translate.FrmSettingSellerReport_НастроитьОтчетПродавца}">
+  <FrameworkElement.DataContext>
+    <local:SellerReportSettingViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <GroupBox Margin="10,10,10,0" Header="{x:Static localizations:Translate.ОтображатьВОтчете}" FontSize="16">
+      <StackPanel>
+        <CheckBox Content="{x:Static localizations:Translate.FrmCardSale_Возвраты}" Margin="5, 5"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding Setting.IsVisibilityReturn, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox Content="{x:Static localizations:Translate.СнятиеНаличных}" Margin="5, 5"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding Setting.IsVisibilityRemove, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox Content="{x:Static localizations:Translate.ВнесениеНаличных}" Margin="5, 5"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding Setting.IsVisibilityInsert, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox Content="{x:Static localizations:Translate.СуммаВКассе}" Margin="5, 5"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding Setting.IsVisibilitySumCash, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox Content="{x:Static localizations:Translate.FrmSummaryReport_СуммаВККМ}" Margin="5, 5"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding Setting.IsVisibilitySumKkm, UpdateSourceTrigger=PropertyChanged}"/>
+        <GroupBox Margin="5, 5">
+          <HeaderedContentControl.Header>
+            <CheckBox Name="CheckBoxSumPayment" Content="{x:Static localizations:Translate.СуммаПлатежей}"
+                      VerticalContentAlignment="Center"
+                      IsChecked="{Binding Setting.IsVisibilitySumPayment, UpdateSourceTrigger=PropertyChanged}"/>
+          </HeaderedContentControl.Header>
+          <CheckBox Content="{x:Static localizations:Translate.ВТЧОплатыПоСпособам}" Margin="20, 5"
+                    VerticalContentAlignment="Center"
+                    IsEnabled="{Binding ElementName=CheckBoxSumPayment, Path=IsChecked}"
+                    IsChecked="{Binding Setting.IsVisibilityTablePayment, UpdateSourceTrigger=PropertyChanged}"/>
+        </GroupBox>
+      </StackPanel>
+    </GroupBox>
+    <CheckBox Content="{x:Static localizations:Translate.FrmSettingSellerReport_РазрешитьВыборДаты}"
+              VerticalContentAlignment="Center" FontSize="16" Margin="15, 5 0 0"
+              IsChecked="{Binding Setting.IsVisibilityDate, UpdateSourceTrigger=PropertyChanged}"/>
+    <userControls:ConfirmPanelControl1 OkButtonCommand="{Binding Path=SaveCommand}" CancelButtonCommand="{Binding Path=CloseCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

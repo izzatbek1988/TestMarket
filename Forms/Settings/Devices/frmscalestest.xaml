@@ -1,0 +1,26 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Devices.FrmScalesTest"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Devices"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" Title="{x:Static localizations:Translate.FrmScalesTest_Вес}"
+                        SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+  <FrameworkElement.DataContext>
+    <local:ScalesTestViewModel/>
+  </FrameworkElement.DataContext>
+  <WrapPanel Orientation="Horizontal">
+    <TextBlock Text="{x:Static localizations:Translate.FrmScalesTest_ВЕС_1}" Margin="5" FontSize="30"
+               FontWeight="Bold" VerticalAlignment="Center"/>
+    <xctk:DecimalUpDown xaml:FocusExtension.IsFocused="true" Minimum="0" IsReadOnly="true" ShowButtonSpinner="false"
+                        Margin="5" Height="50" FontSize="35" TabIndex="0" Width="170" Value="{Binding Quantity}"/>
+    <Button Style="{DynamicResource btnAction}" Background="{DynamicResource ButtonCancelBackgroundColor}"
+            Margin="5" Command="{Binding CloseCommand}">
+      <Image Source="{DynamicResource IconCancelWhite}" Margin="4"/>
+    </Button>
+  </WrapPanel>
+</helpers:WindowWithSize>

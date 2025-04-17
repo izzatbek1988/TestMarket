@@ -1,0 +1,48 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.License.FrmLicenseInfo"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.License"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Drop="WindowWithSize_Drop" Style="{StaticResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmLicenseInfo_ИнформацияОЛицензии}"
+                        SizeToContent="WidthAndHeight" AllowDrop="true" ResizeMode="NoResize">
+  <FrameworkElement.DataContext>
+    <local:LicenseInfoViewModel/>
+  </FrameworkElement.DataContext>
+  <UIElement.InputBindings>
+    <KeyBinding Gesture="Ctrl+Shift+F5" Command="{Binding ResetId}"/>
+    <KeyBinding Gesture="F5" Command="{Binding LoadKey}"/>
+  </UIElement.InputBindings>
+  <Grid Margin="8">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    <Image Margin="2" Height="150" Width="150" Source="{Binding QrImage}"/>
+    <StackPanel Grid.Column="1" Orientation="Vertical">
+      <StackPanel Orientation="Horizontal">
+        <Label Content="{x:Static localizations:Translate.FrmLicenseInfo_GBSID}" HorizontalAlignment="Left"
+               VerticalAlignment="Bottom" FontSize="20"/>
+        <TextBox Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center"
+                 MinWidth="400" FontSize="20" Height="Auto" Text="{Binding Path=GbsId}"/>
+      </StackPanel>
+      <Button Style="{StaticResource btnLink}" HorizontalAlignment="Center"
+              Content="{x:Static localizations:Translate.FrmLicenseInfo_КопироватьGBSID}" Cursor="Hand"
+              Command="{Binding Path=CopyGbsIdCommand}"/>
+      <StackPanel Orientation="Horizontal" Margin="4 24 4 4">
+        <Label FontSize="16" Content="{x:Static localizations:Translate.FrmLicenseInfo_СрокДействия}"/>
+        <Label FontSize="16" Content="{Binding Path=LicenseInformation.KeyDateInfo}"/>
+        <Button Style="{DynamicResource btnLink}" Content="{x:Static localizations:Translate.ПРОДЛИТЬ}"
+                Margin="30 0 0 0" Visibility="{Binding Path=IsContinueVisible}" Command="{Binding Path=BuyCommand}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="5 10" VerticalAlignment="Center"
+                  Visibility="{Binding DocumentLimitVisibility}">
+        <TextBlock Text="{x:Static localizations:Translate.ПревышенЛимитКоличестваДокументовДляПробнойВерсии}"
+                   FontWeight="Bold" FontSize="16"/>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

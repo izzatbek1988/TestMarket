@@ -1,0 +1,81 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.ActionsPayments.FrmRemoveCash"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.ActionsPayments"
+                        xmlns:xaml="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:my="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmRemoveCash_ДействияСДенежнымиСредствами}" Width="415"
+                        ResizeMode="NoResize" SizeToContent="WidthAndHeight"
+                        FocusManager.FocusedElement="{Binding ElementName=SumTextBox}">
+  <FrameworkElement.DataContext>
+    <local:PaymentsActionsViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel Grid.ColumnSpan="2">
+    <StackPanel Orientation="Horizontal">
+      <TextBlock HorizontalAlignment="Left" Margin="10,10,20,5" TextWrapping="Wrap"
+                 Text="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" VerticalAlignment="Center"
+                 FontSize="32" Height="43"/>
+      <xaml:DecimalUpDown Name="SumTextBox" Margin="4" HorizontalAlignment="Right" Width="260" Height="43"
+                          ShowButtonSpinner="false" VerticalAlignment="Center" FontSize="30" Minimum="0"
+                          Value="{Binding Sum, UpdateSourceTrigger=PropertyChanged}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <TextBlock Margin="10, 5" TextWrapping="Wrap"
+                 Text="{x:Static localizations:Translate.FrmRemoveCash_КатегорияРасходов}" FontSize="16" Width="150"
+                 VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="{Binding VisibilityGroup}"/>
+      <ComboBox SelectedValuePath="Uid" DisplayMemberPath="Name" VerticalContentAlignment="Center"
+                HorizontalAlignment="Center" Margin="5" VerticalAlignment="Center" Width="215" FontSize="16"
+                Height="30" Visibility="{Binding VisibilityGroup}" ItemsSource="{Binding Groups}"
+                SelectedValue="{Binding Payment.ParentUid}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <TextBlock HorizontalAlignment="Left" Margin="10,5" TextWrapping="Wrap" VerticalAlignment="Center"
+                 FontSize="16" Width="150" Visibility="{Binding VisibilityAccOut}" Text="{Binding ContentButton}"/>
+      <ComboBox SelectedValuePath="Uid" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="5"
+                VerticalAlignment="Center" Width="215" FontSize="16" Height="30"
+                Visibility="{Binding VisibilityAccOut}" ItemsSource="{Binding Accounts}"
+                IsEnabled="{Binding IsEnabledAccOut}"
+                SelectedItem="{Binding AccountOut, UpdateSourceTrigger=PropertyChanged}"
+                SelectedValue="{Binding AccountOut.Uid}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <TextBlock HorizontalAlignment="Left" Margin="10,5" TextWrapping="Wrap"
+                 Text="{x:Static localizations:Translate.FrmRemoveCash_СчетДляВнесения}" VerticalAlignment="Center"
+                 FontSize="16" Width="150" Visibility="{Binding VisibilityAccIn}"/>
+      <ComboBox SelectedValuePath="Uid" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="5"
+                VerticalAlignment="Center" Width="215" FontSize="16" Height="30"
+                Visibility="{Binding VisibilityAccIn}" ItemsSource="{Binding Accounts}"
+                SelectedItem="{Binding AccountIn}" SelectedValue="{Binding AccountIn.Uid}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <TextBlock HorizontalAlignment="Left" Margin="10,5" TextWrapping="Wrap"
+                 Text="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" VerticalAlignment="Center"
+                 FontSize="16" Width="150"/>
+      <TextBox HorizontalAlignment="Left" Margin="5" VerticalAlignment="Center" Width="215" FontSize="16"
+               Height="30" Text="{Binding Payment.Comment}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <TextBlock HorizontalAlignment="Left" Margin="10,5" TextWrapping="Wrap"
+                 Text="{x:Static localizations:Translate.Контакт}" VerticalAlignment="Center" FontSize="16"
+                 Width="150" Visibility="{Binding VisibilityClients}"/>
+      <Button HorizontalAlignment="Left" Margin="5 5" Style="{DynamicResource btnLink}"
+              VerticalAlignment="Center" FontSize="16" HorizontalContentAlignment="Center" Width="215"
+              Height="25" Visibility="{Binding VisibilityClients}" Content="{Binding ClientName}"
+              Command="{Binding GetClient}"/>
+    </StackPanel>
+    <CheckBox Content="{x:Static localizations:Translate.FrmRemoveCash_НеФискальнаяОперация}" Grid.Row="5"
+              FontSize="16" Margin="10,10,0, 0" VerticalContentAlignment="Center" Grid.ColumnSpan="2"
+              Grid.Column="0" IsChecked="{Binding IsNonFiscal, UpdateSourceTrigger=PropertyChanged}"
+              Visibility="{Binding VisibilityNonFiscal}"/>
+    <my:ConfirmPanelControl1 VerticalAlignment="Bottom"
+                             CancelButtonText="{x:Static localizations:Translate.FrmInputMessage_Отмена}" Margin="0,0,0,-0"
+                             OkButtonText="{Binding ContentButtonOk}" CancelButtonCommand="{Binding ClosePayment}"
+                             VisibilityCancelButton="{Binding VisibilityCancelButton}"
+                             OkButtonCommand="{Binding ActoinsPayment}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

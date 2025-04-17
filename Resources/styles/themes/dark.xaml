@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+  <SolidColorBrush x:Key="SelectionBackground" po:Freeze="True" Color="#3ba4de"/>
+  <SolidColorBrush x:Key="SelectionForeground" po:Freeze="True" Color="White"/>
+  <Color x:Key="DefaultForegroundColor">White</Color>
+  <SolidColorBrush x:Key="DefaultForeground" po:Freeze="True" Color="White"/>
+  <SolidColorBrush x:Key="DefaultForeground60" po:Freeze="True" Color="White" Opacity="0.6"/>
+  <SolidColorBrush x:Key="DefaultForeground40" po:Freeze="True" Color="White" Opacity="0.4"/>
+  <SolidColorBrush x:Key="InvertForeground" po:Freeze="True" Color="Black"/>
+  <SolidColorBrush x:Key="WindowsBackground" po:Freeze="True" Color="#222222"/>
+  <SolidColorBrush x:Key="ListMainBackground" po:Freeze="True" Color="#444444"/>
+  <SolidColorBrush x:Key="ListMainBackground80" po:Freeze="True" Color="#444444" Opacity="0.8"/>
+  <Color x:Key="ListMainBackgroundColor">#444444</Color>
+  <SolidColorBrush x:Key="ListSecondBackground" po:Freeze="True" Color="#777777" Opacity="0.4"/>
+  <SolidColorBrush x:Key="Background80" po:Freeze="True" Color="#444444" Opacity="0.8"/>
+  <SolidColorBrush x:Key="Border80" po:Freeze="True" Color="#666666" Opacity="0.8"/>
+  <SolidColorBrush x:Key="Background40" po:Freeze="True" Color="#444444" Opacity="0.4"/>
+  <SolidColorBrush x:Key="Border40" po:Freeze="True" Color="#666666" Opacity="0.4"/>
+  <SolidColorBrush x:Key="DarkBackground" po:Freeze="True" Color="#333333" Opacity="0.4"/>
+  <SolidColorBrush x:Key="ButtonDefaultDisableBackgroundColor" po:Freeze="True" Color="#33555555"/>
+  <SolidColorBrush x:Key="ButtonDefaultDisableForegroundColor" po:Freeze="True" Color="#99FFFFFF"/>
+  <SolidColorBrush x:Key="ButtonOkBackgroundColor" po:Freeze="True" Color="#009900"/>
+  <SolidColorBrush x:Key="ButtonOkForegroundColor" po:Freeze="True" Color="White"/>
+  <SolidColorBrush x:Key="ButtonCancelBackgroundColor" po:Freeze="True" Color="#c0392b"/>
+  <SolidColorBrush x:Key="ButtonCancelForegroundColor" po:Freeze="True" Color="White"/>
+  <SolidColorBrush x:Key="ReadOnlyForeground" po:Freeze="True" Color="White" Opacity="0.8"/>
+  <SolidColorBrush x:Key="ButtonLinkForegroundColor" po:Freeze="True" Color="#3ba4de"/>
+  <SolidColorBrush x:Key="ButtonLinkDisableForegroundColor" po:Freeze="True" Color="#555555"/>
+  <ImageSource x:Key="IconQuestion">
+    ../../icons/white/question.png
+  </ImageSource>
+  <ImageSource x:Key="IconWarning">
+    ../../icons/white/warning.png
+  </ImageSource>
+  <ImageSource x:Key="IconNew">
+    ../../icons/white/new.png
+  </ImageSource>
+  <ImageSource x:Key="IconFolder">
+    ../../icons/white/folder.png
+  </ImageSource>
+  <ImageSource x:Key="LogoImage">
+    ../../images/logo.jpg
+  </ImageSource>
+</ResourceDictionary>

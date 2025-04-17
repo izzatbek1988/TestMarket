@@ -1,0 +1,42 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Other.FrmSendDigitalCheck"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Other"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.ЭлектронныйЧек}">
+  <FrameworkElement.DataContext>
+    <local:SendDigitalCheckViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <Label FontSize="20" Margin="10 5" Width="100"
+             Content="{x:Static localizations:Translate.FrmMainWindow_Покупатель}"/>
+      <Label FontSize="20" Margin="0 5" Width="270" Content="{Binding Path=Name}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <Label FontSize="20" Margin="10 0" Width="100"
+             Content="{x:Static localizations:Translate.FrmClientCard_Телефон}"/>
+      <Button FontSize="20" Margin="0 0" Width="270" Style="{DynamicResource btnLink}" HorizontalAlignment="Left"
+              IsEnabled="{Binding IsEnabledPhone}" Command="{Binding Path=SetPhoneCommand}"
+              Content="{Binding Path=Phone}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <Label FontSize="20" Margin="10 5" Content="E-mail" Width="100"/>
+      <Button FontSize="20" Margin="0 5" Width="270" Style="{DynamicResource btnLink}" HorizontalAlignment="Left"
+              Command="{Binding Path=SetEmailCommand}" IsEnabled="{Binding IsEnabledEmail}"
+              Content="{Binding Path=Email}"/>
+    </StackPanel>
+    <TextBox FontSize="20" Margin="3" Height="34" Width="300" VerticalContentAlignment="Center"
+             VerticalAlignment="Center" Text="{Binding Path=Address}"/>
+    <TextBlock Text="{x:Static localizations:Translate.ПроверьтеПравильностьАдресаТелефонаПередОтправкойЧекБудетОтправленНаУказанныйАдресТелефон}"
+               TextWrapping="Wrap" Width="360" HorizontalAlignment="Center" TextAlignment="Center" FontSize="12"/>
+    <userControls:ConfirmPanelControl1 VerticalAlignment="Center" OkButtonText="{x:Static localizations:Translate.ОТПРАВИТЬ}"
+                                       CancelButtonText="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОТМЕНА}"
+                                       OkButtonCommand="{Binding Path=SendCommand}" CancelButtonCommand="{Binding Path=CancelCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

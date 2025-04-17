@@ -1,0 +1,170 @@
+<Page x:Class="Gbs.Forms.Settings.Pages.PageLegal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Gbs.Forms.Settings.Pages"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      Title="PageLegal">
+  <FrameworkElement.DataContext>
+    <local:SettingBillViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <TabControl Name="BillTabControl">
+      <TabItem Name="CrptTabItem" Header="{x:Static localizations:Translate.ЧестныйЗнакМаркировка}"
+               Visibility="{Binding VisibilityBlockHome}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+          <StackPanel Margin="0 0 0 0">
+            <GroupBox Header="{x:Static localizations:Translate.ОсновныеНастройки}" Margin="5 5 5 0"
+                      Visibility="{Binding VisibilityOnlyRus}">
+              <StackPanel>
+                <Button Style="{DynamicResource SettingsButton}"
+                        Content="{x:Static localizations:Translate.НастроитьТоварныеГруппы}" Margin="4"
+                        Command="{Binding SettingMarkGroupCommand}"/>
+              </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{x:Static localizations:Translate.РазрешительныйРежим}"
+                      Visibility="{Binding VisibilityOnlyRus}">
+              <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                  <Label Content="{x:Static localizations:Translate.ТокенДляККТ}" Margin="0 0 10 0"/>
+                  <TextBox Width="270" HorizontalAlignment="Stretch"
+                           Text="{Binding Integrations.Crpt.Token, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <CheckBox Name="CheckMarkCheckBox" Margin="5"
+                          Content="{x:Static localizations:Translate.ПроверятьМаркировкуПередПродажейВЧестномЗнаке}"
+                          IsChecked="{Binding IsCheckMarkInfoTrueApi}"/>
+                <CheckBox Margin="5 0 0 5" Content="{x:Static localizations:Translate.ЗапретитьПродажуЕслиНетСвязиСЧЗ}"
+                          IsChecked="{Binding Integrations.Crpt.IsBanSaleIfFailConnect, UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox Margin="5 0 0 5"
+                          IsChecked="{Binding Integrations.Crpt.IsCheckTobaccoPriceForMark, UpdateSourceTrigger=PropertyChanged}">
+                  <ContentControl.Content>
+                    <TextBlock Text="{x:Static localizations:Translate.ПроверятьСоответствиеРозничнойЦеныВПрограммеИМРЦДляТабака}"
+                               TextWrapping="Wrap"/>
+                  </ContentControl.Content>
+                </CheckBox>
+                <Expander Margin="5 5 5 0" Header="{x:Static localizations:Translate.ПараметрыПроверкиКодаМаркировки}">
+                  <StackPanel IsEnabled="{Binding ElementName=CheckMarkCheckBox, Path=IsChecked}">
+                    <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                      <Label Content="{x:Static localizations:Translate.ТаймаутПроверки}" Width="115"/>
+                      <xctk:DecimalUpDown Width="40" Minimum="1.5" Maximum="60"
+                                          Value="{Binding Integrations.Crpt.Timeout, UpdateSourceTrigger=PropertyChanged}"/>
+                      <Label Content="{x:Static localizations:Translate.Секунд}" Width="115"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                      <Label Content="{x:Static localizations:Translate.ЗапретПродажиЗа}"/>
+                      <xctk:DecimalUpDown Width="40" Minimum="0" Maximum="48"
+                                          Value="{Binding Integrations.Crpt.CountHoursForBanSaleWithDate, UpdateSourceTrigger=PropertyChanged}"/>
+                      <Label Content="{x:Static localizations:Translate.ЧДоОкончанияСрокаГодности}"/>
+                    </StackPanel>
+                  </StackPanel>
+                </Expander>
+              </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{x:Static localizations:Translate.ЛокальнаяПроверкаКодовМаркировки}">
+              <StackPanel>
+                <CheckBox IsChecked="{Binding Path=IsTabooSaleNoСorrected}">
+                  <TextBlock Text="{x:Static localizations:Translate.ЗапретитьПродажуСНекорректнымиКодамиМаркировки}"
+                             TextWrapping="Wrap"/>
+                </CheckBox>
+                <CheckBox IsChecked="{Binding Path=Settings.Sales.IsTabooSaleNoLabel}">
+                  <TextBlock Text="{x:Static localizations:Translate.ЗапретитьПродажуТовараБЕЗУказанияКодаМаркировки}"
+                             TextWrapping="Wrap"/>
+                </CheckBox>
+              </StackPanel>
+            </GroupBox>
+            <GroupBox Header="{x:Static localizations:Translate.PageSelectMode_ДополнительныеНастройки}">
+              <StackPanel>
+                <TextBlock Text="{x:Static localizations:Translate.КоличествоПачекВБлокеТабак}" TextWrapping="Wrap"
+                           Margin="5 0 0 0"/>
+                <userControls:MultiValueIntControl Margin="5 5 10 5">
+                  <userControls:MultiValueIntControl.Values>
+                    <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">                      <!-- constructor argument:
+                           SmokeValues
+                      -->
+
+                    </Binding>
+                  </userControls:MultiValueIntControl.Values>
+                </userControls:MultiValueIntControl>
+              </StackPanel>
+            </GroupBox>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Name="EgaisTabItem" Header="{x:Static localizations:Translate.ЕГАИСАлкоголь}"
+               Visibility="{Binding VisibilityOnlyRus}">
+        <StackPanel>
+          <GroupBox Header="{x:Static localizations:Translate.ПараметрыПодключения}" Margin="5 5 5 0">
+            <StackPanel>
+              <CheckBox Name="CheckBoxEgais" Content="{x:Static localizations:Translate.АктивироватьОбменДанными}"
+                        Margin="5 0 5 5"
+                        IsChecked="{Binding Integrations.Egais.IsActive, UpdateSourceTrigger=PropertyChanged}"/>
+              <StackPanel Orientation="Horizontal" IsEnabled="{Binding ElementName=CheckBoxEgais, Path=IsChecked}">
+                <TextBlock Text="{x:Static localizations:Translate.ФСРАРID}" Margin="5 5 5 0" VerticalAlignment="Center"
+                           Width="65"/>
+                <TextBox Margin="15 5 5 0" Height="25" Width="170" VerticalAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Integrations.Egais.RarId, UpdateSourceTrigger=PropertyChanged}"/>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal" IsEnabled="{Binding ElementName=CheckBoxEgais, Path=IsChecked}">
+                <TextBlock Text="{x:Static localizations:Translate.ПутьКУТМ}" Margin="5" VerticalAlignment="Center" Width="65"/>
+                <TextBox Margin="15 5 5 5" Height="25" Width="170" VerticalAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding Integrations.Egais.PathUtm, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="{x:Static localizations:Translate.ОткрытьВБраузере}" Style="{DynamicResource btnLink}"
+                        VerticalAlignment="Center" Command="{Binding EgaisOpenUtmCommand}"/>
+              </StackPanel>
+            </StackPanel>
+          </GroupBox>
+          <GroupBox Header="{x:Static localizations:Translate.НастройкиВзаимодействия}" Margin="5 5 5 0"
+                    IsEnabled="{Binding ElementName=CheckBoxEgais, Path=IsChecked}"
+                    Visibility="{Binding VisibilityBlockHome}">
+            <StackPanel>
+              <StackPanel Orientation="Horizontal">
+                <CheckBox Name="TimeCheckBox" Content="{x:Static localizations:Translate.ЗапретитьПродажуАлкоголяС}"
+                          Margin="5 0 5 0" VerticalAlignment="Center"
+                          IsChecked="{Binding Integrations.Egais.IsLimitedForTime, UpdateSourceTrigger=PropertyChanged}"/>
+                <xctk:TimePicker Width="70" IsEnabled="{Binding ElementName=TimeCheckBox, Path=IsChecked}"
+                                 Value="{Binding Integrations.Egais.StartTimeLimited}"/>
+                <TextBlock Text="{x:Static localizations:Translate.До}" VerticalAlignment="Center" Margin="5 5 5 5"
+                           IsEnabled="{Binding ElementName=TimeCheckBox, Path=IsChecked}"/>
+                <xctk:TimePicker Width="70" IsEnabled="{Binding ElementName=TimeCheckBox, Path=IsChecked}"
+                                 Value="{Binding Integrations.Egais.FinishTimeLimited}"/>
+              </StackPanel>
+              <Button Content="{x:Static localizations:Translate.НастройкаКрановДляРазливногоПиваКег}" Height="30"
+                      Command="{Binding ShowBeerTapsListCommand}"/>
+              <CheckBox Content="{x:Static localizations:Translate.ЗапретитьВскрытиеКегВМинус}"
+                        IsChecked="{Binding Integrations.Egais.IsBanOpenNegativeBeerKega, UpdateSourceTrigger=PropertyChanged}"/>
+              <CheckBox Content="{x:Static localizations:Translate.ОтображатьСписокКрановВПанелиИзбранныхТоваров}"
+                        IsChecked="{Binding Integrations.Egais.IsShowTapInSelectGood, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+          </GroupBox>
+          <GroupBox Header="{x:Static localizations:Translate.СервисныеМетоды}" Margin="5 5 5 0"
+                    Visibility="{Binding VisibilityBlockHome}">
+            <StackPanel>
+              <Button Style="{DynamicResource btnLink}"
+                      Content="{x:Static localizations:Translate.ЗапроситьОстатки1Регистр}" Margin="5 0 5 5"
+                      IsEnabled="{Binding ElementName=CheckBoxEgais, Path=IsChecked}"
+                      Command="{Binding EgaisGetOldStocksOneRegister}"/>
+              <Button Style="{DynamicResource btnLink}"
+                      Content="{x:Static localizations:Translate.ЗапроситьОстатки2Регистр}" Margin="5 0 5 5"
+                      IsEnabled="{Binding ElementName=CheckBoxEgais, Path=IsChecked}"
+                      Command="{Binding EgaisGetOldStocksTwoRegister}"/>
+              <Separator Visibility="Collapsed"/>
+              <Button Visibility="Collapsed" Style="{DynamicResource btnLink}"
+                      Content="{x:Static localizations:Translate.ОбновитьНомераСправок1Регистр}" Margin="5 0 5 5"
+                      IsEnabled="{Binding ElementName=CheckBoxEgais, Path=IsChecked}"
+                      Command="{Binding EgaisGetInformBRegIdOneRegister}"/>
+              <Button Visibility="Collapsed" Style="{DynamicResource btnLink}"
+                      Content="{x:Static localizations:Translate.ОбновитьНомераСправок2Регистр}" Margin="5 0 5 5"
+                      IsEnabled="{Binding ElementName=CheckBoxEgais, Path=IsChecked}"
+                      Command="{Binding EgaisGetInformBRegIdTwoRegister}"/>
+            </StackPanel>
+          </GroupBox>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+  </Grid>
+</Page>

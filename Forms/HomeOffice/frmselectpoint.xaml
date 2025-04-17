@@ -1,0 +1,70 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.HomeOffice.FrmSelectPoint"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.HomeOffice"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Closing="FrmSelectPoint_OnClosing" Loaded="FrmSelectPoint_OnLoaded"
+                        Style="{DynamicResource sWindow}" ResizeMode="NoResize"
+                        Title="{x:Static localizations:Translate.FrmSelectPoint_ВыберитеБазуДанных}"
+                        SizeToContent="WidthAndHeight" FocusManager.FocusedElement="{Binding ElementName=ListPoint}">
+  <FrameworkElement.DataContext>
+    <local:PointSelectViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" MinHeight="300"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="495"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid Name="ListPoint" Grid.Row="0" Grid.Column="0" HeadersVisibility="None" Height="327"
+              HorizontalScrollBarVisibility="Auto" VerticalAlignment="Top" Margin="10,10,0,0"
+              IsSynchronizedWithCurrentItem="True" FontSize="30" xaml:FocusExtension.IsFocused="true"
+              SelectedIndex="0" ItemsSource="{Binding Path=PointList}"
+              SelectedItem="{Binding SelectedPoint, Mode=TwoWay}">
+      <UIElement.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding DoneCommand}"/>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoneCommand}"/>
+      </UIElement.InputBindings>
+      <FrameworkElement.Resources>
+        <xaml:BindingProxy x:Key="proxy" Data="{Binding}"/>
+      </FrameworkElement.Resources>
+      <DataGrid.RowStyle>
+        <Style TargetType="{x:Type DataGridRow}">
+          <Style.Triggers>
+            <Trigger Property="DataGridRow.IsSelected" Value="true">
+              <Setter Property="Control.Background" Value="{DynamicResource SelectionBackground}"/>
+              <Setter Property="Control.Foreground" Value="{DynamicResource SelectionForeground}"/>
+              <Setter Property="TextBlock.Foreground" Value="{DynamicResource SelectionForeground}"/>
+              <Setter Property="TextElement.Foreground" Value="{DynamicResource SelectionForeground}"/>
+            </Trigger>
+          </Style.Triggers>
+          <Setter Property="Control.Padding" Value="10"/>
+          <Setter Property="Control.BorderThickness" Value="0"/>
+        </Style>
+      </DataGrid.RowStyle>
+      <DataGrid.Columns>
+        <DataGridTextColumn Width="1*" uiElement:Extensions.Guid="D2674017-C12B-4BB5-A73B-26728C39404A"
+                            Binding="{Binding InfoDataBase.NameDataBase}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <Button Margin="8 8 8 4" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top"
+            HorizontalContentAlignment="Center" Style="{DynamicResource btnAction}"
+            CommandParameter="{Binding ElementName=ListPoint, Path=SelectedItems}"
+            Command="{Binding Path=DeletePoint}">
+      <Image Source="{DynamicResource IconDelete}" HorizontalAlignment="Center"/>
+    </Button>
+    <userControls:ConfirmPanelControl1 VerticalAlignment="Bottom" IsTabStop="true"
+                                       OkButtonText="{x:Static localizations:Translate.FormSelectGroup_ГОТОВО}" Grid.Row="1"
+                                       Grid.ColumnSpan="2" Grid.Column="0" OkButtonCommand="{Binding Path=DoneCommand}"
+                                       CancelButtonCommand="{Binding Path=CloseCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

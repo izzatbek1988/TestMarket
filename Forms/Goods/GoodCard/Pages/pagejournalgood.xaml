@@ -1,0 +1,91 @@
+<Page x:Class="Gbs.Forms.Goods.GoodCard.PageJournalGood"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Gbs.Forms.Goods.GoodCard"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      Title="PageJournal" Height="Auto" Width="550" ShowsNavigationUI="false">
+  <FrameworkElement.DataContext>
+    <local:JournalGoodViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid IsEnabled="{Binding IsEnabledPage}">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Label Grid.Row="0" Content="{x:Static localizations:Translate.PageJournalGood_Действие}"
+           Margin="0,5,468.5,0" Height="29" VerticalAlignment="Top"/>
+    <ComboBox x:Name="cbJornal" Grid.Row="0" Margin="100,5,0,0" Height="24" VerticalAlignment="Top"
+              HorizontalAlignment="Left" Width="179" DisplayMemberPath="Value" SelectedValuePath="Key"
+              ItemsSource="{Binding ActionList}" SelectedValue="{Binding SelectedTypes}"/>
+    <Button Grid.Row="0" Style="{DynamicResource btnLink}"
+            Content="{x:Static localizations:Translate.ЗагрузитьЕщё}" Margin="290,2,4,2"
+            Visibility="{Binding VisibilityLoadDocumentByGood}" Command="{Binding ReloadJournalCommand}"/>
+    <DataGrid Name="DataGridJournal" Grid.Row="1" IsReadOnly="true" Height="Auto" VerticalAlignment="Stretch"
+              RowHeaderWidth="0" AutoGenerateColumns="false" ItemsSource="{Binding Journal}">
+      <DataGrid.Columns>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.PageJournalGood_ДатаВремя}" Width="120*"
+                                ClipboardContentBinding="{Binding Path=Date, StringFormat='{0:dd.MM.yyyy HH:mm}'}">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock VerticalAlignment="Center" FontSize="12" TextAlignment="Left"
+                         Text="{Binding Path=Date, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.PageJournalGood_Действие2}" Width="250*"
+                                ClipboardContentBinding="{Binding Action}">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock FontSize="12" VerticalAlignment="Center" TextAlignment="Left" TextWrapping="Wrap"
+                         Text="{Binding Action}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.ActionsHistoryListViewModel_Изменение}" Width="120*"
+                                ClipboardContentBinding="{Binding Stock}">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock FontSize="12" VerticalAlignment="Center" TextAlignment="Right" Text="{Binding Stock}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <ToolBarPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,9.5,0" RenderTransformOrigin="0.5,0.5"
+                  Height="30" VerticalAlignment="Top">
+      <Label Content="{x:Static localizations:Translate.PageJournalGood_Поступило}"/>
+      <Label Content="{Binding CountWay}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.PageJournalGood_Продано}"/>
+      <Label Content="{Binding CountSale}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.PageJournalGood_Возвращено}"/>
+      <Label Content="{Binding CountReturn}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.PageJournalGood_ИзмененоВручную}"/>
+      <Label Content="{Binding CountEdit}"/>
+    </ToolBarPanel>
+    <ToolBarPanel Grid.Row="2" Orientation="Horizontal" Margin="0,20,9.5,0" RenderTransformOrigin="0.5,0.5"
+                  Height="28" VerticalAlignment="Top">
+      <Label Content="{x:Static localizations:Translate.PageJournalGood_Списано}"/>
+      <Label Content="{Binding CountWriteOff}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.PageJournalGood_Инвентаризация}"/>
+      <Label Content="{Binding CountInvent}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.PageJournalGood_Перемещено}"/>
+      <Label Content="{Binding CountMove}"/>
+    </ToolBarPanel>
+    <ToolBarPanel Grid.Row="2" Orientation="Horizontal" Margin="0,40,9.5,0" RenderTransformOrigin="0.5,0.5"
+                  Height="28" VerticalAlignment="Top">
+      <Label Content="{x:Static localizations:Translate.Произведено}"/>
+      <Label Content="{Binding CountProduction}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.СписаноПроизводство}"/>
+      <Label Content="{Binding CountProductionWriteOff}"/>
+    </ToolBarPanel>
+  </Grid>
+</Page>

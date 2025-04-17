@@ -1,0 +1,27 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmSelectMainJoin"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms._shared"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmSelectMainJoin_ОбъединениеЗаписей}" Height="228.532"
+                        Width="510" ResizeMode="NoResize" SizeToContent="Height">
+  <FrameworkElement.DataContext>
+    <local:MainJoinViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel Orientation="Vertical">
+    <TextBlock Text="{x:Static localizations:Translate.FrmSelectMainJoin_ВыберитеОсновнуюЗаписьСКоторойБудутОбъединеныВсеОстальныеВыделенныеЗаписи}"
+               Margin="5" TextWrapping="Wrap" FontSize="14"/>
+    <StackPanel Orientation="Horizontal" Margin="10">
+      <Label Content="{x:Static localizations:Translate.FrmSelectMainJoin_ОсновнаяЗапись}" FontSize="16"/>
+      <ComboBox Width="280" FontSize="16" Margin="20, 0" DisplayMemberPath="Name" ItemsSource="{Binding Items}"
+                SelectedItem="{Binding SelectedItem}"/>
+    </StackPanel>
+    <userControls:ConfirmPanelControl1 OkButtonText="{x:Static localizations:Translate.FrmSelectedTemplateFR_ВЫБРАТЬ}"
+                                       OkButtonCommand="{Binding SelectCommand}" CancelButtonCommand="{Binding CloseCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

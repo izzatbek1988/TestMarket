@@ -1,0 +1,42 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.FrmAnaliticSetting"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:settings="clr-namespace:Gbs.Forms.Settings"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" MinHeight="380" MinWidth="500"
+                        Title="{x:Static localizations:Translate.FrmAnalinicSetting_НастройкаСущности}" Height="376"
+                        Width="500">
+  <FrameworkElement.DataContext>
+    <settings:AnaliticSettingViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="35"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Label Grid.Row="0" Margin="5" FontSize="14" Content="{Binding Title}"/>
+    <DataGrid Grid.Row="1" Margin="5,5,5,0" ItemsSource="{Binding Items}">
+      <FrameworkElement.Resources>
+        <xaml:BindingProxy x:Key="proxy" Data="{Binding}"/>
+      </FrameworkElement.Resources>
+      <DataGrid.Columns>
+        <DataGridTextColumn Width="2*" Header="{x:Static localizations:Translate.Параметр}" Binding="{Binding NameItem}"/>
+        <DataGridTemplateColumn Width="1*" Header="{x:Static localizations:Translate.FrmAnalinicSetting_ПолеПланФикс}">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <ComboBox DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Fields}"
+                        SelectedValue="{Binding PlanFixId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <userControls:ConfirmPanelControl1 Grid.Row="2" Height="90" VerticalAlignment="Top" OkButtonCommand="{Binding Path=SaveCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,61 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Devices.FrmStatusKkm"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Devices"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Title="{x:Static localizations:Translate.FrmStatusKkm_СостояниеККМ}" Height="460" Width="440"
+                        Style="{DynamicResource sWindow}" ResizeMode="NoResize">
+  <FrameworkElement.DataContext>
+    <local:StatusKkmViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Height="Auto" Margin="5">
+    <StackPanel Orientation="Horizontal" Grid.Column="0" Height="Auto">
+      <StackPanel Orientation="Vertical" Width="240" Height="Auto">
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_СостояниеСмены}" FontSize="15" Margin="5, 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_НомерСмены}" FontSize="15" Margin="5 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_СменаОткрыта}" FontSize="15" Margin="5 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_СуммаНаличностиВККМ}" FontSize="15"
+                   Margin="5 5"/>
+        <Separator/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_СостояниеЧека}" FontSize="15" Margin="5 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_НомерЧека}" FontSize="15" Margin="5 5"/>
+        <Separator/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_Модель}" FontSize="15" Margin="5 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_ЗаводскойНомер}" FontSize="15" Margin="5 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_ВерсияПрошивки}" FontSize="15" Margin="5 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_ДатаОкончанияРесурсаФН}" FontSize="15"
+                   Margin="5 5"/>
+        <Separator/>
+        <TextBlock Text="{x:Static localizations:Translate.ВОФДНеОтправлено}" FontSize="15" Margin="5 5"/>
+        <TextBlock Text="{x:Static localizations:Translate.ДатаПоследнегоОтправленного}" FontSize="15" Margin="5 5"/>
+        <Separator/>
+        <TextBlock Text="{x:Static localizations:Translate.FrmStatusKkm_ВерсияДрайвера}" FontSize="15" Margin="5 5"/>
+      </StackPanel>
+      <StackPanel Orientation="Vertical" Width="171" Height="Auto">
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.SessionStatus}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.SessionNumber}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right"
+                   Text="{Binding Status.SessionStarted, StringFormat='dd.MM.yyyy HH:mm'}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding SumCash, StringFormat=N2}"/>
+        <Separator/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.CheckStatus}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.CheckNumber}"/>
+        <Separator/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.Model}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.FactoryNumber}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.SoftwareVersion}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right"
+                   Text="{Binding Status.FnDateEnd, StringFormat='dd.MM.yyyy HH:mm'}"/>
+        <Separator/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.OfdNotSendDocuments}"/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right"
+                   Text="{Binding Status.OfdLastSendDateTime, StringFormat='dd.MM.yyyy HH:mm'}"/>
+        <Separator/>
+        <TextBlock FontSize="15" Margin="5 5" TextAlignment="Right" Text="{Binding Status.DriverVersion}"/>
+      </StackPanel>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

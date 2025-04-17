@@ -1,0 +1,158 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ControlTemplate x:Key="MsgBoxWarningIcon" TargetType="{x:Type Button}">
+    <Viewbox Stretch="Uniform">
+      <Canvas Name="svg21" Width="1.81" Height="1.81">
+        <UIElement.RenderTransform>
+          <TranslateTransform X="0" Y="0"/>
+        </UIElement.RenderTransform>
+        <FrameworkElement.Resources>
+          <ResourceDictionary/>
+        </FrameworkElement.Resources>
+        <Canvas Name="x0020_1">
+          <Path Name="path14" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.01 1.62l0.79 -1.56c0.04 -0.08 0.17 -0.08 0.21 0l0.79 1.56c0.04 0.09 -0.03 0.19 -0.12 0.19l-1.55 0c-0.09 0 -0.16 -0.1 -0.12 -0.19zm0.86 -1.52l-0.79 1.56c-0.02 0.03 0.01 0.07 0.05 0.07l1.55 0c0.04 0 0.07 -0.04 0.05 -0.07l-0.79 -1.56c-0.01 -0.03 -0.06 -0.03 -0.07 0z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path16" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.55 0.89c0.02 -0.04 0.09 -0.01 0.07 0.04l-0.33 0.65 1.23 0 -0.62 -1.22 -0.08 0.17c-0.02 0.04 -0.09 0.01 -0.07 -0.04 0.03 -0.04 0.09 -0.19 0.12 -0.2 0.03 -0.02 0.08 -0.01 0.09 0.02l0.63 1.25c0.03 0.05 -0.01 0.1 -0.06 0.1l-1.26 0c-0.04 0 -0.08 -0.05 -0.05 -0.1l0.33 -0.67z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path18" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.84 1.44c-0.05 -0.06 0.03 -0.14 0.09 -0.08 0.07 0.06 -0.04 0.14 -0.09 0.08zm0.04 -0.71c0.04 0 0.07 0.02 0.07 0.06l-0.03 0.42c0 0.04 -0.07 0.04 -0.07 0l-0.02 -0.43c0 -0.03 0.02 -0.05 0.05 -0.05z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+        </Canvas>
+      </Canvas>
+    </Viewbox>
+  </ControlTemplate>
+  <ControlTemplate x:Key="MsgBoxErrorIcon" TargetType="{x:Type Button}">
+    <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             Stretch="Uniform">
+      <Canvas Name="svg223" Width="1.77" Height="1.77">
+        <UIElement.RenderTransform>
+          <TranslateTransform X="0" Y="0"/>
+        </UIElement.RenderTransform>
+        <FrameworkElement.Resources>
+          <ResourceDictionary/>
+        </FrameworkElement.Resources>
+        <Canvas Name="x0020_1">
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path214" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M1.69 0.52c0.32 0.72 -0.39 1.47 -1.12 1.19 -0.75 -0.28 -0.76 -1.33 -0.05 -1.63 0.46 -0.2 0.97 0 1.17 0.44zm-0.05 0.65c0.25 -0.67 -0.43 -1.32 -1.09 -1.02 -0.65 0.29 -0.63 1.24 0.05 1.49 0.41 0.16 0.88 -0.05 1.04 -0.47z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path216" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.31 0.59c-0.02 0.05 -0.09 0.01 -0.07 -0.03 0.27 -0.53 1.05 -0.52 1.3 0.03 0.26 0.58 -0.32 1.19 -0.91 0.96 -0.29 -0.11 -0.47 -0.38 -0.46 -0.69 0 -0.05 0.07 -0.05 0.07 0 -0.01 0.47 0.47 0.8 0.91 0.61 0.52 -0.24 0.49 -0.99 -0.04 -1.19 -0.31 -0.11 -0.65 0.02 -0.8 0.31z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path218" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.55 0.61c-0.03 -0.03 0.02 -0.09 0.05 -0.05l0.59 0.59c0.04 0.03 -0.02 0.08 -0.05 0.05l-0.59 -0.59z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path220" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M1.14 0.56c0.03 -0.04 0.09 0.02 0.05 0.05l-0.59 0.59c-0.03 0.03 -0.08 -0.02 -0.05 -0.05l0.59 -0.59z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+        </Canvas>
+      </Canvas>
+    </Viewbox>
+  </ControlTemplate>
+  <ControlTemplate x:Key="MsgBoxQuestionIcon" TargetType="{x:Type Button}">
+    <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             Stretch="Uniform">
+      <Canvas Name="svg190" Width="1.74" Height="1.74">
+        <UIElement.RenderTransform>
+          <TranslateTransform X="0" Y="0"/>
+        </UIElement.RenderTransform>
+        <FrameworkElement.Resources>
+          <ResourceDictionary/>
+        </FrameworkElement.Resources>
+        <Canvas Name="x0020_1">
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path183" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M1.66 0.51c0.32 0.71 -0.37 1.45 -1.1 1.18 -0.73 -0.28 -0.75 -1.31 -0.05 -1.61 0.45 -0.2 0.96 0 1.15 0.43zm-0.04 0.64c0.25 -0.66 -0.43 -1.3 -1.08 -1.01 -0.64 0.29 -0.62 1.23 0.05 1.48 0.41 0.15 0.87 -0.05 1.03 -0.47z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path185" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.31 0.58c-0.03 0.05 -0.09 0.01 -0.07 -0.03 0.27 -0.52 1.03 -0.51 1.27 0.03 0.26 0.57 -0.3 1.17 -0.89 0.95 -0.28 -0.11 -0.47 -0.38 -0.46 -0.68 0.01 -0.05 0.08 -0.05 0.08 0 -0.02 0.47 0.46 0.79 0.89 0.6 0.51 -0.24 0.49 -0.97 -0.04 -1.17 -0.3 -0.11 -0.64 0.02 -0.78 0.3z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path187" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.63 0.65c0.01 -0.28 0.45 -0.29 0.47 -0.01 0.02 0.2 -0.17 0.23 -0.22 0.27 -0.06 0.06 0.03 0.12 -0.06 0.13 -0.05 0 -0.06 -0.14 0.04 -0.21 0.05 -0.03 0.18 -0.06 0.17 -0.19 -0.02 -0.18 -0.31 -0.17 -0.32 0.01 0 0.03 -0.08 0.04 -0.08 0zm0.17 0.6c-0.07 -0.05 0.02 -0.14 0.08 -0.09 0.07 0.05 -0.01 0.14 -0.08 0.09z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+        </Canvas>
+      </Canvas>
+    </Viewbox>
+  </ControlTemplate>
+  <ControlTemplate x:Key="MsgBoxInfoIcon" TargetType="{x:Type Button}">
+    <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             Stretch="Uniform">
+      <Canvas Name="svg158" Width="1.68" Height="1.68">
+        <UIElement.RenderTransform>
+          <TranslateTransform X="0" Y="0"/>
+        </UIElement.RenderTransform>
+        <FrameworkElement.Resources>
+          <ResourceDictionary/>
+        </FrameworkElement.Resources>
+        <Canvas Name="x0020_1">
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path149" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M1.6 0.49c0.31 0.68 -0.36 1.39 -1.06 1.13 -0.7 -0.27 -0.72 -1.25 -0.05 -1.55 0.43 -0.19 0.92 0 1.11 0.42zm-0.05 0.62c0.24 -0.64 -0.41 -1.25 -1.03 -0.97 -0.62 0.28 -0.59 1.17 0.04 1.42 0.4 0.15 0.84 -0.05 0.99 -0.45z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path151" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.3 0.56c-0.03 0.04 -0.09 0.01 -0.07 -0.03 0.26 -0.5 0.99 -0.49 1.22 0.03 0.25 0.55 -0.29 1.12 -0.85 0.91 -0.28 -0.1 -0.45 -0.36 -0.44 -0.66 0 -0.04 0.07 -0.04 0.07 0.01 -0.02 0.44 0.45 0.76 0.86 0.57 0.49 -0.22 0.46 -0.93 -0.04 -1.12 -0.29 -0.11 -0.61 0.02 -0.75 0.29z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path153" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.81 0.63c0.03 0 0.04 0.02 0.04 0.04l0 0.53c0 0.06 -0.08 0.06 -0.08 0l0 -0.53c0 -0.02 0.02 -0.04 0.04 -0.04z"
+                            FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+          <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                Name="path155" Fill="{TemplateBinding Control.Foreground}">
+            <Path.Data>
+              <PathGeometry Figures="M0.81 0.43c0.08 0 0.08 0.11 0 0.11 -0.07 0 -0.07 -0.11 0 -0.11z" FillRule="EvenOdd"/>
+            </Path.Data>
+          </Path>
+        </Canvas>
+      </Canvas>
+    </Viewbox>
+  </ControlTemplate>
+</ResourceDictionary>

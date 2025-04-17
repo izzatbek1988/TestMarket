@@ -1,0 +1,48 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Goods.GoodCard.Pages.Сertificate.FrmCardCertificate"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Goods.GoodCard.Pages.Сertificate"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Title="{x:Static localizations:Translate.СозданиеСертификатов}" ResizeMode="NoResize"
+                        SizeToContent="WidthAndHeight" Style="{StaticResource sWindow}">
+  <FrameworkElement.DataContext>
+    <local:CardCertificateViewModel/>
+  </FrameworkElement.DataContext>
+  <UIElement.InputBindings>
+    <KeyBinding Key="Enter" Command="{Binding Path=SaveCertificate}"/>
+  </UIElement.InputBindings>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Label Content="{x:Static localizations:Translate.FrmMainWindow_КолВо}" HorizontalAlignment="Left"
+           Margin="10,8,0,0" VerticalAlignment="Top" FontSize="22" Height="40" Width="150" Grid.Row="0"
+           Visibility="{Binding VisibilityCount}"/>
+    <xctk:IntegerUpDown Name="CountCertificateDown" HorizontalAlignment="Right" Height="38" VerticalAlignment="Top"
+                        Width="225" ShowButtonSpinner="false" FontSize="35" Padding="0,-10,0,0" Margin="0,8,9,0"
+                        Grid.Row="0" Grid.RowSpan="2" Minimum="0" Maximum="1000" Visibility="{Binding VisibilityCount}"
+                        Value="{Binding Count}"/>
+    <Label Content="{x:Static localizations:Translate.FrmAuthorization_ШтрихКод}" HorizontalAlignment="Left"
+           Grid.Row="1" Height="40" Margin="10,8,0,0" FontSize="22" Width="150"
+           Visibility="{Binding VisibilityBarcode}"/>
+    <TextBox Name="BarcodeTextBox" HorizontalAlignment="Right" Width="225" FontSize="25" Height="40"
+             HorizontalContentAlignment="Left" Margin="0,8,9,0" Grid.Row="1"
+             Text="{Binding Barcode, UpdateSourceTrigger=PropertyChanged}"
+             Visibility="{Binding VisibilityBarcode}"/>
+    <Label Content="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" HorizontalAlignment="Left"
+           Margin="10,0,0,0.5" FontSize="22" Width="150" Height="38" VerticalAlignment="Bottom" Grid.Row="2"/>
+    <ComboBox SelectedValuePath="Uid" DisplayMemberPath="Name" Margin="0,0,10,4.5" FontSize="22"
+              HorizontalAlignment="Right" Width="225" Height="36" VerticalAlignment="Bottom" Grid.Row="2"
+              ItemsSource="{Binding Path=ListStorage}" SelectedValue="{Binding Storage.Uid}"
+              SelectedItem="{Binding Storage}"/>
+    <userControls:ConfirmPanelControl1 Margin="0,0,0,0" Grid.Row="3" OkButtonCommand="{Binding SaveCertificate}"/>
+  </Grid>
+</helpers:WindowWithSize>

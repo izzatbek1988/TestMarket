@@ -1,0 +1,113 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Sale.Return.FrmReturnSales"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:return="clr-namespace:Gbs.Forms.Sale.Return"
+                        MinHeight="495" MinWidth="996"
+                        Title="{x:Static localizations:Translate.FrmReturnSales_ВозвратТовара}" Height="495" Width="996"
+                        Style="{StaticResource sWindow}" ResizeMode="CanResize" IsEnabled="{Binding IsActiveForm}"
+                        FocusManager.FocusedElement="{Binding ElementName=GridSaleItemsForReturn}">
+  <FrameworkElement.DataContext>
+    <return:ReturnItemsViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="0,0,0,0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid Name="GridSaleItemsForReturn" Margin="4" AutoGenerateColumns="false" SelectedIndex="0"
+              CanUserAddRows="false" IsReadOnly="true" ItemsSource="{Binding Path=Return.Items}"
+              SelectedValue="{Binding Path=Return.SelectedItem}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=Return.AddInListReturnCommand}"
+                      CommandParameter="{Binding ElementName=GridSaleItemsForReturn, Path=SelectedItems}"/>
+        <KeyBinding Key="Enter" Command="{Binding Path=Return.AddInListReturnCommand}"
+                    CommandParameter="{Binding ElementName=GridSaleItemsForReturn, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}"
+                            ElementStyle="{DynamicResource WrappedCell}" Width="130" Binding="{Binding Path=DisplayedName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Цена}" Width="70"
+                            Binding="{Binding Path=SalePrice, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodDiscount_Скидка}" Width="70"
+                            Binding="{Binding Path=Discount.Value, StringFormat={0:N2}%}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" Width="70"
+                            Binding="{Binding Path=TotalSum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmReturnSales_Продано}" Width="70"
+                            Binding="{Binding Path=Quantity, StringFormat=N3}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <DataGrid Name="GridReturnItems" AutoGenerateColumns="false" CanUserAddRows="false" Grid.Row="0"
+              Grid.Column="2" ItemsSource="{Binding Path=Return.ReturnList}"
+              SelectedValue="{Binding Path=Return.SelectedReturn}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=Return.EditQuantityCommand}"
+                      CommandParameter="{Binding ElementName=GridReturnItems, Path=SelectedItems}"/>
+        <KeyBinding Key="Return" Command="{Binding Path=Return.EditQuantityCommand}"
+                    CommandParameter="{Binding ElementName=GridReturnItems, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}" IsReadOnly="true"
+                            Width="300" ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding Path=DisplayedName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmReturnSales_Вернуть}" Width="100"
+                            Binding="{Binding Path=Quantity, StringFormat=N3}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Column="1">
+      <Button Name="ButtonAddSelected" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Style="{DynamicResource btnAction}" Command="{Binding Path=Return.AddInListReturnCommand}"
+              CommandParameter="{Binding ElementName=GridSaleItemsForReturn, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconToRight}"/>
+      </Button>
+      <Button Name="ButtonAddAll" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Style="{DynamicResource btnAction}" FontSize="25"
+              Command="{Binding Path=Return.AddRangeReturnCommand}">
+        <Image Source="{DynamicResource IconDoubleRight}"/>
+      </Button>
+    </StackPanel>
+    <StackPanel Grid.Row="1" Grid.ColumnSpan="4">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ToolBarPanel Orientation="Horizontal" VerticalAlignment="Bottom">
+          <Label Content="{x:Static localizations:Translate.FrmReturnSales_ВсегоТоваров}"/>
+          <Label ContentStringFormat="N2" Content="{Binding Path=Return.SumStockItemSale, StringFormat=N2}"/>
+        </ToolBarPanel>
+        <ToolBarPanel Orientation="Horizontal" Grid.Column="1">
+          <Label Content="{x:Static localizations:Translate.FrmReturnSales_ТоваровКВозврату}"/>
+          <Label ContentStringFormat="N2" Content="{Binding Path=Return.SumStockItemReturn, StringFormat=N2}"/>
+          <Label Content=" |"/>
+          <Label Content="{x:Static localizations:Translate.FrmReturnSales_Сумма}"/>
+          <Label ContentStringFormat="N2" Content="{Binding Path=Return.SumItemReturn}"/>
+        </ToolBarPanel>
+      </Grid>
+      <userControls:ConfirmPanelControl1 x:Name="ConfirmPanelControl1"
+                                         OkButtonText="{x:Static localizations:Translate.FrmReturnSales_ПРОДОЛЖИТЬ}"
+                                         OkButtonCommand="{Binding Path=SaveReturnCommand}"/>
+    </StackPanel>
+    <StackPanel Grid.Column="3">
+      <Button Name="ButtonEdit" HorizontalAlignment="Left" Style="{DynamicResource btnAction}"
+              Command="{Binding Path=Return.EditQuantityCommand}"
+              CommandParameter="{Binding ElementName=GridReturnItems, Path=SelectedItems}">
+        <Control Template="{DynamicResource QuantityIconControl}" IsTabStop="false"/>
+      </Button>
+      <Button Name="ButtonDelete" Style="{DynamicResource btnAction}"
+              CommandParameter="{Binding ElementName=GridReturnItems, Path=SelectedItems}"
+              Command="{Binding Path=Return.DeleteGoodCommand}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

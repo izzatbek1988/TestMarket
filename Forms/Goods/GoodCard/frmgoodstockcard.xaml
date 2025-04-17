@@ -1,0 +1,49 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Goods.GoodCard.FrmGoodStockCard"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Goods.GoodCard"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+                        Title="{x:Static localizations:Translate.FrmGoodStockCard_КарточкаТоварногоОстатка}"
+                        SizeToContent="WidthAndHeight" Style="{StaticResource sWindow}"
+                        FocusManager.FocusedElement="{Binding ElementName=PriceUpDown}">
+  <FrameworkElement.DataContext>
+    <local:GoodsStockViewModel/>
+  </FrameworkElement.DataContext>
+  <UIElement.InputBindings>
+    <KeyBinding Key="Enter" Command="{Binding Path=SaveStock}"/>
+  </UIElement.InputBindings>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Label Content="{x:Static localizations:Translate.FrmMainWindow_Цена}" HorizontalAlignment="Left"
+           Margin="10,8,0,0" VerticalAlignment="Top" FontSize="22" Height="40" Width="150"/>
+    <Label Grid.Row="0" Content="{x:Static localizations:Translate.FrmSelectGoodStock_Остаток}"
+           HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" FontSize="22" Height="40"
+           Width="150" Grid.RowSpan="2" Visibility="{Binding VisibilityStock}"/>
+    <xctk:DecimalUpDown Name="PriceUpDown" Grid.Row="0" HorizontalAlignment="Right" Height="37" VerticalAlignment="Top"
+                        Width="225" ShowButtonSpinner="false" FontSize="35" Padding="0,-10,0,0" Margin="0,10,10,0"
+                        Minimum="0" IsEnabled="{Binding IsEnabledPrice}" Value="{Binding Stock.Price}"/>
+    <xctk:DecimalUpDown Grid.Row="0" HorizontalAlignment="Right" Height="38" VerticalAlignment="Top" Width="225"
+                        ShowButtonSpinner="false" FontSize="35" Padding="0,-10,0,0" Margin="0,50,10,0" Grid.RowSpan="2"
+                        Value="{Binding Stock.Stock}" IsEnabled="{Binding IsEnabledStock}"
+                        Visibility="{Binding VisibilityStock}"/>
+    <Label Grid.Row="2" Content="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}"
+           HorizontalAlignment="Left" Margin="10,11,0,0" VerticalAlignment="Top" FontSize="22" Height="39"
+           Width="150"/>
+    <ComboBox Grid.Row="2" SelectedValuePath="Uid" DisplayMemberPath="Name" VerticalAlignment="Top"
+              Margin="0,11,10,0" FontSize="22" HorizontalAlignment="Right" Width="225" Height="35"
+              ItemsSource="{Binding Path=ListStorage}" SelectedValue="{Binding Stock.Storage.Uid}"
+              SelectedItem="{Binding Stock.Storage}" IsEnabled="{Binding IsEnabled}"/>
+    <userControls:ConfirmPanelControl1 Grid.Row="3" OkButtonCommand="{Binding SaveStock}"/>
+  </Grid>
+</helpers:WindowWithSize>

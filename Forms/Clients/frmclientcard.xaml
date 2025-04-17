@@ -1,0 +1,187 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Clients.FrmClientCard"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Clients"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        Title="{x:Static localizations:Translate.FrmClientCard_КарточкаКонтакта}"
+                        SizeToContent="WidthAndHeight" Style="{StaticResource sWindow}" ResizeMode="NoResize"
+                        WindowStartupLocation="CenterScreen" Width="490"
+                        FocusManager.FocusedElement="{Binding ElementName=ClientNameTb}">
+  <FrameworkElement.DataContext>
+    <local:ClientCardViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel Height="Auto" VerticalAlignment="Stretch">
+    <StackPanel Margin="10,10,10,0">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{x:Static localizations:Translate.FrmClientCard_ФИО}" HorizontalAlignment="Left"
+                   TextWrapping="Wrap" VerticalAlignment="Center" Padding="2" Width="140"/>
+        <TextBox Name="ClientNameTb" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Center" Width="225" Text="{Binding Path=Client.Client.Name}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="{x:Static localizations:Translate.FrmClientCard_ДисконтнаяКарта}" TextWrapping="Wrap"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Padding="2" Width="140"/>
+        <TextBox HorizontalAlignment="Left" Margin="0,5,0,0" TextWrapping="Wrap" VerticalAlignment="Center"
+                 VerticalContentAlignment="Center" Width="115" Text="{Binding Client.Client.Barcode}"/>
+        <Button HorizontalAlignment="Left" Margin="10,5,0,0"
+                Content="{x:Static localizations:Translate.FrmClientCard_ГенерироватьШК}"
+                Style="{StaticResource btnLink}" VerticalAlignment="Center" Command="{Binding GeneratedBarcode}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal">
+        <Label Content="{x:Static localizations:Translate.FrmClientCard_Группа}" HorizontalAlignment="Left"
+               VerticalAlignment="Center" Margin="0,5,0,0" Width="140"/>
+        <ComboBox SelectedValuePath="Uid" DisplayMemberPath="Name" HorizontalAlignment="Left" Margin="0,5,0,0"
+                  VerticalAlignment="Center" Width="225" ItemsSource="{Binding Path=ListGroups}"
+                  SelectedValue="{Binding Path=Client.Client.Group.Uid}" SelectedItem="{Binding Client.Client.Group}"/>
+      </StackPanel>
+    </StackPanel>
+    <TabControl Margin="5,5,10,5" Width="490" MinHeight="270">
+      <TabItem Header="{x:Static localizations:Translate.FrmClientCard_Основные}" Padding="2 9 ">
+        <StackPanel Orientation="Vertical" Margin="2">
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.FrmClientCard_Телефон}" HorizontalAlignment="Left"
+                   Width="120"/>
+            <TextBox HorizontalAlignment="Left" Text="{Binding Path=Client.Client.Phone}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.FrmClientCard_EMail}" HorizontalAlignment="Left"
+                   Width="120"/>
+            <TextBox HorizontalAlignment="Left" Text="{Binding Path=Client.Client.Email}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.FrmClientCard_ДеньРождения}" HorizontalAlignment="Left"
+                   Width="120"/>
+            <DatePicker SelectedDateFormat="Long"
+                        SelectedDate="{Binding Client.Client.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.FrmClientCard_Адрес}" HorizontalAlignment="Left"
+                   Width="120"/>
+            <TextBox Style="{DynamicResource BigTextBox}" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible"
+                     HorizontalAlignment="Left" Text="{Binding Path=Client.Client.Address}"/>
+          </StackPanel>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmClientCard_Финансы}" Padding="2">
+        <StackPanel VerticalAlignment="Top" Margin="0">
+          <StackPanel Orientation="Horizontal">
+            <Button Content="{x:Static localizations:Translate.FrmClientCard_ПокупокНаСумму}"
+                    Style="{DynamicResource btnLink}" HorizontalContentAlignment="Left" Width="110" Margin="10,5,10,0"
+                    Height="25" VerticalAlignment="Center" Command="{Binding ShowSaleListForClient}"/>
+            <Label Height="25" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Center"
+                   Content="{Binding Client.InfoSaleSum, FallbackValue=0.00}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Button Content="{x:Static localizations:Translate.FrmClientCard_СуммаДолга}" Width="110"
+                    Margin="10,0,10,0" Height="25" VerticalAlignment="Center" Style="{DynamicResource btnLink}"
+                    HorizontalContentAlignment="Left" Command="{Binding ShowCreditListForClient}"/>
+            <Label Height="25" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"
+                   Content="{Binding Client.InfoCreditSum, FallbackValue=0.00}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.FrmClientCard_Баллы}" Width="110" Margin="5,0,10,0"
+                   VerticalAlignment="Bottom"/>
+            <Button HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center"
+                    Style="{DynamicResource btnLink}" Content="{Binding Client.InfoBonusSum, FallbackValue=0.00}"
+                    Command="{Binding EditBonusesCommand}"
+                    Visibility="{Binding VisibilityTextBonuses, UpdateSourceTrigger=PropertyChanged}"/>
+            <xctk:DecimalUpDown Name="BonusesDecimalUpDown" VerticalAlignment="Center" Margin="10 0 0 0"
+                                VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="70" TextAlignment="Right"
+                                ShowButtonSpinner="true" Value="{Binding BonusesSum, UpdateSourceTrigger=PropertyChanged}"
+                                Visibility="{Binding VisibilityUpDownBonuses}"/>
+            <Button Style="{DynamicResource btnLink}" Content="{x:Static localizations:Translate.Готово}"
+                    Margin="10,0,0,0" Command="{Binding EditBonusesCommand}"
+                    Visibility="{Binding VisibilityUpDownBonuses}"/>
+          </StackPanel>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmClientCard_ДопИнформация}" Padding="2">
+        <StackPanel Margin="0">
+          <Label Content="{x:Static localizations:Translate.ExcelDataViewModel_Описание}"/>
+          <TextBox Style="{DynamicResource BigTextBox}" VerticalAlignment="Stretch" VerticalScrollBarVisibility="Auto"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" Width="Auto"
+                   Text="{Binding Client.Client.Comment}"/>
+          <Label Content="{x:Static localizations:Translate.ДополнительныеСвойства}"/>
+          <DataGrid VerticalScrollBarVisibility="Auto" HorizontalAlignment="Center" Height="150"
+                    VerticalAlignment="Center" ItemsSource="{Binding Path=ListValuesProperties}">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}"
+                                  ElementStyle="{DynamicResource WrappedCell}" IsReadOnly="true" Width="Auto" MaxWidth="200"
+                                  Binding="{Binding Path=Type.Name}"/>
+              <DataGridTemplateColumn Width="*" uiElement:Extensions.Guid="02509ABB-F083-40D9-BA6B-3CB0EE638CD2"
+                                      Header="{x:Static localizations:Translate.FrmClientCard_Значение}">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <userControls:InputByTypeControl Value="{Binding Path=Value.Value}" TypeOfData="{Binding Path=Type.Type}"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmClientCard_Реквизиты}" Padding="2">
+        <Grid Margin="0,0">
+          <DataGrid Margin="5,10,5,0" VerticalScrollBarVisibility="Auto" CanUserResizeColumns="false"
+                    HorizontalScrollBarVisibility="Hidden" IsReadOnly="false" Height="255" VerticalAlignment="Top"
+                    ItemsSource="{Binding Path=ListValuesRequisites}">
+            <DataGrid.Columns>
+              <DataGridTextColumn ElementStyle="{DynamicResource WrappedCell}"
+                                  Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}" IsReadOnly="true"
+                                  Width="Auto" MaxWidth="200" Binding="{Binding Path=Type.Name}"/>
+              <DataGridTemplateColumn Width="*" uiElement:Extensions.Guid="02509ABB-F083-40D9-BA6B-3CB0EE638CD2"
+                                      Header="{x:Static localizations:Translate.FrmClientCard_Значение}">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <userControls:InputByTypeControl Value="{Binding Path=Value.Value}" TypeOfData="{Binding Path=Type.Type}"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{Binding TitleTabJournal}" IsEnabled="{Binding IsEnableJournal}">
+        <StackPanel Margin="0,0">
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.PageJournalGood_Действие}" Margin="0,5,5,0" Height="29"
+                   VerticalAlignment="Center"/>
+            <ComboBox Margin="5,5,0,0" Height="24" VerticalAlignment="Center" HorizontalAlignment="Left" Width="179"
+                      DisplayMemberPath="Value" SelectedValuePath="Key" ItemsSource="{Binding ActionList}"
+                      SelectedValue="{Binding SelectedTypes}"/>
+          </StackPanel>
+          <DataGrid Height="224" ItemsSource="{Binding Journal}">
+            <DataGrid.Columns>
+              <DataGridTemplateColumn Header="{x:Static localizations:Translate.PageJournalGood_ДатаВремя}" Width="120*"
+                                      ClipboardContentBinding="{Binding Path=Date, StringFormat='{0:dd.MM.yyyy HH:mm}'}">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <TextBlock VerticalAlignment="Center" FontSize="12" TextAlignment="Left"
+                               Text="{Binding Path=Date, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTemplateColumn Header="{x:Static localizations:Translate.PageJournalGood_Действие2}" Width="250*"
+                                      ClipboardContentBinding="{Binding Action}">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <TextBlock FontSize="12" VerticalAlignment="Center" TextAlignment="Left" TextWrapping="Wrap"
+                               Text="{Binding Action}"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+    <userControls:ConfirmPanelControl1 VerticalAlignment="Bottom" OkButtonCommand="{Binding SaveClient}"
+                                       CancelButtonCommand="{Binding CloseCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

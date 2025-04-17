@@ -1,0 +1,3426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: C:\Program Files (x86)\F-Lab\Market 6\Market.exe-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{268C5B89-A44B-40D4-9AF9-EF5576083E8C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Market</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <ApplicationVersion>6.6.12.2634</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNetZip">
+      <HintPath>lib\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport">
+      <HintPath>lib\FastReport.dll</HintPath>
+    </Reference>
+    <Reference Include="FirebirdSql.Data.FirebirdClient">
+      <HintPath>lib\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentFTP">
+      <HintPath>lib\FluentFTP.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog">
+      <HintPath>lib\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>lib\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>lib\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Planfix.Api">
+      <HintPath>lib\Planfix.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Text.Json">
+      <HintPath>lib\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsInput">
+      <HintPath>lib\WindowsInput.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit">
+      <HintPath>lib\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Zidium.Api">
+      <HintPath>lib\Zidium.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="linq2db">
+      <HintPath>lib\linq2db.dll</HintPath>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>lib\websocket-sharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Azerbaijan\FiscalBox\FiscalBoxDriver.cs" />
+    <Compile Include="Forms\Settings\Egais\TapBeer\FrmBeerTapCard.xaml.cs">
+      <DependentUpon>tapbeerfrmbeertapcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForWeekday.cs" />
+    <Compile Include="Helpers\Extensions\Object\CLoneBySerialization.cs" />
+    <Compile Include="Helpers\Extensions\String\Shared.cs" />
+    <Compile Include="Helpers\Extensions\String\Security\Authentication\SslProtocolsExtensions.cs" />
+    <Compile Include="Helpers\UserControls\AutoCompleteComboBox\SerialDisposable.cs" />
+    <Compile Include="Helpers\UserControls\AutoCompleteComboBox\DependencyVariable.cs" />
+    <Compile Include="Helpers\UserControls\AutoCompleteComboBox\VisualTreeModule.cs" />
+    <Compile Include="Helpers\UserControls\AutoCompleteComboBox\AutoCompleteComboBox.xaml.cs">
+      <DependentUpon>autocompletecomboboxautocompletecombobox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\AutoCompleteComboBox\AutoCompleteComboBoxSetting.cs" />
+    <Compile Include="Forms\_main\MainWindowViewModel.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>app.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_main\FrmMainWindow.xaml.cs">
+      <DependentUpon>_mainfrmmainwindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Resources\Localizations\Translate.Designer.cs" />
+    <Compile Include="Properties\Resources.Designer.cs" />
+    <Compile Include="Properties\Settings.Designer.cs" />
+    <Compile Include="Helpers\ActionsHistoryHelper.cs" />
+    <Compile Include="Helpers\Barcodes\ItemBarcodesMiDays.cs" />
+    <Compile Include="Helpers\Barcodes\BarcodesMiDays.cs" />
+    <Compile Include="Helpers\BonusHelper.cs" />
+    <Compile Include="Helpers\BuyPriceCounter.cs" />
+    <Compile Include="Helpers\Cache\CacheHelper.cs" />
+    <Compile Include="Helpers\ClientsExchangeHelper.cs" />
+    <Compile Include="Helpers\ClientCloud.cs" />
+    <Compile Include="Helpers\Color.cs" />
+    <Compile Include="Helpers\DB\DataBaseHelper.cs" />
+    <Compile Include="Helpers\DevelopersHelper.cs" />
+    <Compile Include="Helpers\Enumeration.cs" />
+    <Compile Include="Helpers\ExchangeDataHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\DaData\DaDataHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\DaData\DaDataRepository.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\EdoHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\1EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\2EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\3EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\4EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\СумНДСТипБезНДС.cs" />
+    <Compile Include="Helpers\Updates\СумНДСТипДефНДС.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\5EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\СумАкцизТипБезАкциз.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\6EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\7EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\8EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\9EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\10EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\11EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\12EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\13EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\14EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\СвИПТипДефИННФЛ.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\15EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\16EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\17EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\18EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\УчастникТипИдСвСвЮЛУчДефИННЮЛ.cs" />
+    <Compile Include="Helpers\Updates\УчастникТипИдСвСвЮЛУчДефКПП.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\19EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\20EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\21EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\22EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\23EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументСвСчФактИспрСчФДефНомИспрСчФ.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументСвСчФактИспрСчФДефДатаИспрСчФ.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\24EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументСвСчФактГрузОтОнЖе.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\25EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\26EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\27EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументСвСчФактДопСвФХЖ1ОбстФормСЧФ.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\28EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\29EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\30EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\31EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\32EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументТаблСчФактСведТовСвТДДефКодПроисх.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\33EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\34EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\35EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\ItemsChoiceType.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументТаблСчФактСведТовДопСведТовПрТовРаб.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументТаблСчФактСведТовДефОКЕИ_Тов.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументТаблСчФактСведТовНалСт.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументТаблСчФактСведТовДефСтТовУчНал.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\36EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументТаблСчФактВсегоОплДефСтТовУчНалВсего.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\37EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\38EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\39EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\40EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\41EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\42EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\43EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\44EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\45EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\46EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\47EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\48EdoSchema.cs" />
+    <Compile Include="Helpers\ExternalApi\EDO\49EdoSchema.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументПодписантОблПолн.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументПодписантСтатус.cs" />
+    <Compile Include="Helpers\Updates\ФайлДокументФункция.cs" />
+    <Compile Include="Helpers\ExternalApi\RegionInfoHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\ServerScriptsHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\TrueApi\CheckCodes\CheckCodesHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\TrueApi\TrueApiRepository.cs" />
+    <Compile Include="Helpers\FtpHelper.cs" />
+    <Compile Include="Helpers\HomeOffice\HomeOfficeHelper.cs" />
+    <Compile Include="Helpers\ImagesHelpers.cs" />
+    <Compile Include="Helpers\ItemsTotalSumCalculator.cs" />
+    <Compile Include="Helpers\KkmViewHelper.cs" />
+    <Compile Include="Helpers\LevinshtaingHelper.cs" />
+    <Compile Include="Helpers\JsonHelper.cs" />
+    <Compile Include="Helpers\Licenses\GbsIdHelper\GbsIdHelperV01.cs" />
+    <Compile Include="Helpers\Licenses\LicenseHelper.cs" />
+    <Compile Include="Helpers\MathHelper.cs" />
+    <Compile Include="Helpers\NetworkHelper.cs" />
+    <Compile Include="Helpers\PartnersHelper.cs" />
+    <Compile Include="Helpers\Logging\Performancer.cs" />
+    <Compile Include="Helpers\MoveHelper.cs" />
+    <Compile Include="Helpers\ProfitHelper.cs" />
+    <Compile Include="Helpers\ReCalcCashAccountHelper.cs" />
+    <Compile Include="Helpers\RestHelper.cs" />
+    <Compile Include="Helpers\Updates\TypeRestRequest.cs" />
+    <Compile Include="Helpers\SaleHelper.cs" />
+    <Compile Include="Helpers\Sms\ISms.cs" />
+    <Compile Include="Helpers\Sms\SmsAero\SmsAero.cs" />
+    <Compile Include="Helpers\Sms\SmsAero\SmsAeroRepository.cs" />
+    <Compile Include="Helpers\Sms\SmsAgent\SmsAgent.cs" />
+    <Compile Include="Helpers\Sms\SmsAgent\SmsAgentRepository.cs" />
+    <Compile Include="Helpers\Sms\SmsCenter\SmsCenter.cs" />
+    <Compile Include="Helpers\Sms\SmsCenter\SmsCenterRepository.cs" />
+    <Compile Include="Helpers\Sms\SmsCenter\SendSmsAnswer.cs" />
+    <Compile Include="Helpers\Sms\SmsCenter\BalanceAnswer.cs" />
+    <Compile Include="Helpers\Sms\SmsHelper.cs" />
+    <Compile Include="Helpers\Sms\SmsRu\SmsRuRepository.cs" />
+    <Compile Include="Helpers\SmtpHelper.cs" />
+    <Compile Include="Helpers\BackupHelper.cs" />
+    <Compile Include="Helpers\Barcodes\BarcodeHelper.cs" />
+    <Compile Include="Helpers\Crypto\RSAPrivateEncryption.cs" />
+    <Compile Include="Helpers\KeyboardLayoutHelper.cs" />
+    <Compile Include="Helpers\Licenses\LicenseFile.cs" />
+    <Compile Include="Helpers\Licenses\LicenseFileNew.cs" />
+    <Compile Include="Helpers\Licenses\LicenseInfoNew.cs" />
+    <Compile Include="Helpers\Licenses\DateFormatConverter.cs" />
+    <Compile Include="Helpers\SoundPlayerHelper.cs" />
+    <Compile Include="Helpers\Updates\SoundFlags.cs" />
+    <Compile Include="Helpers\TaskHelper.cs" />
+    <Compile Include="Helpers\Telegram\TelegramHelper.cs" />
+    <Compile Include="Helpers\BackgroundTasks\TimerHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\TrueApi\TrueApiHelper.cs" />
+    <Compile Include="Helpers\Telegram\TelegramHelper_v2.cs" />
+    <Compile Include="Helpers\ContextHelp\ToolTipsHelper.cs" />
+    <Compile Include="Helpers\Crypto\CryptoHelper.cs" />
+    <Compile Include="Helpers\FileUtil.cs" />
+    <Compile Include="Helpers\FileSystemHelper.cs" />
+    <Compile Include="Helpers\Functions.cs" />
+    <Compile Include="Core\ViewModels\GoodsList\GoodsList.cs" />
+    <Compile Include="Helpers\HardwareInfo.cs" />
+    <Compile Include="Helpers\HotKeysHelper.cs" />
+    <Compile Include="Helpers\MessageBoxHelper.cs" />
+    <Compile Include="Helpers\Other.cs" />
+    <Compile Include="Helpers\Updates\UpdateHelper.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
+    <Compile Include="Helpers\WindowWithSize.cs" />
+    <Compile Include="Helpers\YmlHelper.cs" />
+    <Compile Include="Helpers\Category.cs" />
+    <Compile Include="Helpers\Categories.cs" />
+    <Compile Include="Helpers\Param.cs" />
+    <Compile Include="Helpers\Offer.cs" />
+    <Compile Include="Helpers\Offers.cs" />
+    <Compile Include="Helpers\Shop.cs" />
+    <Compile Include="Helpers\YmlCatalog.cs" />
+    <Compile Include="Helpers\XAML\BindingConverters.cs" />
+    <Compile Include="Helpers\XAML\1BindingConverters.cs" />
+    <Compile Include="Helpers\XAML\2BindingConverters.cs" />
+    <Compile Include="Helpers\XAML\BindingProxy.cs" />
+    <Compile Include="Helpers\XAML\FocusExtension.cs" />
+    <Compile Include="Helpers\XAML\Converters\DecimalToStringConverter.cs" />
+    <Compile Include="Helpers\XAML\Converters\PriceToStringConverter.cs" />
+    <Compile Include="Helpers\XAML\Converters\BuyPriceToStringConverter.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Client\ClientGroup.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Document.cs" />
+    <Compile Include="Helpers\WebOffice\DocumentTypes.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\PaymentItem.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\DocumentItemSimple.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Client\ClientSimple.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Client\ClientSums.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Client\Client.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Good\GoodSimple.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Good\Good.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Good\GoodGroupSimple.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Good\GoodGroup.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Good\GoodStockSimple.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Good\GoodStock.cs" />
+    <Compile Include="Helpers\WebOffice\EntityTypes.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\IEntity.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Property.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Section.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\Storage.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\StorageSimple.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\UserSimple.cs" />
+    <Compile Include="Helpers\WebOffice\Entities\User.cs" />
+    <Compile Include="Helpers\WebOffice\WebOfficeHelper.cs" />
+    <Compile Include="Helpers\MVVM.cs" />
+    <Compile Include="Helpers\1MVVM.cs" />
+    <Compile Include="Helpers\2MVVM.cs" />
+    <Compile Include="Helpers\UserControls\CategorySelectionControl.xaml.cs">
+      <DependentUpon>usercontrolscategoryselectioncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\ClientSelectionControl.xaml.cs">
+      <DependentUpon>usercontrolsclientselectioncontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\ConfirmPanelControl1.xaml.cs">
+      <DependentUpon>usercontrolsconfirmpanelcontrol1.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\DateFilterControl.xaml.cs">
+      <DependentUpon>usercontrolsdatefiltercontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\HelpPopUp.xaml.cs">
+      <DependentUpon>usercontrolshelppopup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\1HelpPopUp.xaml.cs" />
+    <Compile Include="Helpers\UserControls\HotKeyTextBox.xaml.cs">
+      <DependentUpon>usercontrolshotkeytextbox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\InputByTypeControl.xaml.cs">
+      <DependentUpon>usercontrolsinputbytypecontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\MultiValueIntControl.xaml.cs">
+      <DependentUpon>usercontrolsmultivalueintcontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\MultiValueTimeControl.xaml.cs">
+      <DependentUpon>usercontrolsmultivaluetimecontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\NumberBox.xaml.cs">
+      <DependentUpon>usercontrolsnumberbox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\ProgressBarPanel.xaml.cs">
+      <DependentUpon>usercontrolsprogressbarpanel.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\TextBoxFolderPathControl.xaml.cs">
+      <DependentUpon>usercontrolstextboxfolderpathcontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\TextBoxWithClearControl.xaml.cs">
+      <DependentUpon>usercontrolstextboxwithclearcontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\UserControls\MultiValueControl.xaml.cs">
+      <DependentUpon>usercontrolsmultivaluecontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\Updates\UpdateHelper_from65to66.cs" />
+    <Compile Include="Helpers\Sms\SmsRu\SmsRu.cs" />
+    <Compile Include="Helpers\Performance\HardwarePerformanceHelper.cs" />
+    <Compile Include="Helpers\Market5\Partial\SaleImport.cs" />
+    <Compile Include="Helpers\Market5\Data.cs" />
+    <Compile Include="Helpers\MarkCodes\DataMatrixHelper.cs" />
+    <Compile Include="Helpers\MarkCodes\KZ_MarkCodesHelper.cs" />
+    <Compile Include="Helpers\Logging\CpuPrefomanceCounter.cs" />
+    <Compile Include="Helpers\Logging\LogHelper.cs" />
+    <Compile Include="Helpers\Licenses\FreeLicense.cs" />
+    <Compile Include="Helpers\Licenses\HardWareInfoHelper.cs" />
+    <Compile Include="Helpers\Licenses\GbsIdHelper\IGbsIdHelper.cs" />
+    <Compile Include="Helpers\Licenses\GbsIdHelper\GbsIdHelperV02.cs" />
+    <Compile Include="Helpers\Licenses\WebAppKeysHelper.cs" />
+    <Compile Include="Helpers\Licenses\GbsIdHelper\GbsIdHelperMain.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Clients\ClientHomeList.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Clients\ClientHome.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\DocumentHome.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Item.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Payment.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Goods\GoodGroupHomeList.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Goods\GoodGroupHome.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Goods\GoodHomeList.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Goods\GoodHome.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Goods\GoodStock.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Goods\1GoodStock.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\SectionHome.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Clients\ClientGroupHomeList.cs" />
+    <Compile Include="Helpers\HomeOffice\Entity\Clients\ClientGroupHome.cs" />
+    <Compile Include="Helpers\FR\ReportType.cs" />
+    <Compile Include="Helpers\FR\PrintableReportFactory.cs" />
+    <Compile Include="Helpers\FR\FastReportFacade.cs" />
+    <Compile Include="Helpers\FR\PrintableReport.cs" />
+    <Compile Include="Helpers\FR\IPrintableReport.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyInn.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Certificate.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ClientOrder.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Document.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\EmailItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\MarkedCode.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\PaymentItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Payments\Payment.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Payments\PaymentMethod.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Payments\PaymentsAccount.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Section.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\SummaryReport.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Text.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\User.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Goods\Good.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Goods\Unit.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Goods\GoodProperty.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Goods\GoodGroup.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\ReportProperty.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\CustomReportProperty.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\IReportProperty.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\User\UserPhone.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\User\UserName.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\CreditPaymentsSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\DiscountsSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\IncomeSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\MoneyIncomeSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\MoneyOutcomeSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\SumCash.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\TotalCreditSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\TotalGoods.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\TotalReturnCount.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\TotalReturnsSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\TotalSalesCount.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\SummaryReport\TotalSaleSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\MasterReport\DateFinish.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\MasterReport\DateStart.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Document\GuestsCount.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Document\DocumentComment.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Document\IsDocumentFiscal.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Document\TableNum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Document\DocumentDate.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Document\DocumentNum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\DbName.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyAddress.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyBank.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyBik.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyInfo.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyKPP.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyKs.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyName.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyOGRN.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyPhone.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyPublicPointName.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Company\CompanyRs.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientAddress.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientBank.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientBarcode.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientBik.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientBirthday.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientBonusesSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientComment.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientCreditSum.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientInn.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientKPP.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientKs.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientOGRN.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientEmail.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientRs.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientPhone.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ReportProperties\Client\ClientName.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\GoodOrderItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\GoodReportItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\GoodHistoryReportItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\InventoryItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\LabelItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\SaleOrderItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\WriteOffItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\ListItems\BasketItem.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Clients\Client.cs" />
+    <Compile Include="Helpers\FR\BackEnd\Entities\Clients\ClientGroups.cs" />
+    <Compile Include="Helpers\Fifo\FifoHelper.cs" />
+    <Compile Include="Helpers\Fifo\FifoItem.cs" />
+    <Compile Include="Helpers\Factories\DocumentsFactory.cs" />
+    <Compile Include="Helpers\Factories\IFactory.cs" />
+    <Compile Include="Helpers\ExternalApi\Planfix\RequestSaleSave.cs" />
+    <Compile Include="Helpers\ExternalApi\Planfix\PlanfixHelper.cs" />
+    <Compile Include="Helpers\ExternalApi\PolycardCloud\PolyCloud.cs" />
+    <Compile Include="Helpers\ExternalApi\PolycardCloud\Entities\Card.cs" />
+    <Compile Include="Helpers\ExternalApi\PolycardCloud\Entities\Client.cs" />
+    <Compile Include="Helpers\ExternalApi\PolycardCloud\Entities\IPolyCloudEntity.cs" />
+    <Compile Include="Helpers\ExternalApi\PolycardCloud\Entities\LoyaltyGroup.cs" />
+    <Compile Include="Helpers\ExternalApi\PolycardCloud\Entities\Request.cs" />
+    <Compile Include="Helpers\ExternalApi\PolycardCloud\Entities\Response.cs" />
+    <Compile Include="Helpers\Extensions\UIElement\Extensions.cs" />
+    <Compile Include="Helpers\Extensions\String\1Shared.cs" />
+    <Compile Include="Helpers\Extensions\Numeric\Shared.cs" />
+    <Compile Include="Helpers\Extensions\Linq\LinqExtensions.cs" />
+    <Compile Include="Helpers\Extensions\Collections\Copy.cs" />
+    <Compile Include="Helpers\Extensions\Collections\Other.cs" />
+    <Compile Include="Helpers\Extensions\Collections\LimitedQueue.cs" />
+    <Compile Include="Helpers\Excel\ExcelFactory.cs" />
+    <Compile Include="Helpers\Excel\ExcelHelper.cs" />
+    <Compile Include="Helpers\Excel\ExcelFile.cs" />
+    <Compile Include="Helpers\Excel\ExcelCellValueReader.cs" />
+    <Compile Include="Helpers\ErrorHandler\ErrorHelper.cs" />
+    <Compile Include="Helpers\ErrorHandler\ExceptionsConverter.cs" />
+    <Compile Include="Helpers\ErrorHandler\Exceptions\CancelException.cs" />
+    <Compile Include="Helpers\ErrorHandler\Exceptions\MsgException.cs" />
+    <Compile Include="Helpers\ErrorHandler\Exceptions\IExceptionWithExtMessage.cs" />
+    <Compile Include="Helpers\Egais\EgaisHelper.cs" />
+    <Compile Include="Helpers\Egais\EgaisDocumentView.cs" />
+    <Compile Include="Helpers\Egais\EgaisDocument.cs" />
+    <Compile Include="Helpers\Egais\EgaisRepository.cs" />
+    <Compile Include="Helpers\Egais\EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\1EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\2EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\3EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\4EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\5EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\6EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\7EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\8EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\9EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\10EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\11EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\12EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\13EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\14EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\15EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\16EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\17EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\18EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\19EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\20EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\21EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\22EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\23EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\24EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\25EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\26EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\27EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\28EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\29EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbUnitType1.cs" />
+    <Compile Include="Helpers\Egais\Methods\ProductType1.cs" />
+    <Compile Include="Helpers\Egais\30EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\31EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\32EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\DeclarationVidType.cs" />
+    <Compile Include="Helpers\Egais\33EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\DocumentVidType.cs" />
+    <Compile Include="Helpers\Egais\34EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbIngredientType.cs" />
+    <Compile Include="Helpers\Egais\35EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\36EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\37EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\38EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\39EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\40EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\41EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\42EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\43EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\44EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\45EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\46EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\47EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\48EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\49EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\50EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\51EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\52EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\53EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\54EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\55EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\56EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\57EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\58EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\59EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\60EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\61EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\62EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\63EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\64EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\65EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\66EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\67EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\68EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\69EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\70EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\71EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\72EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\73EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\74EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\75EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\76EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\77EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\78EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\79EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\80EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\TYPE.cs" />
+    <Compile Include="Helpers\Egais\81EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\82EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\83EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\84EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\85EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\86EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\87EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\88EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\89EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\90EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\91EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\92EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\93EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\94EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\95EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\96EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\97EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\98EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\99EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\100EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbType4.cs" />
+    <Compile Include="Helpers\Egais\101EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbChangeOwnershipType.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbCTransportType.cs" />
+    <Compile Include="Helpers\Egais\102EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\103EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\104EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\105EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\106EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\107EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\108EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\109EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\110EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\111EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\112EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\113EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\114EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbChangeOwnershipType1.cs" />
+    <Compile Include="Helpers\Egais\115EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\116EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\117EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\AcceptType3.cs" />
+    <Compile Include="Helpers\Egais\118EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\119EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ConclusionType3.cs" />
+    <Compile Include="Helpers\Egais\120EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\RouteOwnership.cs" />
+    <Compile Include="Helpers\Egais\Methods\RouteTRAN_TYPE.cs" />
+    <Compile Include="Helpers\Egais\121EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\122EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\123EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\124EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\125EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\126EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\127EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\128EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\129EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\130EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\131EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\132EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\133EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\134EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\RouteTypeTRAN_TYPE.cs" />
+    <Compile Include="Helpers\Egais\135EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\136EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\137EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\138EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\TypeWriteOff1.cs" />
+    <Compile Include="Helpers\Egais\139EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\140EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\141EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\142EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\143EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\144EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbType3.cs" />
+    <Compile Include="Helpers\Egais\145EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\146EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\147EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\148EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\149EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\150EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\OperType2.cs" />
+    <Compile Include="Helpers\Egais\151EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\152EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\153EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\154EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\155EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\156EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\157EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\158EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\159EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ReportUseAutoProcessType.cs" />
+    <Compile Include="Helpers\Egais\160EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\161EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\162EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\163EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\164EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\165EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\166EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\167EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\168EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\169EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\170EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\171EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\172EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\173EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\174EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\175EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\176EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\177EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\178EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\179EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\180EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\181EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\182EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\183EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\184EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\185EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\186EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\187EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\OperType1.cs" />
+    <Compile Include="Helpers\Egais\188EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\189EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\190EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\AcceptType2.cs" />
+    <Compile Include="Helpers\Egais\191EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\192EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\193EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\TypeEnum.cs" />
+    <Compile Include="Helpers\Egais\194EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\195EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\196EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\197EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\198EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\199EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\200EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\201EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\202EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbType2.cs" />
+    <Compile Include="Helpers\Egais\203EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\204EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\205EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\206EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\207EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\208EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\209EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\UnpackedType.cs" />
+    <Compile Include="Helpers\Egais\210EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\211EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\212EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\213EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\214EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\215EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\216EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\217EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\218EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\219EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\220EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\221EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\222EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ConclusionType2.cs" />
+    <Compile Include="Helpers\Egais\223EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\224EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\225EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\226EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\227EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\228EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\FormatType.cs" />
+    <Compile Include="Helpers\Egais\229EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\230EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\231EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\232EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\233EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\234EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\TypeChargeOn.cs" />
+    <Compile Include="Helpers\Egais\235EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ModeEnum.cs" />
+    <Compile Include="Helpers\Egais\236EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\237EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\PlaceEnum.cs" />
+    <Compile Include="Helpers\Egais\238EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\239EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\240EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\241EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\242EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\243EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\244EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\245EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\246EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\247EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\248EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\249EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\250EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\251EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\252EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\253EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\254EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\255EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\256EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\257EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\258EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\259EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\260EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\261EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\262EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\263EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\264EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\265EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\266EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\267EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\268EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\269EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\270EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\271EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\272EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\273EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\274EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\275EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\276EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\277EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\278EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\279EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\280EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\AcceptType1.cs" />
+    <Compile Include="Helpers\Egais\281EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\282EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\283EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\284EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\285EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbType1.cs" />
+    <Compile Include="Helpers\Egais\286EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\287EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\288EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\289EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\290EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\291EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\292EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\293EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\294EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\295EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\296EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\297EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\298EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\299EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\300EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\301EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\302EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\303EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\304EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\305EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\306EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ProductType.cs" />
+    <Compile Include="Helpers\Egais\307EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\308EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\309EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\310EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\311EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\312EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\313EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\314EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\315EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\316EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\317EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\318EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\319EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\320EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\321EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\322EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\323EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\OperType.cs" />
+    <Compile Include="Helpers\Egais\324EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\325EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\326EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\327EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\TypeWriteOff.cs" />
+    <Compile Include="Helpers\Egais\328EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\329EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\330EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\331EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\332EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\333EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\334EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\335EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\336EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\337EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\338EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\339EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\340EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\341EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\342EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\343EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\344EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\345EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\346EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\347EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\348EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\349EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\350EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ConclusionType1.cs" />
+    <Compile Include="Helpers\Egais\351EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\352EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\353EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\AcceptType.cs" />
+    <Compile Include="Helpers\Egais\354EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ConclusionType.cs" />
+    <Compile Include="Helpers\Egais\355EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\356EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\357EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\358EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\359EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\360EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\361EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\362EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbType.cs" />
+    <Compile Include="Helpers\Egais\Methods\WbUnitType.cs" />
+    <Compile Include="Helpers\Egais\363EgaisSchema.cs" />
+    <Compile Include="Helpers\Egais\Methods\ItemChoiceType.cs" />
+    <Compile Include="Helpers\Egais\Methods\DoWriteOffItemRepository.cs" />
+    <Compile Include="Helpers\Egais\Methods\GetListDocumentsRepository.cs" />
+    <Compile Include="Helpers\Egais\Methods\SharedRepository.cs" />
+    <Compile Include="Helpers\DB\DataBaseCorrector.cs" />
+    <Compile Include="Helpers\DB\DbDirectSQLHelper.cs" />
+    <Compile Include="Helpers\DB\FirebirdHelper.cs" />
+    <Compile Include="Helpers\DB\TransactionHelper.cs" />
+    <Compile Include="Helpers\DB\Corrections\ICorrection.cs" />
+    <Compile Include="Helpers\DB\Corrections\V1.cs" />
+    <Compile Include="Helpers\DB\Corrections\V10.cs" />
+    <Compile Include="Helpers\DB\Corrections\V11.cs" />
+    <Compile Include="Helpers\DB\Corrections\V12.cs" />
+    <Compile Include="Helpers\DB\Corrections\V13.cs" />
+    <Compile Include="Helpers\DB\Corrections\V15.cs" />
+    <Compile Include="Helpers\DB\Corrections\V14.cs" />
+    <Compile Include="Helpers\DB\Corrections\V16.cs" />
+    <Compile Include="Helpers\DB\Corrections\V17.cs" />
+    <Compile Include="Helpers\DB\Corrections\V18.cs" />
+    <Compile Include="Helpers\DB\Corrections\V19.cs" />
+    <Compile Include="Helpers\DB\Corrections\V2.cs" />
+    <Compile Include="Helpers\DB\Corrections\V21.cs" />
+    <Compile Include="Helpers\DB\Corrections\V20.cs" />
+    <Compile Include="Helpers\DB\Corrections\V3.cs" />
+    <Compile Include="Helpers\DB\Corrections\V4.cs" />
+    <Compile Include="Helpers\DB\Corrections\V5.cs" />
+    <Compile Include="Helpers\DB\Corrections\V6.cs" />
+    <Compile Include="Helpers\DB\Corrections\V7.cs" />
+    <Compile Include="Helpers\DB\Corrections\V8.cs" />
+    <Compile Include="Helpers\DB\Corrections\V9.cs" />
+    <Compile Include="Helpers\ControlsHelpers\Windows\Layout\LayoutHelper.cs" />
+    <Compile Include="Helpers\ControlsHelpers\DataGrid\ColumnsHelper.cs" />
+    <Compile Include="Helpers\ControlsHelpers\DataGrid\BulkObservableCollection.cs" />
+    <Compile Include="Helpers\ControlsHelpers\DataGrid\Other.cs" />
+    <Compile Include="Helpers\ControlsHelpers\DataGrid\AsyncObservableCollection.cs" />
+    <Compile Include="Helpers\ControlsHelpers\DataGrid\RowsConverters.cs" />
+    <Compile Include="Helpers\ControlsHelpers\DataGrid\1RowsConverters.cs" />
+    <Compile Include="Helpers\ContextHelp\TooltipsSetter.cs" />
+    <Compile Include="Helpers\ContextHelp\1ToolTipsHelper.cs" />
+    <Compile Include="Helpers\ContextHelp\F1help.cs" />
+    <Compile Include="Helpers\Cache\CachesBox.cs" />
+    <Compile Include="Helpers\API\Polycard\PalycardApi.cs" />
+    <Compile Include="Helpers\API\Polycard\Entity\IAnswer.cs" />
+    <Compile Include="Helpers\API\Polycard\Entity\AnswerStatuses.cs" />
+    <Compile Include="Helpers\API\Polycard\Entity\Answer.cs" />
+    <Compile Include="Helpers\API\Polycard\Entity\1Answer.cs" />
+    <Compile Include="Helpers\API\Polycard\Entity\2Answer.cs" />
+    <Compile Include="Helpers\API\Polycard\Entity\Client.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Server.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Helpers\UriHelper.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Repos\DocumentsRepository.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Repos\GoodGroupsRepository.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Repos\GoodsRepository.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Repos\IRepository.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Helpers\PagingHelper.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\Document.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\DocumentTypes.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\PaymentItem.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\DocumentItemSimple.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\Error.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\GoodSimple.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\Good.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\GoodGroupSimple.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\GoodGroup.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\GoodStockSimple.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\GoodStock.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\EntityTypes.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\AnswerStatuses.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\IAnswer.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\IEntity.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\1IEntity.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\Property.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\StatusInfo.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\MessageInfo.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\Storage.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\StorageSimple.cs" />
+    <Compile Include="Helpers\Barcodes\BarcodeSearcher.cs" />
+    <Compile Include="Helpers\Barcodes\GbsBarcodeParser.cs" />
+    <Compile Include="Helpers\BackgroundTasks\BackgroundTask.cs" />
+    <Compile Include="Helpers\BackgroundTasks\BackgroundTaskTypes.cs" />
+    <Compile Include="Helpers\BackgroundTasks\BackgroundTasksHelper.cs" />
+    <Compile Include="Helpers\BackgroundTasks\Sheduler.cs" />
+    <Compile Include="Forms\Productions\FrmProductionCard.xaml.cs">
+      <DependentUpon>productionsfrmproductioncard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Productions\1FrmProductionCard.xaml.cs" />
+    <Compile Include="Forms\Productions\FrmProductionList.xaml.cs">
+      <DependentUpon>productionsfrmproductionlist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Productions\1FrmProductionList.xaml.cs" />
+    <Compile Include="Forms\Sale\SaleJournalViewModel.Return.cs" />
+    <Compile Include="Forms\Sale\ICheckChangesViewModel.cs" />
+    <Compile Include="Forms\Sale\FrmMagazineSale.xaml.cs">
+      <DependentUpon>salefrmmagazinesale.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\GoodGroups\FormSelectGroup.xaml.cs">
+      <DependentUpon>goodgroupsformselectgroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\GoodGroups\1FormSelectGroup.xaml.cs" />
+    <Compile Include="Forms\GoodGroups\FormGroup.xaml.cs">
+      <DependentUpon>goodgroupsformgroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\GoodGroups\1FormGroup.xaml.cs" />
+    <Compile Include="Forms\GoodGroups\FrmGoodGroupCard.xaml.cs">
+      <DependentUpon>goodgroupsfrmgoodgroupcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\GoodGroups\1FrmGoodGroupCard.xaml.cs" />
+    <Compile Include="Forms\Excel\FrmWaybillOutExcel.xaml.cs">
+      <DependentUpon>excelfrmwaybilloutexcel.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Excel\1FrmWaybillOutExcel.xaml.cs" />
+    <Compile Include="Forms\Excel\2FrmWaybillOutExcel.xaml.cs" />
+    <Compile Include="Forms\Excel\FrmExcelClients.xaml.cs">
+      <DependentUpon>excelfrmexcelclients.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Excel\1FrmExcelClients.xaml.cs" />
+    <Compile Include="Forms\Excel\FrmExcelGoods.xaml.cs">
+      <DependentUpon>excelfrmexcelgoods.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Excel\1FrmExcelGoods.xaml.cs" />
+    <Compile Include="Forms\Waybills\FrmWaybillCard.xaml.cs">
+      <DependentUpon>waybillsfrmwaybillcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Waybills\1FrmWaybillCard.xaml.cs" />
+    <Compile Include="Forms\Waybills\FrmWaybillsList.xaml.cs">
+      <DependentUpon>waybillsfrmwaybillslist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Waybills\1FrmWaybillsList.xaml.cs" />
+    <Compile Include="Forms\Users\FrmLoginUser.xaml.cs">
+      <DependentUpon>usersfrmloginuser.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Users\1FrmLoginUser.xaml.cs" />
+    <Compile Include="Forms\Users\FrmUserCard.xaml.cs">
+      <DependentUpon>usersfrmusercard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Users\1FrmUserCard.xaml.cs" />
+    <Compile Include="Forms\Users\FrmUserList.xaml.cs">
+      <DependentUpon>usersfrmuserlist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Users\1FrmUserList.xaml.cs" />
+    <Compile Include="Forms\Users\UsersGroup\FrmCardUserGroup.xaml.cs">
+      <DependentUpon>usersgroupfrmcardusergroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Users\UsersGroup\1FrmCardUserGroup.xaml.cs" />
+    <Compile Include="Forms\Users\UsersGroup\FrmListUserGroups.xaml.cs">
+      <DependentUpon>usersgroupfrmlistusergroups.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Users\UsersGroup\1FrmListUserGroups.xaml.cs" />
+    <Compile Include="Forms\Settings\Payments\PaymentsGroups\FrmListPaymentGroup.xaml.cs">
+      <DependentUpon>paymentsgroupsfrmlistpaymentgroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Payments\PaymentsGroups\1FrmListPaymentGroup.xaml.cs" />
+    <Compile Include="Forms\Settings\Payments\PaymentsAccount\FrmListPaymentAccount.xaml.cs">
+      <DependentUpon>paymentsaccountfrmlistpaymentaccount.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Payments\PaymentsAccount\1FrmListPaymentAccount.xaml.cs" />
+    <Compile Include="Forms\License\FrmLicenseInfo.xaml.cs">
+      <DependentUpon>licensefrmlicenseinfo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\License\1FrmLicenseInfo.xaml.cs" />
+    <Compile Include="Forms\License\FrmLicenseNotification.xaml.cs">
+      <DependentUpon>licensefrmlicensenotification.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\License\1FrmLicenseNotification.xaml.cs" />
+    <Compile Include="Forms\Lable\FrmLablePrint.xaml.cs">
+      <DependentUpon>lablefrmlableprint.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Lable\1FrmLablePrint.xaml.cs" />
+    <Compile Include="Forms\ActionsPayments\FrmRemoveCash.xaml.cs">
+      <DependentUpon>actionspaymentsfrmremovecash.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\ActionsPayments\1FrmRemoveCash.xaml.cs" />
+    <Compile Include="Forms\_shared\ProgressBar\FrmProgressBar.xaml.cs">
+      <DependentUpon>progressbarfrmprogressbar.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\FrmActionPrintCheck.xaml.cs">
+      <DependentUpon>_sharedfrmactionprintcheck.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmActionPrintCheck.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmKeyboard.xaml.cs">
+      <DependentUpon>_sharedfrmkeyboard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmKeyboard.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmSecondMonitor.xaml.cs">
+      <DependentUpon>_sharedfrmsecondmonitor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmSecondMonitor.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmFavoritesGoods.xaml.cs">
+      <DependentUpon>_sharedfrmfavoritesgoods.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmFavoritesGoods.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmSelectMainJoin.xaml.cs">
+      <DependentUpon>_sharedfrmselectmainjoin.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmSelectMainJoin.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmAuthorization.xaml.cs">
+      <DependentUpon>_sharedfrmauthorization.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmAuthorization.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmInsertPaymentMethods.xaml.cs">
+      <DependentUpon>_sharedfrminsertpaymentmethods.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmInsertPaymentMethods.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmMarket5ImportInfo.xaml.cs">
+      <DependentUpon>_sharedfrmmarket5importinfo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmMarket5ImportInfo.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmSelectedStorage.xaml.cs">
+      <DependentUpon>_sharedfrmselectedstorage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmSelectedStorage.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmSelectedTemplateFR.xaml.cs">
+      <DependentUpon>_sharedfrmselectedtemplatefr.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmSelectedTemplateFR.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmSelectGoodStock.xaml.cs">
+      <DependentUpon>_sharedfrmselectgoodstock.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmSelectGoodStock.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmGoodDiscount.xaml.cs">
+      <DependentUpon>_sharedfrmgooddiscount.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmGoodDiscount.xaml.cs" />
+    <Compile Include="Forms\_shared\FrmGoodsQuantity.xaml.cs">
+      <DependentUpon>_sharedfrmgoodsquantity.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\_shared\1FrmGoodsQuantity.xaml.cs" />
+    <Compile Include="Forms\_shared\ProgressBar\1FrmProgressBar.xaml.cs" />
+    <Compile Include="Forms\_shared\ProgressBar\2FrmProgressBar.xaml.cs" />
+    <Compile Include="Forms\WriteOff\FrmWriteOffCard.xaml.cs">
+      <DependentUpon>writeofffrmwriteoffcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\WriteOff\1FrmWriteOffCard.xaml.cs" />
+    <Compile Include="Forms\WriteOff\FrmWriteOffJournal.xaml.cs">
+      <DependentUpon>writeofffrmwriteoffjournal.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\WriteOff\1FrmWriteOffJournal.xaml.cs" />
+    <Compile Include="Forms\Settings\PlanfixSettings\FrmAnalinicSetting.xaml.cs">
+      <DependentUpon>planfixsettingsfrmanalinicsetting.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PlanfixSettings\1FrmAnalinicSetting.xaml.cs" />
+    <Compile Include="Forms\Settings\PlanfixSettings\2FrmAnalinicSetting.xaml.cs" />
+    <Compile Include="Forms\Settings\PlanfixSettings\FrmPlanFixSetting.xaml.cs">
+      <DependentUpon>planfixsettingsfrmplanfixsetting.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PlanfixSettings\1FrmPlanFixSetting.xaml.cs" />
+    <Compile Include="Forms\Settings\SettingsViewModel.GetGoodsStockError.cs" />
+    <Compile Include="Forms\Settings\FrmHotKeysConfig.xaml.cs">
+      <DependentUpon>settingsfrmhotkeysconfig.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\1FrmHotKeysConfig.xaml.cs" />
+    <Compile Include="Forms\Settings\FrmSettings.xaml.cs">
+      <DependentUpon>settingsfrmsettings.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Storage\FrmStoragsList.xaml.cs">
+      <DependentUpon>storagefrmstoragslist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Storage\1FrmStoragsList.xaml.cs" />
+    <Compile Include="Forms\Settings\Storage\FrmCardStorage.xaml.cs">
+      <DependentUpon>storagefrmcardstorage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Storage\1FrmCardStorage.xaml.cs" />
+    <Compile Include="Forms\Settings\Units\FrmCardUnit.xaml.cs">
+      <DependentUpon>unitsfrmcardunit.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Units\1FrmCardUnit.xaml.cs" />
+    <Compile Include="Forms\Settings\Units\FrmGoodUnits.xaml.cs">
+      <DependentUpon>unitsfrmgoodunits.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Units\1FrmGoodUnits.xaml.cs" />
+    <Compile Include="Forms\Settings\PropertiesEntities\FrmCardPropertyEntities.xaml.cs">
+      <DependentUpon>propertiesentitiesfrmcardpropertyentities.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PropertiesEntities\1FrmCardPropertyEntities.xaml.cs" />
+    <Compile Include="Forms\Settings\PropertiesEntities\FrmPropertyEntities.xaml.cs">
+      <DependentUpon>propertiesentitiesfrmpropertyentities.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PropertiesEntities\1FrmPropertyEntities.xaml.cs" />
+    <Compile Include="Forms\Settings\Sections\FrmSectionCard.xaml.cs">
+      <DependentUpon>sectionsfrmsectioncard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Sections\1FrmSectionCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Sections\FrmSectionsList.xaml.cs">
+      <DependentUpon>sectionsfrmsectionslist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Sections\1FrmSectionsList.xaml.cs" />
+    <Compile Include="Forms\Settings\PricingRules\PricingRuleCard.xaml.cs">
+      <DependentUpon>pricingrulespricingrulecard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PricingRules\1PricingRuleCard.xaml.cs" />
+    <Compile Include="Forms\Settings\PricingRules\PricingRulesList.xaml.cs">
+      <DependentUpon>pricingrulespricingruleslist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PricingRules\1PricingRulesList.xaml.cs" />
+    <Compile Include="Forms\Settings\Payments\PaymentMethods\FrmCardMethodPayment.xaml.cs">
+      <DependentUpon>paymentmethodsfrmcardmethodpayment.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Payments\PaymentMethods\1FrmCardMethodPayment.xaml.cs" />
+    <Compile Include="Forms\Settings\Payments\PaymentsGroups\FrmPaymentGroupCard.xaml.cs">
+      <DependentUpon>paymentsgroupsfrmpaymentgroupcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Payments\PaymentsGroups\1FrmPaymentGroupCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Payments\PaymentsGroups\FrmSelectedPayGroup.xaml.cs">
+      <DependentUpon>paymentsgroupsfrmselectedpaygroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Payments\PaymentsGroups\1FrmSelectedPayGroup.xaml.cs" />
+    <Compile Include="Forms\Settings\Payments\PaymentsAccount\FrmCardPaymentAccount.xaml.cs">
+      <DependentUpon>paymentsaccountfrmcardpaymentaccount.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Payments\PaymentsAccount\1FrmCardPaymentAccount.xaml.cs" />
+    <Compile Include="Forms\Settings\Payments\PaymentMethods\FrmPaymentMethods.xaml.cs">
+      <DependentUpon>paymentmethodsfrmpaymentmethods.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Payments\PaymentMethods\1FrmPaymentMethods.xaml.cs" />
+    <Compile Include="Forms\Settings\Organization\FrmOrganizationInfo.xaml.cs">
+      <DependentUpon>organizationfrmorganizationinfo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Organization\1FrmOrganizationInfo.xaml.cs" />
+    <Compile Include="Forms\Settings\Reports\SellerReport\FrmSettingSellerReport.xaml.cs">
+      <DependentUpon>sellerreportfrmsettingsellerreport.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Reports\SellerReport\1FrmSettingSellerReport.xaml.cs" />
+    <Compile Include="Forms\Settings\PlanfixSettings\FrmTaskSettings.xaml.cs">
+      <DependentUpon>planfixsettingsfrmtasksettings.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PlanfixSettings\1FrmTaskSettings.xaml.cs" />
+    <Compile Include="Forms\Settings\PercentForService\PercentForServiceCard.xaml.cs">
+      <DependentUpon>percentforservicepercentforservicecard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PercentForService\1PercentForServiceCard.xaml.cs" />
+    <Compile Include="Forms\Settings\PercentForService\PercentForServiceList.xaml.cs">
+      <DependentUpon>percentforservicepercentforservicelist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\PercentForService\1PercentForServiceList.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubForms\FrmKkmCard.xaml.cs">
+      <DependentUpon>devicessubformsfrmkkmcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubForms\1FrmKkmCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageLegal.xaml.cs">
+      <DependentUpon>pagespagelegal.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageLegal.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageCafe.xaml.cs">
+      <DependentUpon>pagespagecafe.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageCafe.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageExchangeData.xaml.cs">
+      <DependentUpon>pagespageexchangedata.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageExchangeData.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageActionsGood.xaml.cs">
+      <DependentUpon>pagespageactionsgood.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageActionsGood.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageKeyboard.xaml.cs">
+      <DependentUpon>devicessubpagespagekeyboard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageKeyboard.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageIntegrations.xaml.cs">
+      <DependentUpon>pagespageintegrations.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageIntegrations.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageListDevices.xaml.cs">
+      <DependentUpon>pagespagelistdevices.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageListDevices.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageOther.xaml.cs">
+      <DependentUpon>pagespageother.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageOther.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageRemoteControl.xaml.cs">
+      <DependentUpon>pagespageremotecontrol.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageRemoteControl.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageBasic.xaml.cs">
+      <DependentUpon>pagespagebasic.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageBasic.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageClients.xaml.cs">
+      <DependentUpon>pagespageclients.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageClients.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageDataBase.xaml.cs">
+      <DependentUpon>pagespagedatabase.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageDataBase.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageDiscountSetting.xaml.cs">
+      <DependentUpon>pagespagediscountsetting.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageDiscountSetting.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageGoods.xaml.cs">
+      <DependentUpon>pagespagegoods.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageGoods.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageInterface.xaml.cs">
+      <DependentUpon>pagespageinterface.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageInterface.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PagePayments.xaml.cs">
+      <DependentUpon>pagespagepayments.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PagePayments.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\UsersPage.xaml.cs">
+      <DependentUpon>pagesuserspage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1UsersPage.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\PageDevices.xaml.cs">
+      <DependentUpon>pagespagedevices.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\1PageDevices.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageExtraPrinters.xaml.cs">
+      <DependentUpon>devicessubpagespageextraprinters.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageExtraPrinters.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageLablePrinter.xaml.cs">
+      <DependentUpon>devicessubpagespagelableprinter.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageLablePrinter.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageScale.xaml.cs">
+      <DependentUpon>devicessubpagespagescale.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageScale.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageSecondMonitor.xaml.cs">
+      <DependentUpon>devicessubpagespagesecondmonitor.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageSecondMonitor.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageTsd.xaml.cs">
+      <DependentUpon>devicessubpagespagetsd.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageTsd.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageAcquiringTerminal.xaml.cs">
+      <DependentUpon>devicessubpagespageacquiringterminal.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageAcquiringTerminal.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageBarcodeScanner.xaml.cs">
+      <DependentUpon>devicessubpagespagebarcodescanner.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageBarcodeScanner.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\PageCheckPrinter.xaml.cs">
+      <DependentUpon>devicessubpagespagecheckprinter.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubPages\1PageCheckPrinter.xaml.cs" />
+    <Compile Include="Forms\Settings\Pages\DevicesSubForms\FrmDevicesCard.xaml.cs">
+      <DependentUpon>devicessubformsfrmdevicescard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Pages\DevicesSubForms\1FrmDevicesCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Legal\FrmMarkedTypeList.xaml.cs">
+      <DependentUpon>legalfrmmarkedtypelist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Legal\1FrmMarkedTypeList.xaml.cs" />
+    <Compile Include="Forms\Settings\ExtraPrice\FrmExtraPriceRuleCard.xaml.cs">
+      <DependentUpon>extrapricefrmextrapricerulecard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ExtraPrice\1FrmExtraPriceRuleCard.xaml.cs" />
+    <Compile Include="Forms\Settings\ExtraPrice\FrmExtraPriceRuleList.xaml.cs">
+      <DependentUpon>extrapricefrmextrapricerulelist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ExtraPrice\1FrmExtraPriceRuleList.xaml.cs" />
+    <Compile Include="Forms\Settings\ExtraPrice\FrmCardExtraPrice.xaml.cs">
+      <DependentUpon>extrapricefrmcardextraprice.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ExtraPrice\1FrmCardExtraPrice.xaml.cs" />
+    <Compile Include="Forms\Settings\ExtraPrice\FrmListExtraPrice.xaml.cs">
+      <DependentUpon>extrapricefrmlistextraprice.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ExtraPrice\1FrmListExtraPrice.xaml.cs" />
+    <Compile Include="Forms\Settings\Email\FrmEmailSetting.xaml.cs">
+      <DependentUpon>emailfrmemailsetting.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Egais\TapBeer\1FrmBeerTapCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Egais\TapBeer\FrmListBeerTaps.xaml.cs">
+      <DependentUpon>tapbeerfrmlistbeertaps.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Egais\TapBeer\1FrmListBeerTaps.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountForCount\FrmDiscountForCountCard.xaml.cs">
+      <DependentUpon>discountforcountfrmdiscountforcountcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountForCount\1FrmDiscountForCountCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountForCount\FrmDiscountForCountGood.xaml.cs">
+      <DependentUpon>discountforcountfrmdiscountforcountgood.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountForCount\1FrmDiscountForCountGood.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\MaxDiscount\FrmCardMaxDiscountRule.xaml.cs">
+      <DependentUpon>maxdiscountfrmcardmaxdiscountrule.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\MaxDiscount\1FrmCardMaxDiscountRule.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\MaxDiscount\FrmMaxDiscountRuleList.xaml.cs">
+      <DependentUpon>maxdiscountfrmmaxdiscountrulelist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\MaxDiscount\1FrmMaxDiscountRuleList.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountSumSale\FrmDiscountSumSale.xaml.cs">
+      <DependentUpon>discountsumsalefrmdiscountsumsale.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountSumSale\1FrmDiscountSumSale.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountSumSale\FrmDiscountSumSaleCard.xaml.cs">
+      <DependentUpon>discountsumsalefrmdiscountsumsalecard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountSumSale\1FrmDiscountSumSaleCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountsForDayOfMonth\FrmCardDiscountForDayOfMouth.xaml.cs">
+      <DependentUpon>discountsfordayofmonthfrmcarddiscountfordayofmouth.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountsForDayOfMonth\1FrmCardDiscountForDayOfMouth.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountsForDayOfMonth\FrmDiscountsForDayOfMonth.xaml.cs">
+      <DependentUpon>discountsfordayofmonthfrmdiscountsfordayofmonth.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountsForDayOfMonth\1FrmDiscountsForDayOfMonth.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountFromSumInCheck\FrmDiscountSumCheckCard.xaml.cs">
+      <DependentUpon>discountfromsumincheckfrmdiscountsumcheckcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountFromSumInCheck\1FrmDiscountSumCheckCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountFromSumInCheck\FrmDiscountSumInCheck.xaml.cs">
+      <DependentUpon>discountfromsumincheckfrmdiscountsumincheck.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountFromSumInCheck\1FrmDiscountSumInCheck.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountForWeekday\FrmDiscountWeekdayCard.xaml.cs">
+      <DependentUpon>discountforweekdayfrmdiscountweekdaycard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountForWeekday\1FrmDiscountWeekdayCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\DiscountForWeekday\FrmDiscountWeekdayList.xaml.cs">
+      <DependentUpon>discountforweekdayfrmdiscountweekdaylist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\DiscountForWeekday\1FrmDiscountWeekdayList.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\ClientBonuses\FrmListBonusesRule.xaml.cs">
+      <DependentUpon>clientbonusesfrmlistbonusesrule.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\ClientBonuses\1FrmListBonusesRule.xaml.cs" />
+    <Compile Include="Forms\Settings\Discounts\ClientBonuses\FrmRuleBonusesCard.xaml.cs">
+      <DependentUpon>clientbonusesfrmrulebonusescard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Discounts\ClientBonuses\1FrmRuleBonusesCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\FrmExtraPrinterCard.xaml.cs">
+      <DependentUpon>devicesfrmextraprintercard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Devices\1FrmExtraPrinterCard.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\FrmScalesTest.xaml.cs">
+      <DependentUpon>devicesfrmscalestest.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Devices\1FrmScalesTest.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\FrmTestScannerForFfd12.xaml.cs">
+      <DependentUpon>devicesfrmtestscannerforffd12.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Devices\1FrmTestScannerForFfd12.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\2FrmTestScannerForFfd12.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\FrmConnectionSettings.xaml.cs">
+      <DependentUpon>devicesfrmconnectionsettings.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Devices\1FrmConnectionSettings.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\FrmTaxKkmSettings.xaml.cs">
+      <DependentUpon>devicesfrmtaxkkmsettings.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Devices\1FrmTaxKkmSettings.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\FrmStatusKkm.xaml.cs">
+      <DependentUpon>devicesfrmstatuskkm.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Devices\1FrmStatusKkm.xaml.cs" />
+    <Compile Include="Forms\Settings\Devices\FrmPaymentMethodKkm.xaml.cs">
+      <DependentUpon>devicesfrmpaymentmethodkkm.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\Devices\1FrmPaymentMethodKkm.xaml.cs" />
+    <Compile Include="Forms\Settings\ActionsHistory\FrmActionsHistoryList.xaml.cs">
+      <DependentUpon>actionshistoryfrmactionshistorylist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Settings\ActionsHistory\1FrmActionsHistoryList.xaml.cs" />
+    <Compile Include="Forms\SendWaybills\FrmListSendWaybills.xaml.cs">
+      <DependentUpon>sendwaybillsfrmlistsendwaybills.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\SendWaybills\1FrmListSendWaybills.xaml.cs" />
+    <Compile Include="Forms\SendWaybills\FrmMoveList.xaml.cs">
+      <DependentUpon>sendwaybillsfrmmovelist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\SendWaybills\1FrmMoveList.xaml.cs" />
+    <Compile Include="Forms\SendWaybills\FrmSendWaybillCard.xaml.cs">
+      <DependentUpon>sendwaybillsfrmsendwaybillcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\SendWaybills\1FrmSendWaybillCard.xaml.cs" />
+    <Compile Include="Forms\Sale\FrmMakingCredit.xaml.cs">
+      <DependentUpon>salefrmmakingcredit.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Sale\1FrmMakingCredit.xaml.cs" />
+    <Compile Include="Forms\Sale\FrmCardSale.xaml.cs">
+      <DependentUpon>salefrmcardsale.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Sale\1FrmCardSale.xaml.cs" />
+    <Compile Include="Forms\Sale\Return\ReturnItemsViewModel.PrintCheck.cs" />
+    <Compile Include="Forms\Sale\Return\FrmReturnSales.xaml.cs">
+      <DependentUpon>returnfrmreturnsales.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SellerReport.xaml.cs">
+      <DependentUpon>reportssellerreport.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\1SellerReport.xaml.cs" />
+    <Compile Include="Forms\Reports\SummaryReport\Other\FrmListReturn.xaml.cs">
+      <DependentUpon>otherfrmlistreturn.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SummaryReport\Other\1FrmListReturn.xaml.cs" />
+    <Compile Include="Forms\Reports\SummaryReport\FrmSummaryReport.xaml.cs">
+      <DependentUpon>summaryreportfrmsummaryreport.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SummaryReport\1FrmSummaryReport.xaml.cs" />
+    <Compile Include="Forms\Reports\SummaryReport\Other\FrmLogReCalcCash.xaml.cs">
+      <DependentUpon>otherfrmlogrecalccash.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SummaryReport\Other\1FrmLogReCalcCash.xaml.cs" />
+    <Compile Include="Forms\Reports\SummaryReport\Other\FrmPaymentAccountSum.xaml.cs">
+      <DependentUpon>otherfrmpaymentaccountsum.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SummaryReport\Other\1FrmPaymentAccountSum.xaml.cs" />
+    <Compile Include="Forms\Reports\SummaryReport\Other\FrmListPaymentsActions.xaml.cs">
+      <DependentUpon>otherfrmlistpaymentsactions.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SummaryReport\Other\1FrmListPaymentsActions.xaml.cs" />
+    <Compile Include="Forms\Reports\SummaryReport\Other\FrmPaymentByMethods.xaml.cs">
+      <DependentUpon>otherfrmpaymentbymethods.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SummaryReport\Other\1FrmPaymentByMethods.xaml.cs" />
+    <Compile Include="Forms\Reports\SummaryReport\Other\FrmUserStatistic.xaml.cs">
+      <DependentUpon>otherfrmuserstatistic.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\SummaryReport\Other\1FrmUserStatistic.xaml.cs" />
+    <Compile Include="Forms\Reports\MasterReport\FrmMasterReport.xaml.cs">
+      <DependentUpon>masterreportfrmmasterreport.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Reports\MasterReport\1FrmMasterReport.xaml.cs" />
+    <Compile Include="Forms\Reports\MasterReport\ReportsDataFactory.cs" />
+    <Compile Include="Forms\Productions\FrmSpeedProductionCard.xaml.cs" />
+    <Compile Include="Forms\Other\FrmInputDateTime.xaml.cs">
+      <DependentUpon>otherfrminputdatetime.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Other\FrmSendDataForSupport.xaml.cs">
+      <DependentUpon>otherfrmsenddataforsupport.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Other\1FrmSendDataForSupport.xaml.cs" />
+    <Compile Include="Forms\Other\SbpPayForm.xaml.cs">
+      <DependentUpon>othersbppayform.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Other\1SbpPayForm.xaml.cs" />
+    <Compile Include="Forms\Other\FrmSendDigitalCheck.xaml.cs">
+      <DependentUpon>otherfrmsenddigitalcheck.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Other\1FrmSendDigitalCheck.xaml.cs" />
+    <Compile Include="Forms\Other\MessageBox.xaml.cs">
+      <DependentUpon>othermessagebox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Other\1MessageBox.xaml.cs" />
+    <Compile Include="Forms\MovingStorage\FrmMovingStorageList.xaml.cs">
+      <DependentUpon>movingstoragefrmmovingstoragelist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\MovingStorage\1FrmMovingStorageList.xaml.cs" />
+    <Compile Include="Forms\MovingStorage\FrmSendStorageCard.xaml.cs">
+      <DependentUpon>movingstoragefrmsendstoragecard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\MovingStorage\1FrmSendStorageCard.xaml.cs" />
+    <Compile Include="Forms\Main\OnStartJobs\ConfigsCorrector.cs" />
+    <Compile Include="Forms\Main\OnStartJobs\NikitaConfig.cs" />
+    <Compile Include="Forms\Main\OnStartJobs\_OnStartWorker.cs" />
+    <Compile Include="Forms\Main\FrmCloseProgram.xaml.cs">
+      <DependentUpon>mainfrmcloseprogram.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\1FrmCloseProgram.xaml.cs" />
+    <Compile Include="Forms\Main\FrmFirstMain.xaml.cs">
+      <DependentUpon>mainfrmfirstmain.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\1FrmFirstMain.xaml.cs" />
+    <Compile Include="Forms\Main\FrmSplashScreen.xaml.cs">
+      <DependentUpon>mainfrmsplashscreen.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\1FrmSplashScreen.xaml.cs" />
+    <Compile Include="Forms\Main\FirstSetupPage\PageInsertUser.xaml.cs">
+      <DependentUpon>firstsetuppagepageinsertuser.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\FirstSetupPage\1PageInsertUser.xaml.cs" />
+    <Compile Include="Forms\Main\FirstSetupPage\PageSelectMode.xaml.cs">
+      <DependentUpon>firstsetuppagepageselectmode.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\FirstSetupPage\1PageSelectMode.xaml.cs" />
+    <Compile Include="Forms\Main\FirstSetupPage\PageTitleFirstSetup.xaml.cs">
+      <DependentUpon>firstsetuppagepagetitlefirstsetup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\FirstSetupPage\1PageTitleFirstSetup.xaml.cs" />
+    <Compile Include="Forms\Inventory\Card\FrmInventoryCard_v2.xaml.cs">
+      <DependentUpon>cardfrminventorycard_v2.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Inventory\Card\InventoryCardViewModel_v2.cs" />
+    <Compile Include="Forms\Inventory\FrmInventoryJournal.xaml.cs">
+      <DependentUpon>inventoryfrminventoryjournal.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Inventory\1FrmInventoryJournal.xaml.cs" />
+    <Compile Include="Forms\Inventory\FrmInventorySave.xaml.cs">
+      <DependentUpon>inventoryfrminventorysave.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Inventory\1FrmInventorySave.xaml.cs" />
+    <Compile Include="Forms\HomeOffice\FrmSelectPoint.xaml.cs">
+      <DependentUpon>homeofficefrmselectpoint.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\HomeOffice\1FrmSelectPoint.xaml.cs" />
+    <Compile Include="Forms\Goods\FrmGoodRemoteCatalog.xaml.cs">
+      <DependentUpon>goodsfrmgoodremotecatalog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\1FrmGoodRemoteCatalog.xaml.cs" />
+    <Compile Include="Forms\Goods\FrmSearch\GoodsSearchModelView.Search.cs" />
+    <Compile Include="Forms\Goods\FrmGoodModificationCard.xaml.cs">
+      <DependentUpon>goodsfrmgoodmodificationcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\1FrmGoodModificationCard.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\PageGoodKit.xaml.cs">
+      <DependentUpon>pagespagegoodkit.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\Pages\1PageGoodKit.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\PageGoodSetContent.xaml.cs">
+      <DependentUpon>pagespagegoodsetcontent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\Pages\1PageGoodSetContent.xaml.cs" />
+    <Compile Include="Forms\Goods\FrmSearch\FrmSearchGoods.xaml.cs">
+      <DependentUpon>frmsearchfrmsearchgoods.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\FrmGoodCard.xaml.cs">
+      <DependentUpon>goodcardfrmgoodcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\1FrmGoodCard.xaml.cs" />
+    <Compile Include="Forms\Goods\FrmGoodsCatalog.xaml.cs">
+      <DependentUpon>goodsfrmgoodscatalog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\1FrmGoodsCatalog.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Images\FrmShowImageGood.xaml.cs">
+      <DependentUpon>imagesfrmshowimagegood.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\Pages\Images\1FrmShowImageGood.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\FrmGoodStockCard.xaml.cs">
+      <DependentUpon>goodcardfrmgoodstockcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\1FrmGoodStockCard.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Images\PageImageGood.xaml.cs">
+      <DependentUpon>imagespageimagegood.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\Pages\Images\1PageImageGood.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\PageJournalGood.xaml.cs">
+      <DependentUpon>pagespagejournalgood.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\Pages\1PageJournalGood.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\PageGoodModifications.xaml.cs">
+      <DependentUpon>pagespagegoodmodifications.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Goods\GoodCard\Pages\1PageGoodModifications.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Сertificate\PageСertificates.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Сertificate\1PageСertificates.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Сertificate\FrmCardCertificate.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Сertificate\1FrmCardCertificate.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Сertificate\PageСertificateBasic.xaml.cs" />
+    <Compile Include="Forms\Goods\GoodCard\Pages\Сertificate\1PageСertificateBasic.xaml.cs" />
+    <Compile Include="Forms\EntityGroupEdit\Good\FrmGoodsForGroupEdit.xaml.cs">
+      <DependentUpon>goodfrmgoodsforgroupedit.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\EntityGroupEdit\Good\1FrmGoodsForGroupEdit.xaml.cs" />
+    <Compile Include="Forms\EntityGroupEdit\Good\FrmActionForEditGood.xaml.cs">
+      <DependentUpon>goodfrmactionforeditgood.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\EntityGroupEdit\Good\1FrmActionForEditGood.xaml.cs" />
+    <Compile Include="Forms\EntityGroupEdit\GoodGroup\FrmGroupEditCategories.xaml.cs">
+      <DependentUpon>goodgroupfrmgroupeditcategories.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\EntityGroupEdit\GoodGroup\1FrmGroupEditCategories.xaml.cs" />
+    <Compile Include="Forms\Egais\Tap\FrmConnectBeerToTap.xaml.cs">
+      <DependentUpon>tapfrmconnectbeertotap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Egais\Tap\1FrmConnectBeerToTap.xaml.cs" />
+    <Compile Include="Forms\Egais\FrmEgaisTtnList.xaml.cs">
+      <DependentUpon>egaisfrmegaisttnlist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Egais\1FrmEgaisTtnList.xaml.cs" />
+    <Compile Include="Forms\Egais\Tap\FrmLogOpeningBeer.xaml.cs">
+      <DependentUpon>tapfrmlogopeningbeer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Egais\Tap\1FrmLogOpeningBeer.xaml.cs" />
+    <Compile Include="Forms\Egais\WriteOff\FrmEgaisWriteOff.xaml.cs">
+      <DependentUpon>writeofffrmegaiswriteoff.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Egais\WriteOff\1FrmEgaisWriteOff.xaml.cs" />
+    <Compile Include="Forms\Egais\WriteOff\FrmEgaisWriteOffList.xaml.cs">
+      <DependentUpon>writeofffrmegaiswriteofflist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Egais\WriteOff\1FrmEgaisWriteOffList.xaml.cs" />
+    <Compile Include="Forms\Egais\Tap\FrmManagementForTapBeer.xaml.cs">
+      <DependentUpon>tapfrmmanagementfortapbeer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Egais\Tap\1FrmManagementForTapBeer.xaml.cs" />
+    <Compile Include="Forms\Egais\Tap\FrmSelectTap.xaml.cs">
+      <DependentUpon>tapfrmselecttap.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Egais\Tap\1FrmSelectTap.xaml.cs" />
+    <Compile Include="Forms\Clients\CreditListViewModel.PrintCheck.cs" />
+    <Compile Include="Forms\Clients\FrmClientInfo.xaml.cs">
+      <DependentUpon>clientsfrmclientinfo.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Clients\1FrmClientInfo.xaml.cs" />
+    <Compile Include="Forms\Clients\FrmCreditClients.xaml.cs">
+      <DependentUpon>clientsfrmcreditclients.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Clients\FrmSearchClient.xaml.cs">
+      <DependentUpon>clientsfrmsearchclient.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Clients\1FrmSearchClient.xaml.cs" />
+    <Compile Include="Forms\Clients\FrmClientCard.xaml.cs">
+      <DependentUpon>clientsfrmclientcard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Clients\1FrmClientCard.xaml.cs" />
+    <Compile Include="Forms\Clients\FrmListClients.xaml.cs">
+      <DependentUpon>clientsfrmlistclients.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Clients\1FrmListClients.xaml.cs" />
+    <Compile Include="Forms\Clients\Groups\FrmClientGroup.xaml.cs">
+      <DependentUpon>groupsfrmclientgroup.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Clients\Groups\1FrmClientGroup.xaml.cs" />
+    <Compile Include="Forms\Clients\Groups\FrmClientGroupsCard.xaml.cs">
+      <DependentUpon>groupsfrmclientgroupscard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Clients\Groups\1FrmClientGroupsCard.xaml.cs" />
+    <Compile Include="Forms\ClientOrder\FrmClientOrderCard.xaml.cs">
+      <DependentUpon>clientorderfrmclientordercard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\ClientOrder\1FrmClientOrderCard.xaml.cs" />
+    <Compile Include="Forms\ClientOrder\FrmClientOrderList.xaml.cs">
+      <DependentUpon>clientorderfrmclientorderlist.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\ClientOrder\1FrmClientOrderList.xaml.cs" />
+    <Compile Include="Forms\Cafe\ActionOrder\FrmOrderCombine.xaml.cs">
+      <DependentUpon>actionorderfrmordercombine.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Cafe\ActionOrder\1FrmOrderCombine.xaml.cs" />
+    <Compile Include="Forms\Cafe\ActionOrder\FrmOrderSeparation.xaml.cs">
+      <DependentUpon>actionorderfrmorderseparation.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Cafe\ActionOrder\1FrmOrderSeparation.xaml.cs" />
+    <Compile Include="Forms\Cafe\MainForm\FrmCafeMain.xaml.cs">
+      <DependentUpon>mainformfrmcafemain.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Cafe\FrmCafePreSave.xaml.cs">
+      <DependentUpon>cafefrmcafepresave.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Cafe\1FrmCafePreSave.xaml.cs" />
+    <Compile Include="Forms\Cafe\FrmCafe_ActiveOrders.xaml.cs">
+      <DependentUpon>cafefrmcafe_activeorders.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Cafe\1FrmCafe_ActiveOrders.xaml.cs" />
+    <Compile Include="Forms\Cafe\FrmTableCafe.xaml.cs">
+      <DependentUpon>cafefrmtablecafe.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Cafe\1FrmTableCafe.xaml.cs" />
+    <Compile Include="Forms\Cafe\MainForm\FrmCafeViewModel.cs" />
+    <Compile Include="Core\ActionResult.cs" />
+    <Compile Include="Core\Data.cs" />
+    <Compile Include="Core\ViewModels\GoodsList\GoodsListItemCertificate.cs" />
+    <Compile Include="Core\ViewModels\GoodsList\IGoodsListItem.cs" />
+    <Compile Include="Core\ViewModels\Basket\BasketDiscounter.cs" />
+    <Compile Include="Core\ViewModels\Move.cs" />
+    <Compile Include="Core\ViewModels\Production.cs" />
+    <Compile Include="Core\ViewModels\Waybill\Waybill.cs" />
+    <Compile Include="Core\ViewModels\Waybill\WaybillItem.cs" />
+    <Compile Include="Core\ViewModels\Sale\Return.cs" />
+    <Compile Include="Core\ViewModels\Sale\Sale.cs" />
+    <Compile Include="Core\ViewModels\Lable\Lable.cs" />
+    <Compile Include="Core\ViewModels\Documents\DocumentItemViewModel.cs" />
+    <Compile Include="Core\ViewModels\Documents\DocumentViewModel.cs" />
+    <Compile Include="Core\ViewModels\Documents\IDocumentItemViewModel.cs" />
+    <Compile Include="Core\ViewModels\Documents\IDocumentViewModel.cs" />
+    <Compile Include="Core\ViewModels\Basket\SaleDiscount.cs" />
+    <Compile Include="Core\ViewModels\WriteOff\WriteOff.cs" />
+    <Compile Include="Core\ViewModels\WriteOff\WriteOffItem.cs" />
+    <Compile Include="Core\ViewModels\Inventory\InventoryFactory.cs" />
+    <Compile Include="Core\ViewModels\Inventory\InventoryItem.cs" />
+    <Compile Include="Core\ViewModels\Inventory\Inventory.cs" />
+    <Compile Include="Core\ViewModels\GoodGroupEdit\GroupEditing.cs" />
+    <Compile Include="Core\ViewModels\Cafe\CafeBasket.cs" />
+    <Compile Include="Core\ViewModels\Cafe\CafeHelper.cs" />
+    <Compile Include="Core\ViewModels\Basket\Basket.cs" />
+    <Compile Include="Core\ViewModels\Basket\BasketHelper.cs" />
+    <Compile Include="Core\ViewModels\Basket\ExtraPricer.cs" />
+    <Compile Include="Core\ViewModels\Basket\BasketItem.cs" />
+    <Compile Include="Core\DbConfigs\IDbConfig.cs" />
+    <Compile Include="Core\Entities\ActionsHistory\ActionHistory.cs" />
+    <Compile Include="Core\Entities\_Shared\ActionType.cs" />
+    <Compile Include="Core\Entities\ActionsHistory\ActionHistoryRepository.cs" />
+    <Compile Include="Core\Entities\Goods\ExtraPriceRulesRepository.cs" />
+    <Compile Include="Core\Entities\Goods\ExtraPriceRule.cs" />
+    <Compile Include="Core\Entities\JsonApiDocumentsRepository.cs" />
+    <Compile Include="Core\Entities\JsonApiDocuments.cs" />
+    <Compile Include="Core\Entities\LinkEntitiesRepository.cs" />
+    <Compile Include="Core\Entities\LinkEntities.cs" />
+    <Compile Include="Core\Entities\_Shared\TypeEntity.cs" />
+    <Compile Include="Core\Entities\SelectGoodsRepository.cs" />
+    <Compile Include="Core\Entities\SelectGood.cs" />
+    <Compile Include="Core\Entities\Db\VersionDb.cs" />
+    <Compile Include="Core\Entities\Users\UserHistoryRepository.cs" />
+    <Compile Include="Core\Entities\Users\UserHistory.cs" />
+    <Compile Include="Core\Entities\Users\UsersRepository.cs" />
+    <Compile Include="Core\Entities\_Shared\IEntityRepository.cs" />
+    <Compile Include="Core\Entities\PricingRulesRepository.cs" />
+    <Compile Include="Core\Entities\PricingRules.cs" />
+    <Compile Include="Core\Entities\Payments\Payment.cs" />
+    <Compile Include="Core\Entities\EntityProperties.cs" />
+    <Compile Include="Core\Entities\Payments\PaymentGroups.cs" />
+    <Compile Include="Core\Entities\Payments\PaymentMethods.cs" />
+    <Compile Include="Core\Entities\SalePoints.cs" />
+    <Compile Include="Core\Entities\Sections.cs" />
+    <Compile Include="Core\Entities\GlobalDictionaries.cs" />
+    <Compile Include="Core\Entities\Goods\GoodsSets.cs" />
+    <Compile Include="Core\Entities\Goods\GoodsStocks.cs" />
+    <Compile Include="Core\Entities\Goods\GoodsModifications.cs" />
+    <Compile Include="Core\Entities\Goods\GoodsCertificate.cs" />
+    <Compile Include="Core\Entities\Goods\GoodsExtraPrice.cs" />
+    <Compile Include="Core\Entities\Goods\GoodsUnits.cs" />
+    <Compile Include="Core\Entities\Goods\GoodGroups.cs" />
+    <Compile Include="Core\Entities\Payments\PaymentsAccount.cs" />
+    <Compile Include="Core\Entities\Storages.cs" />
+    <Compile Include="Core\Entities\Users\PermissionRules.cs" />
+    <Compile Include="Core\Entities\Users\UserGroups.cs" />
+    <Compile Include="Core\Entities\_Shared\Actions.cs" />
+    <Compile Include="Core\Entities\Users\Users.cs" />
+    <Compile Include="Core\Entities\_Shared\IEntity.cs" />
+    <Compile Include="Core\Entities\_Shared\IRepository.cs" />
+    <Compile Include="Core\Entities\_Shared\_shared.cs" />
+    <Compile Include="Core\Entities\_Shared\1_shared.cs" />
+    <Compile Include="Core\Entities\Clients\Groups\Group.cs" />
+    <Compile Include="Core\Entities\Clients\Clients\ClientAdnSum.cs" />
+    <Compile Include="Core\Entities\Clients\Clients\Client.cs" />
+    <Compile Include="Core\Entities\Clients\Clients\ClientsRepository.cs" />
+    <Compile Include="Core\Entities\Clients\Groups\GroupRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\SellerReportRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\SellerReportSetting.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Types.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Settings.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\1Settings.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\ClientBonusesRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\ClientBonuses.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForWeekdayRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\1DiscountForWeekday.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountSumSaleRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountSumSale.cs" />
+    <Compile Include="Core\Entities\Settings\Facade\Bonuses.cs" />
+    <Compile Include="Core\Entities\Settings\Facade\Discount.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\MarkGroupRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\MarkGroupSettings.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\PercentForServiceRuleRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\PercentForServiceSetting.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForBirthdayRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForBirthday.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForCountGoodRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForCountGood.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForDayOfMonthRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountForDayOfMonth.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountFromSumInCheckRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\DiscountFromSumInCheck.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\MaxDiscountsRuleRepository.cs" />
+    <Compile Include="Core\Entities\Settings\BackEnd\Discount\MaxDiscountRule.cs" />
+    <Compile Include="Core\Entities\Goods\GoodsFactory.cs" />
+    <Compile Include="Core\Entities\Goods\Repository\GoodGroupsRepository.cs" />
+    <Compile Include="Core\Entities\Goods\Repository\GoodRepository.Get.cs" />
+    <Compile Include="Core\Entities\Goods\Goods.cs" />
+    <Compile Include="Core\Entities\Emails\EmailRepository.cs" />
+    <Compile Include="Core\Entities\Emails\Email.cs" />
+    <Compile Include="Core\Entities\Emails\TypeReport.cs" />
+    <Compile Include="Core\Entities\Egais\EgaisWriteOffActRepository.cs" />
+    <Compile Include="Core\Entities\Egais\EgaisWriteOffAct.cs" />
+    <Compile Include="Core\Entities\Egais\EgaisWriteOffActStatus.cs" />
+    <Compile Include="Core\Entities\Egais\EgaisWriteOffActsItemRepository.cs" />
+    <Compile Include="Core\Entities\Egais\EgaisWriteOffActsItems.cs" />
+    <Compile Include="Core\Entities\Egais\InfoTapBeerRepository.cs" />
+    <Compile Include="Core\Entities\Egais\InfoToTapBeer.cs" />
+    <Compile Include="Core\Entities\Egais\TapBeerRepository.cs" />
+    <Compile Include="Core\Entities\Egais\TapBeer.cs" />
+    <Compile Include="Core\Entities\Documents\Repository\Cache.cs" />
+    <Compile Include="Core\Entities\Documents\Repository\DocumentsRepository.Get_withCache.cs" />
+    <Compile Include="Core\Entities\Documents\Repository\Prepare\Inventory\InventoryItemPreparer.cs" />
+    <Compile Include="Core\Entities\Documents\Repository\Prepare\Sale\StockOutDocumentPreparer.cs" />
+    <Compile Include="Core\Entities\Documents\Document.cs" />
+    <Compile Include="Core\Entities\Documents\Repository\Prepare\Inventory\InventoryPreparer.cs" />
+    <Compile Include="Core\Entities\Documents\Item.cs" />
+    <Compile Include="Core\Entities\Documents\Repository\Prepare\Return\StockOutDocumentPreparer.cs" />
+    <Compile Include="Core\Entities\Db\AuthRequireDb.cs" />
+    <Compile Include="Core\Entities\Db\LockDb.cs" />
+    <Compile Include="Core\Entities\Db\UidDb.cs" />
+    <Compile Include="Core\Devices\DeviceHelper.cs" />
+    <Compile Include="Core\Devices\IDevice.cs" />
+    <Compile Include="Core\Devices\DeviceException.cs" />
+    <Compile Include="Core\Devices\BarcodeScanners\ComPortScanner.cs" />
+    <Compile Include="Core\Devices\Tsd\ITsd.cs" />
+    <Compile Include="Core\Devices\Tsd\TsdHelper.cs" />
+    <Compile Include="Core\Devices\Tsd\Models\Atol6.cs" />
+    <Compile Include="Core\Devices\Tsd\Models\MobileSmarts\MobileSmarts.cs" />
+    <Compile Include="Core\Devices\Tsd\Models\MobileSmarts\MobileSmartsApi.cs" />
+    <Compile Include="Core\Devices\Scales\IScale.cs" />
+    <Compile Include="Core\Devices\Scales\ScalesFactory.cs" />
+    <Compile Include="Core\Devices\Scales\ScalesHelper.cs" />
+    <Compile Include="Core\Devices\Scales\Models\Bta.cs" />
+    <Compile Include="Core\Devices\Scales\Models\MassaKProtocol2.cs" />
+    <Compile Include="Core\Devices\Scales\Models\DatalogicComPort.cs" />
+    <Compile Include="Core\Devices\Scales\Models\POS2Mertech.cs" />
+    <Compile Include="Core\Devices\Scales\Models\Rongta.cs" />
+    <Compile Include="Core\Devices\Scales\Models\ScaleEmulation.cs" />
+    <Compile Include="Core\Devices\Scales\Models\CasComPort.cs" />
+    <Compile Include="Core\Devices\Scales\Models\IcsNt.cs" />
+    <Compile Include="Core\Devices\Scales\Models\MassaK.cs" />
+    <Compile Include="Core\Devices\Scales\Models\AtolShtrihM.cs" />
+    <Compile Include="Core\Devices\Scales\Models\Wintec.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\IScalesWIthLabels.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\ScalesWIthLabelsHelper.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\Cas.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\ScaleManager.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\Mertech.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\MettlerToledo\MettlerToledo.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\MettlerToledo\MettlerToledoDriver.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\RONGTA\Rongta.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\RONGTA\Rtsdrv.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\ShtrihM200.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\Models\ShtrihM.cs" />
+    <Compile Include="Core\Devices\Sbp\AtolPay\AtolPay.cs" />
+    <Compile Include="Core\Devices\Sbp\AtolPay\AtolPayDriver.cs" />
+    <Compile Include="Core\Devices\Sbp\ISbp.cs" />
+    <Compile Include="Core\Devices\Sbp\NewPay\NewPay.cs" />
+    <Compile Include="Core\Devices\Sbp\NewPay\NewPayDriver.cs" />
+    <Compile Include="Core\Devices\Sbp\PayMaster\PayMaster.cs" />
+    <Compile Include="Core\Devices\Sbp\PayMaster\PayMasterDriver.cs" />
+    <Compile Include="Core\Devices\Sbp\SbpDefault\SbpCommon.cs" />
+    <Compile Include="Core\Devices\Sbp\SbpDefault\SbpDefault.cs" />
+    <Compile Include="Core\Devices\Sbp\SbpDefault\SbpParams.cs" />
+    <Compile Include="Core\Devices\Sbp\SbpDefault\SbpQr.cs" />
+    <Compile Include="Core\Devices\Sbp\SbpDefault\SbpStatus.cs" />
+    <Compile Include="Core\Devices\Sbp\SpbHelper.cs" />
+    <Compile Include="Core\Devices\Sbp\SbpDefault\Token.cs" />
+    <Compile Include="Core\Devices\OtherDevices\DevicesConnectorDriver.cs" />
+    <Compile Include="Core\Devices\OtherDevices\AtolScaner.cs" />
+    <Compile Include="Core\Devices\OtherDevices\AtolServerDriver.cs" />
+    <Compile Include="Core\Devices\OtherDevices\KkmServerDriver.cs" />
+    <Compile Include="Core\Devices\OtherDevices\MercuryDriver.cs" />
+    <Compile Include="Core\Devices\DisplayQR\DisplayQrHelper.cs" />
+    <Compile Include="Core\Devices\DisplayQR\IDisplayQr.cs" />
+    <Compile Include="Core\Devices\DisplayQR\Models\Mertech.cs" />
+    <Compile Include="Core\Devices\DisplayNumbers\DisplayNumbersHelper.cs" />
+    <Compile Include="Core\Devices\DisplayNumbers\IDisplayNumbers.cs" />
+    <Compile Include="Core\Devices\DisplayNumbers\Models\EcsPos.cs" />
+    <Compile Include="Core\Devices\DisplayBuyers\DisplayBuyerHelper.cs" />
+    <Compile Include="Core\Devices\DisplayBuyers\IDisplayBuyers.cs" />
+    <Compile Include="Core\Devices\DisplayBuyers\Models\EscPos.cs" />
+    <Compile Include="Core\Devices\DisplayBuyers\Models\Atol8.cs" />
+    <Compile Include="Core\Devices\DisplayBuyers\Models\ShtrihM.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\ICheckPrinterDevice.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckPrinterHelper.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\Common.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\1Common.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\2Common.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\3Common.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\4Common.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\UsualPrinter.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\IOnlineKkm.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\KkmException.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\KkmHelper.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\RuOnlineKkmHelper.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\ReportTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\SessionStatuses.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\CheckStatuses.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\ActionsResults.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Actions.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\BarcodeTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\OfdAttributes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\CheckTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\CheckFiscalTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\KkmStatuses.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\IFiscalKkm.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\AtolDrivers\WebRequests\AtolWebRequest.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\AtolDrivers\WebRequests\AtolWebRequestsDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\DevicesConnector.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Neva.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\HiPOS\HiPos.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\HiPOS\HiPosDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\MobilKassa\MobilKassa.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\MobilKassa\MobilKassaDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\SmartOne\SmartOne.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\SmartOne\SmartOneDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\UzPos\UzPos.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\UzPos\UzPosDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\BarcodeType.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\SnoTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\DocumentTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\UnitTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\NdsTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\CalculationTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\GoodCalculationTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\DiscountTypes.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\VikiPrintDriver\VikiPrintRepository.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\VikiPrintDriver\VikiPrintWeb.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\AtolDrivers\Atol10.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\AtolDrivers\Atol8.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\AtolDrivers\AtolKkmServer.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Mercury.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\HelpMicro\HelpMicroDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\HelpMicro\HelpMicroJson.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\KkmServer.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\ShtrihM.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\VikiPrint.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\Commands.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\DataExchangeHelper.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\1Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\GbsUzOnlineKkm.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\2Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\3Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\4Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\5Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\6Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\7Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\8Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\IRequest.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\9Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\10Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\11Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\12Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\13Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\14Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\15Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\16Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Uzbekistan\GbsOnlineKkm\17Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\1Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\2Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\3Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\4Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\5Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\6Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\7Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\8Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\9Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\IRequest.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\10Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\11Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\12Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\13Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\14Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\15Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\16Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\17Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\18Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\19Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\20Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\21Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\22Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\23Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\CheckDocumentType.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\CheckDocumentSubType.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\ErrorCode.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\24Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\25Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\26Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\27Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\28Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\29Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\30Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\31Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\32Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\33Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\34Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\35Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\36Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\37Entities.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\LeoCas.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\Maria.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\MiniFP54.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\ExellioFP.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\DataExchangeHelper.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Ukraine\RRO\FsPRRO.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Kazakhstan\PortFPGKZ.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Kazakhstan\ReKassa\ReKassa.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Kazakhstan\ReKassa\ReKassaDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Kazakhstan\WebKassa\WebKassa.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Kazakhstan\WebKassa\WebKassaDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Azerbaijan\AzSmart\AzSmart.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Azerbaijan\AzSmart\AzSmartDriver.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\ResultProcessCommand.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\ItemType.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\PaymentType.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\AlignmentEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\WrapEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\ShiftStatusEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\DocumentTypeEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\TaxSystemTypeEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\TaxTypeEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\PaymentMethodEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\MarkingCodeTypeEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\MarkingCodeStatusEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\VikiPrint\PiritLib\AtolDrivers\WebRequests\CheckFnMarkedErrorEnum.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Armenia\Hdm.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\FiscalKkm\Models\Armenia\HdmDrivers.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckPrepare_v2\CheckFactory.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckPrepare_v2\CheckRounder.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckPrepare_v2\CheckVisualizer.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckData\PreparedCheckData.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckData\CheckData.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckData\CheckDiscount.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckData\CheckGood.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckData\CheckDataPreparer.cs" />
+    <Compile Include="Core\Devices\CheckPrinters\CheckData\MarkedInfo.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\AcquiringException.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\AcquiringHelper.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\IAcquiringTerminal.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\Arcus2.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\Inpas.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\OschadBank.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\PrivatBank.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\PrivatBankDriver\PrivatBankDriver.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\Sbrf.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SmartPos\SmartPOS.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SmartPos\SmartPosDriver.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\KkmServer.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\Sberbank.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SberbankDriver\Native\CloseShiftResponse.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SberbankDriver\Native\PaymentResponse.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SberbankDriver\TransactionType.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SberbankDriver\AuthAnswer.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SberbankDriver\AuthAnswer13.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SberbankDriver\PilotNtInterop.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\SberbankDriver\PilotNt.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\InpasDriver\InpasDriver.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\InpasDriver\Field.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\InpasDriver\InpasRequest.cs" />
+    <Compile Include="Core\Devices\AcquiringTerminals\Models\InpasDriver\InpasResponse.cs" />
+    <Compile Include="Core\Db\Tables\ACTIONS_HISTORY.cs" />
+    <Compile Include="Core\Db\Tables\Egais\EGAIS_WRITEOFFACTS.cs" />
+    <Compile Include="Core\Db\Tables\Egais\TAP_BEER.cs" />
+    <Compile Include="Core\Db\Tables\TEMP_TABLES.cs" />
+    <Compile Include="Core\Db\Tables\1TEMP_TABLES.cs" />
+    <Compile Include="Core\Db\DataBase.cs" />
+    <Compile Include="Core\Db\Tables\EMAIL.cs" />
+    <Compile Include="Core\Db\Tables\ENTITY_PROPERTIES_VALUES.cs" />
+    <Compile Include="Core\Db\Tables\ENTITY_PROPERTIES_TYPES.cs" />
+    <Compile Include="Core\Db\Tables\JSON_API_DOCUMENTS.cs" />
+    <Compile Include="Core\Db\Tables\LINK_ENTITIES.cs" />
+    <Compile Include="Core\Db\Tables\SALE_POINTS.cs" />
+    <Compile Include="Core\Db\Tables\SECTIONS.cs" />
+    <Compile Include="Core\Db\Tables\SETTINGS.cs" />
+    <Compile Include="Core\Db\Tables\SHIFTS.cs" />
+    <Compile Include="Core\Db\Tables\STORAGES.cs" />
+    <Compile Include="Core\Db\BoolToStringConverter.cs" />
+    <Compile Include="Core\Db\DataBaseConnection.cs" />
+    <Compile Include="Core\Db\DbTable.cs" />
+    <Compile Include="Core\Db\Tables\Users\USERS.cs" />
+    <Compile Include="Core\Db\Tables\Users\USERS_GROUPS.cs" />
+    <Compile Include="Core\Db\Tables\Payments\PAYMENTS.cs" />
+    <Compile Include="Core\Db\Tables\Payments\PAYMENTS_ACCOUNT.cs" />
+    <Compile Include="Core\Db\Tables\Payments\PAYMENTS_GROUP.cs" />
+    <Compile Include="Core\Db\Tables\Payments\PAYMENT_METHODS.cs" />
+    <Compile Include="Core\Db\Tables\Goods\CERTIFICATES.cs" />
+    <Compile Include="Core\Db\Tables\Goods\GOODS_SETS.cs" />
+    <Compile Include="Core\Db\Tables\Goods\GOODS_MODIFICATIONS.cs" />
+    <Compile Include="Core\Db\Tables\Goods\GOODS_STOCK.cs" />
+    <Compile Include="Core\Db\Tables\Goods\GOODS.cs" />
+    <Compile Include="Core\Db\Tables\Goods\GOODS_UNITS.cs" />
+    <Compile Include="Core\Db\Tables\Goods\GOODS_GROUPS.cs" />
+    <Compile Include="Core\Db\Tables\Documents\DOCUMENTS.cs" />
+    <Compile Include="Core\Db\Tables\Documents\DOCUMENT_ITEMS.cs" />
+    <Compile Include="Core\Db\Tables\Clients\CLIENTS_GROUPS.cs" />
+    <Compile Include="Core\Db\Tables\Clients\CLIENTS.cs" />
+    <Compile Include="Core\Db\Tables\Users\USER_HISTORY.cs" />
+    <Compile Include="Core\Db\Tables\Egais\EGAIS_WRITEOFFACTS_ITEMS.cs" />
+    <Compile Include="Core\Db\Tables\Egais\INFO_TO_TAP_BEER.cs" />
+    <Compile Include="Core\Config\ApplicationInfo.cs" />
+    <Compile Include="Core\Config\CryptoConfig.cs" />
+    <Compile Include="Core\Config\Devices\DisplayQr.cs" />
+    <Compile Include="Core\Config\Settings\DisplayQrTypes.cs" />
+    <Compile Include="Core\Config\Devices\ExtraPrinters.cs" />
+    <Compile Include="Core\Config\Devices\LablePrinter.cs" />
+    <Compile Include="Core\Config\Devices\PrinterSetting.cs" />
+    <Compile Include="Core\Config\Devices\ZplSetting.cs" />
+    <Compile Include="Core\Config\Devices\SecondMonitor.cs" />
+    <Compile Include="Core\Config\Devices\Tsd.cs" />
+    <Compile Include="Core\Config\Files\Cafe.cs" />
+    <Compile Include="Core\Config\ConfigsRepository.cs" />
+    <Compile Include="Core\Config\Settings\IConfigRepository.cs" />
+    <Compile Include="Core\Config\1ConfigsRepository.cs" />
+    <Compile Include="Core\Config\Devices\DisplayPayer.cs" />
+    <Compile Include="Core\Config\Devices\DisplayNumbersPayer.cs" />
+    <Compile Include="Core\Config\Settings\DisplayBuyerTypes.cs" />
+    <Compile Include="Core\Config\Settings\DisplayNumbersTypes.cs" />
+    <Compile Include="Core\Config\Devices\Scale.cs" />
+    <Compile Include="Core\Config\Devices\ScaleWithLable.cs" />
+    <Compile Include="Core\Config\Files\FilterOptions.cs" />
+    <Compile Include="Core\Config\Files\SearchGood.cs" />
+    <Compile Include="Core\Config\Files\SaleJournalGood.cs" />
+    <Compile Include="Core\Config\Files\ClientSearchOptions.cs" />
+    <Compile Include="Core\Config\Files\FavoritesGoodsSearchOptions.cs" />
+    <Compile Include="Core\Config\Files\GoodsCatalog.cs" />
+    <Compile Include="Core\Config\Files\GoodProp.cs" />
+    <Compile Include="Core\Config\Files\Integrations.cs" />
+    <Compile Include="Core\Config\Settings\MarkGroupEnum.cs" />
+    <Compile Include="Core\Config\Integrations\Crpt.cs" />
+    <Compile Include="Core\Config\Integrations\DaData.cs" />
+    <Compile Include="Core\Config\Integrations\EgaisSettings.cs" />
+    <Compile Include="Core\Config\Integrations\JsonApi.cs" />
+    <Compile Include="Core\Config\Integrations\PlanfixSetting.cs" />
+    <Compile Include="Core\Config\Integrations\SaleAnalitic.cs" />
+    <Compile Include="Core\Config\Integrations\HandbookGood.cs" />
+    <Compile Include="Core\Config\Integrations\TaskGood.cs" />
+    <Compile Include="Core\Config\Integrations\PaymentsAnalitic.cs" />
+    <Compile Include="Core\Config\Integrations\Polycard.cs" />
+    <Compile Include="Core\Config\Integrations\PolyCloud.cs" />
+    <Compile Include="Core\Config\Integrations\SBP.cs" />
+    <Compile Include="Core\Config\Integrations\Sms.cs" />
+    <Compile Include="Core\Config\Partner.cs" />
+    <Compile Include="Core\Config\Settings\BasicConfig.cs" />
+    <Compile Include="Core\Config\Settings\Discounts.cs" />
+    <Compile Include="Core\Config\Settings\ExchangeData.cs" />
+    <Compile Include="Core\Config\Settings\CatalogExchange.cs" />
+    <Compile Include="Core\Config\Settings\GoodsConfig.cs" />
+    <Compile Include="Core\Config\Settings\SalePriceType.cs" />
+    <Compile Include="Core\Config\Settings\System.cs" />
+    <Compile Include="Core\Config\Settings\WorkPlaceGeo.cs" />
+    <Compile Include="Core\Config\Settings\OtherConfig.cs" />
+    <Compile Include="Core\Config\Settings\Payments.cs" />
+    <Compile Include="Core\Config\Settings\Production.cs" />
+    <Compile Include="Core\Config\Settings\RemoteControl.cs" />
+    <Compile Include="Core\Config\Settings\Email.cs" />
+    <Compile Include="Core\Config\Settings\Telegram.cs" />
+    <Compile Include="Core\Config\Settings\Cloud.cs" />
+    <Compile Include="Core\Config\Settings\WebOffice.cs" />
+    <Compile Include="Core\Config\Settings\ClientInfo.cs" />
+    <Compile Include="Core\Config\Settings\Sales.cs" />
+    <Compile Include="Core\Config\Settings\RoundTotal.cs" />
+    <Compile Include="Core\Config\Files\Settings.cs" />
+    <Compile Include="Core\Config\Devices\AcquiringTerminal.cs" />
+    <Compile Include="Core\Config\Devices\BarcodeScanner.cs" />
+    <Compile Include="Core\Config\Files\DataBase.cs" />
+    <Compile Include="Core\Config\Files\Devices.cs" />
+    <Compile Include="Core\Config\Files\ItemDevice.cs" />
+    <Compile Include="Core\Config\Files\KeyboardDevice.cs" />
+    <Compile Include="Core\Config\Files\VirtualKeyboard.cs" />
+    <Compile Include="Core\Config\Files\DeviceConnection.cs" />
+    <Compile Include="Core\Config\Settings\HotKeys.cs" />
+    <Compile Include="Core\Config\Settings\Interface.cs" />
+    <Compile Include="Core\Config\Settings\ViewSaleJournal.cs" />
+    <Compile Include="Core\Config\Settings\WaybillConfig.cs" />
+    <Compile Include="Core\Config\Files\Testing.cs" />
+    <Compile Include="Core\Config\Settings\Users.cs" />
+    <Compile Include="Core\Config\Files\IConfig.cs" />
+    <Compile Include="Core\Config\Vendor.cs" />
+    <Compile Include="Core\Config\VendorConfig.cs" />
+    <Compile Include="Core\Config\Devices\CheckPrinter.cs" />
+    <Compile Include="Core\Config\Devices\FiscalKkm.cs" />
+    <Compile Include="Core\Config\Devices\Ports.cs" />
+    <Compile Include="Core\Config\Devices\1Ports.cs" />
+    <Compile Include="Core\Config\Files\WindowOptions.cs" />
+    <Compile Include="XamlGeneratedNamespace\GeneratedInternalTypeHelper.cs" />
+    <Compile Include="Helpers\API\GbsApi\v1\Entities\2IEntity.cs" />
+    <Compile Include="Core\Devices\1IDevice.cs" />
+    <Compile Include="Core\Devices\Tsd\1ITsd.cs" />
+    <Compile Include="Core\Devices\ScalesWIthLabels\1IScalesWIthLabels.cs" />
+    <Compile Include="Forms\ProductionsFrmSpeedProductionCard.xaml.cs">
+      <DependentUpon>productionsfrmspeedproductioncard.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="app.ico" />
+    <Resource Include="error" />
+    <Resource Include="info" />
+    <Resource Include="linqtodb.templates\copyme.firebird.tt.txt" />
+    <Resource Include="question" />
+    <Resource Include="resources\icons\black\folder.png" />
+    <Resource Include="resources\icons\black\new.png" />
+    <Resource Include="resources\icons\black\question.png" />
+    <Resource Include="resources\icons\black\warning.png" />
+    <Resource Include="resources\icons\white\folder.png" />
+    <Resource Include="resources\icons\white\new.png" />
+    <Resource Include="resources\icons\white\question.png" />
+    <Resource Include="resources\icons\white\warning.png" />
+    <Resource Include="resources\images\logo.jpg" />
+    <Resource Include="warning" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Gbs\Properties\Resources.resx" />
+    <EmbeddedResource Include="Gbs\Resources\Localizations\Translate.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="app.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_main\frmmainwindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmactionprintcheck.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmauthorization.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmfavoritesgoods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmgooddiscount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmgoodsquantity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frminsertpaymentmethods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmkeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmmarket5importinfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmsecondmonitor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmselectedstorage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmselectedtemplatefr.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmselectgoodstock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\frmselectmainjoin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\_shared\progressbar\frmprogressbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\actionspayments\frmremovecash.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\cafe\actionorder\frmordercombine.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\cafe\actionorder\frmorderseparation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\cafe\frmcafe_activeorders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\cafe\frmcafepresave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\cafe\frmtablecafe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\cafe\mainform\frmcafemain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clientorder\frmclientordercard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clientorder\frmclientorderlist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clients\frmclientcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clients\frmclientinfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clients\frmcreditclients.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clients\frmlistclients.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clients\frmsearchclient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clients\groups\frmclientgroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\clients\groups\frmclientgroupscard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\egais\frmegaisttnlist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\egais\tap\frmconnectbeertotap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\egais\tap\frmlogopeningbeer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\egais\tap\frmmanagementfortapbeer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\egais\tap\frmselecttap.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\egais\writeoff\frmegaiswriteoff.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\egais\writeoff\frmegaiswriteofflist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\entitygroupedit\good\frmactionforeditgood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\entitygroupedit\good\frmgoodsforgroupedit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\entitygroupedit\goodgroup\frmgroupeditcategories.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\excel\frmexcelclients.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\excel\frmexcelgoods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\excel\frmwaybilloutexcel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goodgroups\formgroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goodgroups\formselectgroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goodgroups\frmgoodgroupcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\frmgoodmodificationcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\frmgoodremotecatalog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\frmgoodscatalog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\frmsearch\frmsearchgoods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\frmgoodcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\frmgoodstockcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\_0025d0_0025a1ertificate\frmcardcertificate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\_0025d0_0025a1ertificate\page_0025d0_0025a1ertificatebasic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\_0025d0_0025a1ertificate\page_0025d0_0025a1ertificates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\images\frmshowimagegood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\images\pageimagegood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\pagegoodkit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\pagegoodmodifications.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\pagegoodsetcontent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\goods\goodcard\pages\pagejournalgood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\homeoffice\frmselectpoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\inventory\card\frminventorycard_v2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\inventory\frminventoryjournal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\inventory\frminventorysave.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\lable\frmlableprint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\license\frmlicenseinfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\license\frmlicensenotification.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\main\firstsetuppage\pageinsertuser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\main\firstsetuppage\pageselectmode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\main\firstsetuppage\pagetitlefirstsetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\main\frmcloseprogram.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\main\frmfirstmain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\main\frmsplashscreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\movingstorage\frmmovingstoragelist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\movingstorage\frmsendstoragecard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\other\frminputdatetime.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\other\frmsenddataforsupport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\other\frmsenddigitalcheck.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\other\messagebox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\other\sbppayform.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\productions\frmproductioncard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\productions\frmproductionlist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\productions\frmspeedproductioncard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\masterreport\frmmasterreport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\sellerreport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\summaryreport\frmsummaryreport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\summaryreport\other\frmlistpaymentsactions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\summaryreport\other\frmlistreturn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\summaryreport\other\frmlogrecalccash.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\summaryreport\other\frmpaymentaccountsum.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\summaryreport\other\frmpaymentbymethods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\reports\summaryreport\other\frmuserstatistic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\sale\frmcardsale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\sale\frmmagazinesale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\sale\frmmakingcredit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\sale\return\frmreturnsales.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\sendwaybills\frmlistsendwaybills.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\sendwaybills\frmmovelist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\sendwaybills\frmsendwaybillcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\actionshistory\frmactionshistorylist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\devices\frmconnectionsettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\devices\frmextraprintercard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\devices\frmpaymentmethodkkm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\devices\frmscalestest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\devices\frmstatuskkm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\devices\frmtaxkkmsettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\devices\frmtestscannerforffd12.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\clientbonuses\frmlistbonusesrule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\clientbonuses\frmrulebonusescard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountforcount\frmdiscountforcountcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountforcount\frmdiscountforcountgood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountforweekday\frmdiscountweekdaycard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountforweekday\frmdiscountweekdaylist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountfromsumincheck\frmdiscountsumcheckcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountfromsumincheck\frmdiscountsumincheck.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountsfordayofmonth\frmcarddiscountfordayofmouth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountsfordayofmonth\frmdiscountsfordayofmonth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountsumsale\frmdiscountsumsale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\discountsumsale\frmdiscountsumsalecard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\maxdiscount\frmcardmaxdiscountrule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\discounts\maxdiscount\frmmaxdiscountrulelist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\egais\tapbeer\frmbeertapcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\egais\tapbeer\frmlistbeertaps.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\email\frmemailsetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\extraprice\frmcardextraprice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\extraprice\frmextrapricerulecard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\extraprice\frmextrapricerulelist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\extraprice\frmlistextraprice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\frmhotkeysconfig.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\frmsettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\legal\frmmarkedtypelist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\organization\frmorganizationinfo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubforms\frmdevicescard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubforms\frmkkmcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pageacquiringterminal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pagebarcodescanner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pagecheckprinter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pageextraprinters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pagekeyboard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pagelableprinter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pagescale.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pagesecondmonitor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\devicessubpages\pagetsd.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pageactionsgood.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagebasic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagecafe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pageclients.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagedatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagedevices.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagediscountsetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pageexchangedata.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagegoods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pageintegrations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pageinterface.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagelegal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagelistdevices.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pageother.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pagepayments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\pageremotecontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pages\userspage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\payments\paymentmethods\frmcardmethodpayment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\payments\paymentmethods\frmpaymentmethods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\payments\paymentsaccount\frmcardpaymentaccount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\payments\paymentsaccount\frmlistpaymentaccount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\payments\paymentsgroups\frmlistpaymentgroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\payments\paymentsgroups\frmpaymentgroupcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\payments\paymentsgroups\frmselectedpaygroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\percentforservice\percentforservicecard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\percentforservice\percentforservicelist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\planfixsettings\frmanalinicsetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\planfixsettings\frmplanfixsetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\planfixsettings\frmtasksettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pricingrules\pricingrulecard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\pricingrules\pricingruleslist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\propertiesentities\frmcardpropertyentities.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\propertiesentities\frmpropertyentities.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\reports\sellerreport\frmsettingsellerreport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\sections\frmsectioncard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\sections\frmsectionslist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\storage\frmcardstorage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\storage\frmstoragslist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\units\frmcardunit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\settings\units\frmgoodunits.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\users\frmloginuser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\users\frmusercard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\users\frmuserlist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\users\usersgroup\frmcardusergroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\users\usersgroup\frmlistusergroups.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\waybills\frmwaybillcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\waybills\frmwaybillslist.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\writeoff\frmwriteoffcard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="forms\writeoff\frmwriteoffjournal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\autocompletecombobox\autocompletecombobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\categoryselectioncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\clientselectioncontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\confirmpanelcontrol1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\datefiltercontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\helppopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\hotkeytextbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\inputbytypecontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\multivaluecontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\multivalueintcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\multivaluetimecontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\numberbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\progressbarpanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\textboxfolderpathcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="helpers\usercontrols\textboxwithclearcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\allcontrols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\calendar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\combobox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\datagrid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\datapicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\grid.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\groupbox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\iconsdictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\menu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\messagebox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\scrollbar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\tabcontrol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\textblock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\treeview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\controls\window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\icons\iconcontrolsdictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\icons\keyboardicondictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\icons\msgboxiconsdictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\themes\dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="resources\styles\themes\default.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

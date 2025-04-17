@@ -1,0 +1,71 @@
+<Page x:Class="Gbs.Forms.Settings.Pages.PageDevices"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:devicesSubPages="clr-namespace:Gbs.Forms.Settings.Pages.DevicesSubPages"
+      xmlns:pages="clr-namespace:Gbs.Forms.Settings.Pages"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      Title="DevicesPage" Margin="0">
+  <FrameworkElement.DataContext>
+    <pages:DevicesViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <TabControl Grid.Row="1" MinWidth="395">
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_СканерШтрихКодов}">
+        <Frame Content="{Binding Path=PageBarcodeScanner}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_ПечатьЧеков}">
+        <Frame Content="{Binding Path=PageCheckPrinter}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_ПечатьЭтикеток}">
+        <Frame Content="{Binding Path=PageLablePrinter}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_Эквайринг}">
+        <Frame Content="{Binding Path=PageAcquiringTerminal}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_Весы}">
+        <Frame Content="{Binding Path=PageScale}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_Весы}" Visibility="Collapsed">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+          </Grid.RowDefinitions>
+          <Expander Grid.Row="0" Header="{x:Static localizations:Translate.PageDevices_Весы}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+              </Grid.RowDefinitions>
+              <Label Grid.Row="0" Content="{x:Static localizations:Translate.PageCheckPrinter_Тип}"/>
+              <ComboBox Grid.Row="0" Margin="120,0,0,0" Height="20" Width="150" HorizontalAlignment="Left"/>
+            </Grid>
+          </Expander>
+          <Expander Grid.Row="1" Header="{x:Static localizations:Translate.PageDevices_ВесыСПечатьюЭтикеток}"/>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_ДисплейПокупателя}" Visibility="Visible">
+        <Frame Content="{Binding Path=PageSecondMonitor}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.ТСД}" Visibility="{Binding TsdVisibility}">
+        <Frame Content="{Binding Path=PageTsd}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageDevices_МагнитныеКарты}" Visibility="Collapsed">
+        <Grid/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.Клавиатура}">
+        <Frame Content="{Binding Path=PageKeyboard}"/>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.ДопПринтеры}" Visibility="Visible">
+        <Frame Content="{Binding Path=PageExtraPrinters}"/>
+      </TabItem>
+    </TabControl>
+  </Grid>
+</Page>

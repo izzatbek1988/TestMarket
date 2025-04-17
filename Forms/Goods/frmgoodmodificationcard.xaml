@@ -1,0 +1,41 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Goods.FrmGoodModificationCard"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Goods"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Title="{x:Static localizations:Translate.FrmGoodModificationCard_КарточкаМодификации}"
+                        SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{StaticResource sWindow}"
+                        FocusManager.FocusedElement="{Binding ElementName=TextBoxName}" WindowStartupLocation="CenterOwner">
+  <FrameworkElement.DataContext>
+    <local:GoodModificationViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <Label Content="{x:Static localizations:Translate.FrmGoodModificationCard_Название}"
+             HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Height="25" Width="100"/>
+      <TextBox Name="TextBoxName" HorizontalAlignment="Left" Height="25" Margin="5" TextWrapping="Wrap"
+               VerticalAlignment="Top" Width="280" Text="{Binding Path=Modification.Name}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <Label Content="{x:Static localizations:Translate.FrmGoodModificationCard_ШтрихКод}"
+             HorizontalAlignment="Left" VerticalContentAlignment="Center" Margin="5 0 5 0"
+             VerticalAlignment="Top" Height="25" Width="100"/>
+      <TextBox Grid.Row="0" HorizontalAlignment="Left" Height="25" Margin="5 0 5 0" TextWrapping="Wrap"
+               VerticalAlignment="Center" Width="155" Text="{Binding Path=Modification.Barcode}"/>
+      <Button Content="{x:Static localizations:Translate.FrmGoodCard_Генерировать}"
+              Style="{StaticResource btnLink}" HorizontalAlignment="Left" VerticalAlignment="Center"
+              Margin="5 0 5 0" Cursor="Hand" Width="115" Height="25" Command="{Binding GeneratedBarcode}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <Label Content="{x:Static localizations:Translate.FrmGoodModificationCard_Описание}"
+             HorizontalAlignment="Left" Margin="5 " VerticalAlignment="Top" Height="25" Width="100"/>
+      <TextBox Grid.Row="0" HorizontalAlignment="Left" Height="103" Margin="5" TextWrapping="Wrap"
+               VerticalAlignment="Top" Width="280" AcceptsReturn="true" Text="{Binding Path=Modification.Comment}"/>
+    </StackPanel>
+    <userControls:ConfirmPanelControl1 Grid.Row="1" OkButtonCommand="{Binding SaveCommand}" CancelButtonCommand="{Binding CloseCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

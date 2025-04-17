@@ -1,0 +1,59 @@
+<Page x:Class="Gbs.Forms.Goods.GoodCard.PageGoodModifications"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      xmlns:goodCard="clr-namespace:Gbs.Forms.Goods.GoodCard"
+      Title="PageModifications" Height="Auto" Width="580" ShowsNavigationUI="false">
+  <FrameworkElement.DataContext>
+    <goodCard:GoodModificationPageViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="0,0,0,0" HorizontalAlignment="Left" Width="575" VerticalAlignment="Stretch">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid Name="GridModification" Margin="5, 0" Grid.Row="0" Grid.Column="0" Height="Auto"
+              ItemsSource="{Binding Path=Modifications}" SelectedValue="{Binding Path=SelectedModification}">
+      <UIElement.InputBindings>
+        <KeyBinding Key="Enter" Modifiers="Control" Command="{Binding EditCommand}"
+                    CommandParameter="{Binding ElementName=GridModification, Path=SelectedItems}"/>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"
+                      CommandParameter="{Binding ElementName=GridModification, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Width="1*" Header="{x:Static localizations:Translate.FrmAuthorization_ШтрихКод}"
+                            Binding="{Binding Path=Barcode}"/>
+        <DataGridTextColumn Width="1*" Header="{x:Static localizations:Translate.FrmGoodModificationCard_Название}"
+                            ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding Path=Name}"/>
+        <DataGridTextColumn Width="3*" Header="{x:Static localizations:Translate.FrmGoodModificationCard_Описание}"
+                            Binding="{Binding Path=Comment}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="0" Grid.Column="1">
+      <Button Style="{DynamicResource btnAction}" HorizontalAlignment="Left" Width="50" Height="50"
+              VerticalAlignment="Bottom" Command="{Binding Path=AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" HorizontalAlignment="Left" Width="50" Height="50"
+              VerticalAlignment="Bottom" Command="{Binding Path=EditCommand}"
+              CommandParameter="{Binding ElementName=GridModification, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" HorizontalAlignment="Left" Width="50" Height="50"
+              VerticalAlignment="Bottom" Command="{Binding Path=DeleteCommand}"
+              CommandParameter="{Binding ElementName=GridModification, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+    <ToolBarPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+      <Label Content="{x:Static localizations:Translate.PageGoodModifications_Модификаций}"/>
+      <Label Content="{Binding Path=Modifications.Count}"/>
+    </ToolBarPanel>
+  </Grid>
+</Page>

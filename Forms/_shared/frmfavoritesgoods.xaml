@@ -1,0 +1,95 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmFavoritesGoods"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms._shared"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        Loaded="FrmFavoritesGoods_OnLoaded" Closed="FrmFavoritesGoods_OnClosed"
+                        Closing="FrmSelectGoods_OnClosing" Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.ИзбранныеТовары}" Height="480" Width="225" MinHeight="300"
+                        MinWidth="450">
+  <FrameworkElement.DataContext>
+    <local:SelectGoodsViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="4">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,0,0" Grid.ColumnSpan="2">
+      <userControls:TextBoxWithClearControl Width="375" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" TextFontSize="22"
+                                            Height="40"
+                                            TextString="{Binding Path=SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            ConfigCommand="{Binding SetVisibilityPanelSearch}"/>
+      <StackPanel Orientation="Horizontal" Visibility="{Binding VisibilityPanelSearch}">
+        <Label Content="{x:Static localizations:Translate.FrmSearchClient_ИскатьВ}" HorizontalAlignment="Left"
+               VerticalAlignment="Center" FontSize="16" Height="30" Width="80"/>
+        <Button Name="FindButton" Height="25" Style="{DynamicResource btnLink}" VerticalAlignment="Center"
+                FontSize="16" Width="166" Cursor="Hand" Content="{Binding TextPropButton}">
+          <FrameworkElement.Resources>
+            <ContextMenu x:Key="ContextMenuGrid"/>
+          </FrameworkElement.Resources>
+        </Button>
+      </StackPanel>
+    </StackPanel>
+    <DataGrid Name="dgEmployee" Grid.Row="1" Grid.Column="0" SelectionMode="Extended" ColumnWidth="*"
+              AllowDrop="true" ItemsSource="{Binding SelectGoodsList}">
+      <FrameworkElement.Resources>
+        <ContextMenu x:Key="ContextMenuGrid"/>
+        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+          <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ContextMenuGrid}"/>
+        </Style>
+      </FrameworkElement.Resources>
+      <UIElement.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding AddBasketCommand}"
+                    CommandParameter="{Binding ElementName=dgEmployee, Path=SelectedItems}"/>
+        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding AddBasketCommand}"
+                      CommandParameter="{Binding ElementName=dgEmployee, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserCard_Псевдоним}"
+                            uiElement:Extensions.Guid="15FE0447-4687-4B14-A54E-3A585F05CB22"
+                            ElementStyle="{DynamicResource WrappedCell}"
+                            Binding="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.HandbookGoodSettingViewModel_Название_товара}"
+                            uiElement:Extensions.Guid="A95045FD-4A9F-43DB-B515-6B890B863F29" Visibility="Collapsed"
+                            ElementStyle="{DynamicResource WrappedCell}"
+                            Binding="{Binding Good.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Категория}"
+                            uiElement:Extensions.Guid="7ED528DD-67BC-4373-838D-3CAB3F5B22C9" Visibility="Collapsed"
+                            ElementStyle="{DynamicResource WrappedCell}"
+                            Binding="{Binding Good.Group.Name, UpdateSourceTrigger=PropertyChanged}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+      <Button HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource btnAction}"
+              Command="{Binding AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button HorizontalAlignment="Left" Style="{DynamicResource btnAction}" Command="{Binding EditCommand}"
+              CommandParameter="{Binding ElementName=dgEmployee, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button HorizontalAlignment="Left" VerticalAlignment="Top" Style="{DynamicResource btnAction}"
+              Command="{Binding DeleteCommand}"
+              CommandParameter="{Binding ElementName=dgEmployee, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+    <ToolBarPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Товаров}" Margin="0,-2,0,0"
+             VerticalContentAlignment="Center" VerticalAlignment="Center" Height="31"/>
+      <Label Margin="0,-2,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="31"
+             Content="{Binding SelectGoodsList.Count}"/>
+    </ToolBarPanel>
+  </Grid>
+</helpers:WindowWithSize>

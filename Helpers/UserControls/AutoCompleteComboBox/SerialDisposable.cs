@@ -1,0 +1,29 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: DotNetKit.Misc.Disposables.SerialDisposable
+// Assembly: Market, Version=6.6.12.2634, Culture=neutral, PublicKeyToken=null
+// MVID: 1F63B1D6-03C1-4223-9A1B-4EA2EB09E32F
+// Assembly location: C:\Program Files (x86)\F-Lab\Market 6\Market.exe
+
+using System;
+
+#nullable disable
+namespace DotNetKit.Misc.Disposables
+{
+  internal sealed class SerialDisposable : IDisposable
+  {
+    private IDisposable content;
+
+    public IDisposable Content
+    {
+      get => this.content;
+      set
+      {
+        if (this.content != null)
+          this.content.Dispose();
+        this.content = value;
+      }
+    }
+
+    public void Dispose() => this.Content = (IDisposable) null;
+  }
+}

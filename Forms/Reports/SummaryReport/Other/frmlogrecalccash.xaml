@@ -1,0 +1,80 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Reports.SummaryReport.Other.FrmLogReCalcCash"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Reports.SummaryReport.Other"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        MinHeight="400" MinWidth="600" Style="{DynamicResource sWindow}" Height="400" Width="700"
+                        Title="{Binding TitleForm}">
+  <FrameworkElement.DataContext>
+    <local:LogReCalcCashViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="30"/>
+    </Grid.RowDefinitions>
+    <Menu Grid.Row="0">
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Файл}">
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodsCatalog_СохранитьКак}"
+                  Command="{Binding ExportFile}" CommandParameter="{Binding ElementName=LogDataGrid}"/>
+      </MenuItem>
+    </Menu>
+    <Expander Margin="5" Header="{x:Static localizations:Translate.FrmListClients_Фильтр}" Grid.Row="1">
+      <StackPanel Orientation="Horizontal">
+        <userControls:DateFilterControl Margin="0,0,0,0" HorizontalAlignment="Left" Width="344" VerticalAlignment="Center"
+                                        ValueDateTimeStart="{Binding ValueDateTimeStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ValueDateTimeEnd="{Binding ValueDateTimeEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0 0 0 0">
+          <ComboBox DisplayMemberPath="Name" SelectedValuePath="Uid" SelectedIndex="0" Width="150" Margin="5,5,0,5"
+                    Height="24" VerticalAlignment="Top" ItemsSource="{Binding PaymentsAccounts}"
+                    SelectedValue="{Binding SelectedPaymentsAccountUid, UpdateSourceTrigger=PropertyChanged}"/>
+          <ComboBox DisplayMemberPath="Alias" SelectedValuePath="Uid" SelectedIndex="0" Width="150" Margin="5,0,0,5"
+                    Height="24" VerticalAlignment="Top" ItemsSource="{Binding Users}"
+                    SelectedValue="{Binding SelectedUserUid}"/>
+        </StackPanel>
+        <ComboBox Visibility="Visible" VerticalAlignment="Top" DisplayMemberPath="Value" SelectedValuePath="Key"
+                  SelectedIndex="0" Width="150" Margin="5 5 0 5" ItemsSource="{Binding DictionaryDifferenceType}"
+                  SelectedValue="{Binding SelectedDifferenceType}"/>
+      </StackPanel>
+    </Expander>
+    <DataGrid Name="LogDataGrid" Grid.Row="2" Margin="5,5,5,0" ItemsSource="{Binding Items}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.PageJournalGood_ДатаВремя}" Width="100"
+                            uiElement:Extensions.Guid="54499E7C-23D3-411B-8CEC-F9BC97B56088"
+                            Binding="{Binding Path=DateTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.ДолжноБыть}" Width="100"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            uiElement:Extensions.Guid="75067698-6672-4678-ACC6-AEE5AE31F00B"
+                            Binding="{Binding OldSum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.Было}" Width="100"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            uiElement:Extensions.Guid="CF2FD48A-B511-4346-A505-3D0D1DC61A52"
+                            Binding="{Binding NewSum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.Разница}" Width="100"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            uiElement:Extensions.Guid="4C176D69-1DB0-4BAA-BB2D-83B20519DB8F"
+                            Binding="{Binding Difference, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="100"
+                            uiElement:Extensions.Guid="139E7C03-A99D-48DD-8023-A36CAABAAAB1" Binding="{Binding User.Alias}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="100"
+                            uiElement:Extensions.Guid="29392944-28E7-423B-820E-128D57D15533" Binding="{Binding Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListPaymentsActions_Счет}" Width="100"
+                            uiElement:Extensions.Guid="48747A8E-A55F-408A-8DAF-A29A8740E5A1" Binding="{Binding Account.Name}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <ToolBarPanel Grid.Row="3" Margin="5 0 0 0" Orientation="Horizontal">
+      <Label Content="{x:Static localizations:Translate.FrmActionsHistoryList_Записей}"/>
+      <Label Content="{Binding Items.Count}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.СуммаРасхождения}"/>
+      <Label Content="{Binding TotalDifference}"/>
+    </ToolBarPanel>
+  </Grid>
+</helpers:WindowWithSize>

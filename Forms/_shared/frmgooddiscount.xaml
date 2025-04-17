@@ -1,0 +1,57 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmGoodDiscount"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms._shared"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:properties="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+                        Title="{x:Static properties:Translate.FrmGoodDiscount_Скидка}" Style="{StaticResource sWindow}">
+  <FrameworkElement.DataContext>
+    <local:EditGoodDiscountViewModel/>
+  </FrameworkElement.DataContext>
+  <UIElement.InputBindings>
+    <KeyBinding Key="Enter" Command="{Binding SaveFormCommand}"/>
+  </UIElement.InputBindings>
+  <StackPanel>
+    <TextBlock Margin="5" TextWrapping="Wrap" FontSize="34" Width="480" LineStackingStrategy="BlockLineHeight"
+               LineHeight="35" MaxHeight="200" Text="{Binding Path=Name}"/>
+    <StackPanel Orientation="Horizontal" Margin="5 0">
+      <Label Content="{x:Static properties:Translate.FrmGoodDiscount_ПроцентСкидки}" HorizontalAlignment="Left"
+             VerticalContentAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="40" Width="180"/>
+      <xctk:DecimalUpDown xaml:FocusExtension.IsFocused="true" ShowButtonSpinner="false" VerticalContentAlignment="Center"
+                          HorizontalAlignment="Left" Height="35" Margin="160,0,0,0" FormatString="N2"
+                          VerticalAlignment="Center" Width="135" FontSize="24" Value="{Binding Discount}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="5 0">
+      <Label Content="{x:Static properties:Translate.FrmGoodDiscount_СуммаСкидки}" HorizontalAlignment="Left"
+             VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Width="180" Height="40"
+             Visibility="{Binding VisibilityAllRow}"/>
+      <xctk:DecimalUpDown HorizontalAlignment="Right" Margin="115 0 0 0" ShowButtonSpinner="false" VerticalAlignment="Center"
+                          VerticalContentAlignment="Center" FormatString="N2" Width="180" FontSize="24" Height="35"
+                          Value="{Binding SumDiscount}" Visibility="{Binding VisibilityAllRow}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="5 0">
+      <Label Content="{x:Static properties:Translate.FrmGoodDiscount_ЦенаСоСкидкой}" HorizontalAlignment="Left"
+             VerticalAlignment="Center" VerticalContentAlignment="Center" FontSize="20" Width="180" Height="40"
+             Visibility="{Binding VisibilityAllRow}"/>
+      <xctk:DecimalUpDown HorizontalAlignment="Left" Height="35" FormatString="N2" Margin="115 0 0 0" Text="TextBox"
+                          ShowButtonSpinner="false" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="180"
+                          FontSize="24" IsEnabled="{Binding IsEnable}" Value="{Binding PriceDiscount}"
+                          Visibility="{Binding VisibilityAllRow}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="5 0">
+      <Label Content="{x:Static properties:Translate.FrmGoodDiscount_СуммаСоСкидкой}" HorizontalAlignment="Left"
+             FontSize="20" Width="180" Height="40" Visibility="{Binding VisibilityAllRow}"/>
+      <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="115 0 0 0" ShowButtonSpinner="false" Height="35"
+                          FormatString="N2" Width="180" FontSize="24"
+                          Value="{Binding Sum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Visibility="{Binding VisibilityAllRow}"/>
+    </StackPanel>
+    <userControls:ConfirmPanelControl1 Margin="0" OkButtonCommand="{Binding SaveFormCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

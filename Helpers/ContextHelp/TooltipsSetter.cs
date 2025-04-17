@@ -1,0 +1,407 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Gbs.Helpers.Tooltips.TooltipsSetter
+// Assembly: Market, Version=6.6.12.2634, Culture=neutral, PublicKeyToken=null
+// MVID: 1F63B1D6-03C1-4223-9A1B-4EA2EB09E32F
+// Assembly location: C:\Program Files (x86)\F-Lab\Market 6\Market.exe
+
+using Gbs.Core.Config;
+using Gbs.Forms;
+using Gbs.Forms._shared;
+using Gbs.Forms.Cafe;
+using Gbs.Forms.Clients;
+using Gbs.Forms.Goods;
+using Gbs.Forms.Reports.SummaryReport;
+using Gbs.Forms.Sale.Return;
+using Gbs.Forms.Settings;
+using Gbs.Forms.Users;
+using Gbs.Resources.Localizations;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+
+#nullable disable
+namespace Gbs.Helpers.Tooltips
+{
+  public static class TooltipsSetter
+  {
+    public static void Set(FrmMagazineSale frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.MenuItemFile.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Файл, Translate.TooltipsSetter_Set_В_этом_разделе_находятся_пункты_для_управления_журналом_продаж__Нажмите__чтобы_увидеть_список_доступных_действий, PlacementMode.Bottom));
+      frm.MenuItemFile_saveAs.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сохранить_как___, Translate.TooltipsSetter_Set_Нажмите__чтобы_сохранить_отфильтрованный_список_продаж_в_файл__Например__можно_сохранить_в_формат_Excel_или_CSV, PlacementMode.Left));
+      frm.MenuItemFile_print.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печатать, Translate.TooltipsSetter_Set_Нажмите__чтобы_напечатать_отфильтрованный_список_продаж__Также_из_формы_предпросмотра_печати_возможно_сохранение_в_документы_формата_Word__PFD_и_другие, PlacementMode.Left));
+      frm.DateFilterControl.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выбор_периода, Translate.TooltipsSetter_Set_Выберите_период__за_который_вы_хотите_отфильтровать_продажи__Вы_можете_указать_начало_и_конец_периода_вручную_либо_нажать_кнопку_подходящего_периода, PlacementMode.Bottom));
+      frm.SearchField.SearchTextBox.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Поисковая_строка, Translate.TooltipsSetter_Set_Введите_в_это_поле_запрос__по_которому_вы_хотите_найти_продажу__Набор_полей__по_которым_происходит_поиск__зависит_от_настроек_фильтрации__это_может_быть__название_товара__основной_или_дополнительные_штрихкоды__номер_или_сумма_продажи_, PlacementMode.Bottom));
+      frm.SearchField.ConfigBtn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Параметры_фильтрации, Translate.TooltipsSetter_Set_Нажмите__чтобы_показать_или_скрыть_дополнительные_параметры_фильтрации, PlacementMode.Bottom));
+      frm.CategorySelectionControl.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Категории_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_категории__группы__товаров__по_которым_вы_хотите_отфильтровать_продажи__После_выбора_категорий_будут_отображены_те_продажи__которые_содержат_товары_из_выбранных_категорий, PlacementMode.Bottom));
+      frm.ClientSelectionControl.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выбор_контакта, Translate.TooltipsSetter_Set_Выберите_контакт__покупателя___чтобы_отфильтровать_продажи__В_списке_будут_отображены_те_продажи__к_которым_был_привязан_выбранный_контакт__покупатель_, PlacementMode.Bottom));
+      frm.PanelSearchIn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Искать_в___, Translate.TooltipsSetter_Set_Выберите_поля__по_которым_будет_происходить_фильтрация_по_запросу__введенному_в_поисковую_строку_выше__Например__вы_можете_выключить_поиск_по_названию_товара__но_оставить_поиск_по_штрихкоду_, PlacementMode.Bottom));
+      frm.FindButton.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Способы_оплаты, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_один_или_несколько_способов_оплаты__по_которым_хотите_отфильтровать_продажи__Например__наличными__картой__безналично_и_т_п__В_списке_будут_отображены_те_продажи__которые_оплачены_одним_из_выбранных_способов, PlacementMode.Bottom));
+      frm.ComboBoxSections.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Секция, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_секцию__по_которой_будут_отфильтрованы_продажи__В_списке_будут_отображены_те_продажи__которые_были_оформлены_в_выбранной_секции, PlacementMode.Bottom));
+      frm.ComboBoxFiscalTypesFilter.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Тип_оплаты, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_тип_оплаты__фискально_или_нефискально__В_списке_будут_отображены_те_продажи__которые_имеют_соответствующий_тип_оплаты, PlacementMode.Bottom));
+      frm.ComboBoxPaymentStatusesFilter.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Статусы_оплаты, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_статус_оплаты__оплачена_полностью__не_оплачена__оплачена_частично_и_т_п__В_списке_будут_отображены_те_продажи__которые_попадают_под_выбранный_статус, PlacementMode.Bottom));
+      frm.ComboBoxUsersFilter.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сотрудники_пользователи, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_сотрудника__по_которому_будут_отфильтрованы_продажи__В_списке_будут_отображены_те_продажи__которые_выполнены_выбранным_сотрудником, PlacementMode.Bottom));
+      frm.StorageButton.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Склад, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_один_или_несколько_складов__по_которым_будут_отфильтрованы_продажи__В_списке_будут_отображены_продажи__которые_привязаны_к_выбранным_складам, PlacementMode.Bottom));
+      frm.ButtonSaleCard.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Карточка_продажи, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_карточку_для_выбранной_продажи__В_карточке_доступна_подробная_информация_о_выбранной_продаже__список_товаров__платежей__возвратов__суммы_товаров__оплаты__скидки__покупатель__сотрудник_и_другая_информация_, PlacementMode.Right));
+      frm.ButtonReturn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Возврат_продажи, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_оформлению_возврата_для_выбранной_продажи__Вы_сможете_выбрать_для_возврата_товары__которые_были_оформлены_в_рамках_данной_продажи, PlacementMode.Right));
+      frm.ButtonDelete.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Удалить_продажу, Translate.TooltipsSetter_Set_НажмитеЧтобыУдалитьВыбраннуюПродажу, PlacementMode.Right));
+      frm.ButtonPrint.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Напечатать___, Translate.TooltipsSetter_Set_Нажмите__чтобы_раскрыть_меню_в_котором_вы_сможете_выбрать_что_печатать__документ_или_кассовый_чек__если_подключена_касса___Для_документов_возможен_выбор_шаблонов__счет__накладная__товарыный_чек_и_т_п__, PlacementMode.Right));
+      frm.ButtonMore.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Дополнительные_действия, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_меню_с_дополнительными_действиями_для_выбранной_продажи, PlacementMode.Right));
+    }
+
+    public static void Set(MainWindow frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.MainMenuItem_file.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Файл, Translate.TooltipsSetter_Set_В_этом_разделе_находятся_пункты_управления_программой__Нажмите__чтобы_увидеть_список_доступных_действий));
+      frm.ItemSettings.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Настройки_программы, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_настройкам_программы, PlacementMode.Left));
+      frm.ItemUsers.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Пользователи_сотрудники, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_списку_сотрудников_для_входа_или_выхода_из_программы, PlacementMode.Left));
+      frm.ItemExit.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Закрыть_программу, Translate.TooltipsSetter_Set_Нажмите__чтобы_выйти_из_программы_и_завершить_ее_работу, PlacementMode.Left));
+      frm.MenuItem_reports.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отчеты, Translate.TooltipsSetter_Set_В_этом_разделе_находятся_пункты_для_просмотра_отчетов__Нажмите__чтобы_увидеть_список_доступных_действий));
+      frm.MenuItem_reports_summary.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сводный_отчет, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_сводному_отчету__в_котором_отображается_информация_о_продажах__возвратах__выручке_и_других_показателях_работы_торговой_точки, PlacementMode.Left));
+      frm.MenuItem_reports_saller.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отчет_продавца, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_отчету_для_продавца__в_котором_отображается_краткая_информация_о_продажах__возрвратах_и_способах_оплаты, PlacementMode.Left));
+      frm.ItemMagazineSale.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_продаж, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_журналу_продаж__в_котором_можно_посмотреть_историю_всех_продаж__сделать_возврат_или_распечатать_документ_к_ранее_совершеной_продаже, PlacementMode.Left));
+      frm.MenuItem_reports_master.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Мастер_отчетов, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_мастеру_отчетов__В_нём_доступны_отчеты_по_продажам__история_движения_товаров__взаиморасчеты_с_поставщиками__движение_денежных_средств_и_другие, PlacementMode.Left));
+      frm.MenuItem_actions.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Действия, Translate.TooltipsSetter_Set_В_этом_разделе_находятся_пункты_для_выполнения_действия_с_денежными_средствами__ККМ_и_эквайринг_терминалом));
+      frm.MenuItem_actions_cashOut.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Снять_денежные_средства, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_снятие_денежных_средств__Например__снять_наличные_из_денежного_ящика, PlacementMode.Left));
+      frm.MenuItem_actions_cashIn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Внести_денежные_средства, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_внесение_денежных_средств__Например__внести_наличные_в_денежный_ящик_для_размена, PlacementMode.Left));
+      frm.MenuItem_actions_cashMove.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Переместить_денежные_средства, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_перемещение_денежных_средств_между_счетами__Например__переместить_наличные_из_денежного_ящика_в_сейф_, PlacementMode.Left));
+      frm.MenuItem_actions_cashRecalc.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Пересчитать_наличные_в_кассе, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_пересчет_наличных_в_денежном_ящике__Это_позволит_установить_корректную_сумму_наличности_и_обнаружить_недостачу_, PlacementMode.Left));
+      frm.MenuItem_actions_kkmXreport.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Снять_X_отчет_на_кассе, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_снятие_X_отчета__дневной_отчет_без_гашения__на_подключенной_кассе, PlacementMode.Left));
+      frm.MenuItem_actions_kkmZreport.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Снять_Z_отчет_на_кассе, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_снятие_Z_отчета__дневной_отчет_с_гашением__и_закрыть_смену_на_подключенной_кассе, PlacementMode.Left));
+      frm.MenuItem_actions_acquiringReport.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Снять_отчет_на_эквайринг_терминале, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_снятие_отчета__сверка_итогов__на_подключенном_эквайринг_терминале, PlacementMode.Left));
+      frm.MenuItem_actions_acquiringShiftClose.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Закрыть_смену_на_эквайринг_терминале, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_закрытие_отчета_на_подключенном_эквайринг_терминале, PlacementMode.Left));
+      frm.MenuItem_actions_serviceMenu.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Показать_сервисное_меню_эквайринг_терминала, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_сервисное_меню_для_подключенного_эквайринг_терминала, PlacementMode.Left));
+      frm.MenuItem_PKKM_online_mode.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Переключить_программную_ККМ_в_онлайн_режим, Translate.TooltipsSetter_Set_Нажмите__чтобы_перевести_программную_ККМ_в_онлайн_режим_работы, PlacementMode.Left));
+      frm.MenuItem_PKKM_offline_mode.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Переключить_программную_ККМ_в_оффлайн_режим, Translate.TooltipsSetter_Set_Нажмите__чтобы_перевести_программную_ККМ_в_оффлайн_режим_работы, PlacementMode.Left));
+      frm.MenuItem_PKKM_account.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Перейти_в_личный_кабинет_программной_ККМ, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_личный_кабинет_программной_ККМ__откроется_в_браузере_, PlacementMode.Left));
+      frm.MenuItem_goods.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Товары, Translate.TooltipsSetter_Set_В_этом_разделы_находятся_пункты_для_управления_товарами_и_их_категориями));
+      frm.ItemGoodsCatalog.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Каталог_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_каталог_товаров__где_вы_сможете_просматривать__добавлять__редактировать__удалять__объединять_и_выполнять_другие_действия_с_вашими_товарами, PlacementMode.Left));
+      frm.MenuItem_goods_groups.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Категории_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_справочнику_категорий__групп__товаров__Вы_сможете_просматривать__добавлять__редактировать_и_удалять_категории_товаров, PlacementMode.Left));
+      frm.MenuItem_goods_priceTags.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печать_ценников, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_форме__в_которой_вы_сможете_подготовить_список_товаров__а_затем_распечатать_для_них_ценники, PlacementMode.Left));
+      frm.MenuItem_goods_lables.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печать_этикеток, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_форме__в_которой_сможете_подготовить_список_товаров__а_затем_распечатать_для_них_этикетки, PlacementMode.Left));
+      frm.MenuItem_goods_packing.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Фасовка_товаров, Translate.TooltipsSetter_Set_Нажмтие__чтобы_перейти_к_форме__в_которой_вы_сможете_подготовить_список_товаров_для_фасовки__Фасовка_подразумевает_печать_этикток_для_весовых_товаров, PlacementMode.Left));
+      frm.MenuItem_goods_markedLables.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печать_кодов_маркировки, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_выбору_файла__из_которого_будут_распечатаны_этикетки_с_кодами_маркировки, PlacementMode.Left));
+      frm.MenuItem_goods_goodsGroupingEdit.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Групповое_редактирование_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_форме__в_которой_сможете_подготовить_список_товаров__а_затем_внести_массовые_изменения_для_этих_товаров__Например__изменений_категорий__генерация_штрихкодов__изменение_розничной_цены_и_других_свойств, PlacementMode.Left));
+      frm.MenuItem_goods_groupsGroupingEdit.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Групповое_редактирование_категорий_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_форме__в_которой_сможете_выбрать_категории__группы__товаров__а_затем_внести_массовые_изменения_для_этих_категорий__Например__изменение_налоговой_ставки__единиц_измерения__СНО_и_других_свойств, PlacementMode.Left));
+      frm.MenuItem_goods_remoteCatalog.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Просмотр_товаров_из_других_точек, Translate.TooltipsSetter_Set_Намжите__чтобы_перейти_к_просмотру_товаров__их_остатков_и_цен_в_других_торговых_точках__с_которыми_настроен_обмен_данными, PlacementMode.Left));
+      frm.MenuItem_documents.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Документы, Translate.TooltipsSetter_Set_В_этом_разделе_находятся_пункты_для_управления_документами));
+      frm.MenuItem_documents_newWaybill.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Новое_поступление, Translate.TooltipsSetter_Set_Нажите__чтобы_перейти_в_карточку_накладной_для_офомрления_поступления_товаров_в_торговую_точку__Вы_сможете_заполнить_накладную_вручную__загрузить_из_Excel_или_УПД__ЭДО___принять_из_другой_торговой_точки, PlacementMode.Left));
+      frm.MenuItem_documents_waybillsJournal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_поступления, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_журнал_накладных_на_поступление__Вы_сможете_просматривать__добавлять__редактировать__удалять_накладные_и_печатать_для_них_документы__накладная__счет__ТОРГ_12_и_т_д____ценники_и_этикетки, PlacementMode.Left));
+      frm.MenuItem_documents_newInvenoty.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Новая_инвентаризация, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_карточку_инвентаризации_для_начала_процесса_новой_инвентаризации_товаров__Вы_сможете_выбрать_категории_товаров_и_склад__для_которых_необходимо_выполнить_инвентаризацию, PlacementMode.Left));
+      frm.MenuItem_documents_inventoriesJournal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_инвентаризаций, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_журнал_инветаризаций__В_журнале_вы_сможете_просматривать__добавлять__редактировать__удалять_инвентаризации_и_печатать_для_них_документы__акты_и_т_п__, PlacementMode.Left));
+      frm.MenuItem_documents_newWriteoff.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Новое_списание, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_карточку_списания__Вы_сможете_списать_товары__например__при_их_порче_, PlacementMode.Left));
+      frm.MenuItem_documents_writeoffsJournal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_списаний, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_журнал_списаний_товаров__В_журнале_вы_сможете_добавлять_и_удалять_ранее_сделанные_списания__а_так_же_печатать_для_них_документы, PlacementMode.Left));
+      frm.MenuItem_documents_sendToOtherPoint.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Новое_отправление, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_созданию_отправления_товаров_на_одну_из_торговых_точек__с_которыми_у_вас_настроен_обмен_данными, PlacementMode.Left));
+      frm.MenuItem_documents_otherPointSendsJournal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_отправлений, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_журналу_ранее_созданных_отправлений__Вы_сможете_добавлять_и_удалять_ранее_созданные_отправления__а_так_же_печатать_для_них_документы, PlacementMode.Left));
+      frm.MenuItem_documents_moveToOtherStorage.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Новое_перемещение, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_созданию_перемещения_товаров_между_складами_в_рамках_одной_торговой_точки, PlacementMode.Left));
+      frm.MenuItem_documents_storageMovesJournal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_перещемений, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_журналу_перемещений_между_складами__Вы_сможете_добавлять_и_удалять_ранее_созданные_перемещения__а_так_же_печатать_для_них_документы, PlacementMode.Left));
+      frm.MenuItem_documents_newOrder.SetToolTip(new HelpTip(Translate.НовыйЗаказРезерв, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_созданию_нового_заказа_резерва__Вы_сможете_оформить_заказ_от_клиента_на_отсутствующие_товары_или_зарезервировать_имеющиеся_на_складе_, PlacementMode.Left));
+      frm.MenuItem_documents_clientOrdersJournal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_заказов_резервов, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_журналу_заказов_резеров__В_журнале_вы_сможете_просматривать__редактировать__удалять_и_печатать_документы_для_ранее_созданных_заказов_резервов, PlacementMode.Left));
+      frm.MenuItem_documents_newProduction.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Новое_производство_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_форме__в_которой_сможете_подготовить_список_товаров_для_их_производства_по_ранее_указанным_рецептам, PlacementMode.Left));
+      frm.MenuItem_documents_productionsJournal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_производства_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_журналу_производства__Вы_сможете_добавить_и_удалить_ранее_созданные_производства__а_так_же_распечатать_для_них_документы, PlacementMode.Left));
+      frm.MenuItem_documents_quickProduction.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Быстрое_производство, Translate.TooltipsSetter_Set_Нажмите__чтобы_выполнить_быстрое_производство__Вы_сможете_составить_рецепт__создать_новый_товар_и_сразу_добавить_его_в_чек, PlacementMode.Left));
+      frm.MenuItem_contacts.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Контакты, Translate.TooltipsSetter_Set_В_этом_разделе_находятся_пункты_для_управления_контактами__покупателями__конрагентами_));
+      frm.ItemClientAdd.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Добавить_контакт, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_карточку_создания_нового_контакта__Вы_сможете_указать_ФИО__группу__ШК_дисконтной_карты_и_другие_свойства_контакта, PlacementMode.Left));
+      frm.MenuItem_contacts_groups.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Группы_контактов, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_списку_групп_контактов__Вы_сможете_просмотреть__добавить__изменить_и_удалить_ранее_созданные_группы, PlacementMode.Left));
+      frm.MenuItem_contacts_list.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Список_контактов, Translate.TooltipsSetter_Set_Нажите__чтобы_перейти_к_списку_контактов__Вы_сможете_просмотерть__добавить__изменить_и_удалить_ранее_созданные_контакты, PlacementMode.Left));
+      frm.MenuItem_contacts_credits.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Должники, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_списку_продаж__которые_были_формлены_в_долг__не_оплачены_или_оплачены_не_полностью___Вы_сможете_просмотреть_и_внести_платеж_по_задолженностям, PlacementMode.Left));
+      frm.MenuItem_help.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Справка, Translate.TooltipsSetter_Set_В_этом_разделе_находятся_пункты_для_получения_информации_о_программе));
+      frm.MenuItem_help_about.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_О_программе, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_окно_с_информация_о_версии_программы_и_базы_данных, PlacementMode.Left));
+      frm.MenuItem_help_checkUpdate.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Проверить_обнволение, Translate.TooltipsSetter_Set_Нажмите__чтобы_проверить_наличие_новых_версий_программы__При_наличии_обновления_программа_предложит_выполнить_его_установку, PlacementMode.Left));
+      frm.MenuItem_help_licenseInfo.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Информация_о_лицензии, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_окно_с_информацией_о_лицензии_на_программу_для_текущего_рабочего_места, PlacementMode.Left));
+      frm.MenuItem_help_changelog.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_изменений, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_истории_изменений_программы__Откроется_в_браузере, PlacementMode.Left));
+      frm.MenuItem_help_support.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Служба_поддержки, Translate.TooltipsSetter_Set_Намжите__чтобы_перейти_на_страницу_службы_поддержки__Откроется_в_браузере, PlacementMode.Left));
+      frm.MenuItem_help_onlineHelp.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_База_знаний, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_на_страницу_базы_знаний_по_программе__Откроется_в_браузере, PlacementMode.Left));
+      frm.MenuItem_help_site.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Посетить_сайт, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_на_страницу_сайта_программы__Откроется_в_браузере, PlacementMode.Left));
+      frm.MenuItem_help_vk.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Перейти_в_группу_во_Вконтакте, Translate.TooltipsSetter_Set_Нажммите__чтобы_перейти_в_группу_в_социальной_сети_Вконтакте__Откроется_в_браузере, PlacementMode.Left));
+      frm.TxtSearch.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Поисковая_строка, Translate.TooltipsSetter_Set_Введите_поисковый_запрос_в_это_поле_для_поиска_товаров__Вы_можете_ввести_название__отсканировать_штрихкод_или_указать_значение_доп__поля_товара_для_поиска__Кроме_того_вы_можете_ввести_штрихкод_дисконтной_карты_или_подарочного_сертификата__чтобы_привязать_их_к_текущей_продаже));
+      frm.ButtonSearch.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Поиск_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_окно_для_поиска_товаров__которые_можно_будет_добавить_в_чек)
+      {
+        Hotkey = hotKeys.AddItem
+      });
+      frm.ButtonFavorites.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Избранные_товары, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_окно_для_управления_списком_избранных_товаров)
+      {
+        Hotkey = hotKeys.FavoritesGoods
+      });
+      frm.TextBlockTime.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Дата_время, Translate.TooltipsSetter_Set_Текущая_дата_и_время__В_настройках_можно_включить_переключение_темы_темная_светлая_кликом_на_этот_блок));
+      frm.ButtonGoToCafe.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Вернуться_в_режим__Кафе_, Translate.TooltipsSetter_Set_Нажмите__чтобы_вернуться_в_основное_окно_режима__Кафе___Данный_режим_подразумевает_работу_в_специальном_окне__упрощающим_формирование_и_управление_заказами_посетителей_в_заведениях_общественного_питания_));
+      frm.BasketGrid.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Корзина_чек, Translate.TooltipsSetter_Set_Список_товаров__входящих_в_текущую_продажу_чек__Для_добавления_товаров_используйте_поиск__Для_изменения_количества_или_скидки___конопки_справа_, PlacementMode.Mouse));
+      frm.ButtonQty.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Количество_цена, Translate.TooltipsSetter_Set_Нажмите__чтобы_установить_количество_для_выбранных_товаров__Для_услуг_и_товаров__для_которых_разрешена_продажа_по_свободной_цене__доступно_изменение_розничной_цены, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.EditItem
+      });
+      frm.ButtonDiscount.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Скидка_на_товары, Translate.TooltipsSetter_Set_Нажмите__чтобы_установить_скидку_для_выбранных_товаров__Скидка_может_быть_установленка_как_процентом__так_и_суммой_, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.DiscountForItem
+      });
+      frm.ButtonAllDiscount.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Скидка_на_весь_чек, Translate.TooltipsSetter_Set_Нажмите__чтобы_установить_скидку_на_все_товары_в_чеке, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.DiscountForCheck
+      });
+      frm.ButtonComment.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Комментарий_код_маркировки, Translate.TooltipsSetter_Set_Нажмите__чтобы_указать_комментарий_для_выбранных_товаров__Если_эти_товары_подлежат_маркировки__то_в_роли_комментария_выступает_код_маркировки, PlacementMode.Right));
+      frm.ButtonDelete.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Удалить, Translate.TooltipsSetter_Set_Нажмите__чтобы_удалить_из_чека_выбранные_товары, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.DeleteItem
+      });
+      frm.ButtonWeight.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Взвесить_товар, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_окно_для_взвешивания_товаров__Если_к_программе_подключены_весы__то_в_окне_отобразится_вес__полученный_с_подключенных_весов_, PlacementMode.Right));
+      frm.CheckBoxPrintCheck.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печатать_чек_, Translate.TooltipsSetter_Set_Включите_опцию__чтобы_после_нажатия_кнопки__ИТОГ__напечатался_чек, Translate.TooltipsSetter_Set_Опция_недоступна__Возможно__в_настройках_запрещено_ее_изменять_или_не_указано_устройство_для_печати_чеков));
+      frm.ButtonPrintDocs.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печатать_документ_к_продаже, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_выбору_шаблонов_для_печати_документа_к_текущей_продаже__Например__можно_распечатать_товарный_чек__счет__накладную_и_т_п_)
+      {
+        Hotkey = hotKeys.Print
+      });
+      frm.CheckBoxClient.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Клиент_покупатель, Translate.TooltipsSetter_Set_Включите_опцию__чтобы_закрепить_продажу_за_конкретным_покупателем__После_нажатия_будет_предложено_выбрать_клиента_из_списка_или_создать_нового)
+      {
+        Hotkey = hotKeys.SelectClient
+      });
+      frm.ButtonSelectClient.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выбрать_клиента_покупателя, Translate.TooltipsSetter_Set_Нажмите__чтобы_изменить_покупателя__к_которому_привязывается_продажа__Будет_показан_список_контактов_для_выбора, Translate.TooltipsSetter_Set_Включите_опцию__Контакт___чтобы_эта_кнопка_стала_доступа));
+      frm.ButtonClientCredit.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Открыть_список_задолженностей, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_список_продаж_покупателя__оформленных_в_долг, Translate.TooltipsSetter_Set_Включите_опцию__Контакт___чтобы_эта_кнопка_стала_доступа));
+      frm.LabelTotalSum.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Общая_сумма_товаров_в_чеке, Translate.TooltipsSetter_Set_Сумма_всех_товаров_в_продаже_чеке_с_учетом_скидок));
+      frm.InsertDecimalUpDown.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Полученная_сумма, Translate.TooltipsSetter_Set_Сумма__полученная_от_покупателя__Если_ввести_сумму_меньше__чем_сумма_чека__то_будет_предложено_оформить_продажу_в_долг)
+      {
+        Hotkey = hotKeys.InsertPayments
+      });
+      frm.LabelChangeSum.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_сдачи, Translate.TooltipsSetter_Set_Сумма_сдачи__которую_неоходимо_выдать_клиенту_при_завершении_продажи));
+      frm.ButtonTotal.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Итог, Translate.TooltipsSetter_Set_Нажмите__чтобы_завершить_продажу_или_перейти_к_выбору_способов_оплаты__если_они_настроены, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.OkAction
+      });
+      frm.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отмена, Translate.TooltipsSetter_Set_Нажмите__чтобы_отменить_продажу__Все_товары_из_чека_будут_удалены, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.CancelAction
+      });
+      frm.ButtonSaleNumber.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Номер_текущей_продажи, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_журнал_продаж));
+    }
+
+    public static void Set(FrmLoginUser frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      frm.ListUsersAuth.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Список_пользователей_сотрудников, Translate.TooltipsSetter_Set_Список_сотрудников__которые_зарегистрированы_в_торговой_точке__Выберите_сотрудника_в_списке__а_затем_нажмите_справа_на_кнопку_для_входа__выхода_или_восстановления_пароля__Можно_использовать_двойной_клик_для_входа_выхода__Одновременно_может_выполнить_вход_сразу_несколкьо_сотрудников, PlacementMode.Mouse));
+      frm.ButtonInOut.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Вход_выход, Translate.TooltipsSetter_Set_Нажмите_на_кнопку__чтобы_изменить_статус_выбранного_сотрудника__Если_сотрудник_красный___будет_выполнен_вход__Если_зеленый___будет_выполнен_выход, PlacementMode.Right));
+      frm.ButtonMore.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Дополнительные_действия, Translate.TooltipsSetter_Set_Нажмите_на_кнопку__чтобы_открыть_меню_с_дополнительными_действиями__Например__сброс_забытого_пароля, PlacementMode.Right));
+      if (frm.FindResource((object) LoginUsersViewModel.AlsoMenuKey) is ContextMenu resource)
+        resource.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Восстановить_пароль, Translate.TooltipsSetter_Set_Нажмите__чтобы_восстановить_пароль_для_выбранного_сотрудника__Текущий_пароль_будет_сброшен__а_новый_будет_отправлен_на_электронную_почту_сотрудника, PlacementMode.Left));
+      frm.ConfirmPanelControl.ButtonOk.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Готово, Translate.TooltipsSetter_Set_Нажмите__чтобы_подтвердить_вход_сотрудников_в_систему));
+      frm.ConfirmPanelControl.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отмена, Translate.TooltipsSetter_Set_Нажмите__чтобы_отменить_внесенные_изменения));
+    }
+
+    public static void Set(FrmCafeMain frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.ButtonHome.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Домой, Translate.TooltipsSetter_Set_Нажмите__чтобы_вернуться_к_списку_категорий_верхнего_уровня_в_меню_блюд));
+      frm.TxtSearch.SearchTextBox.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Поисковая_строка, Translate.TooltipsSetter_Set_Введите_поисковый_запрос__чтобы_найти_блюда_товары__Вы_можете_ввести_название__отсканировать_штрихкод_или_указать_значение_доп__поля_блюда_товара_для_поиска));
+      frm.TxtSearch.ConfigBtn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Параметры_поиска, Translate.TooltipsSetter_Set_Нажмите__чтобы_показать_скрыть_дополнительные_параметры_фильтрации__Например__вы_сможете_выбрать_поля__по_которым_должен_происхоидть_поиск_блюд_товаров));
+      frm.ButtonAlsoCommand.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Еще___, Translate.TooltipsSetter_Set_Нажмите__чтобы_увидеть_меню_с_доступными_дополнительными_действиями__Например__смена_пользователей__внесение_и_снятие_денежных_средств_и_снятие_отчетов_на_ККМ_));
+      frm.ButtonCloseCafe.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выйти_из_режима__Кафе_, Translate.TooltipsSetter_Set_Нажмите__чтобы_выйти_из_режима__Кафе__и_перейти_в_основное_окно_программы__где_доступны_настройки__отчеты__управление_товарами__документами_и_другими_объектами));
+      frm.ButtonExit.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Закрыть_программу, Translate.TooltipsSetter_Set_Нажмите__чтобы_выйти_из_программы_и_завершить_ее_работу));
+      frm.ButtonTableInfo.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Столики_и_персоны, Translate.TooltipsSetter_Set_СтоликиИПерсоны));
+      frm.ButtonActiveOrders.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Активные_заказы, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_списку_ранее_сохраненных_заказов__Вы_сможете_вернуться_к_работе_над_заказом__который_еще_не_был_закрыт__Так_же_доступен_просмотр_ранее_сделанных_заказов__их_печать_и_другие_действия));
+      frm.MenuViewer.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Меню_блюд, Translate.TooltipsSetter_Set_Список_категорий_и_блюд__товаров___доступных_для_добавления_в_заказ__чек___Нажмите_на_категорию__чтобы_увидеть_список_блюд_в_ней__Нажмите_на_блюдо__чтобы_добавить_его_в_заказ__, PlacementMode.Mouse));
+      frm.Splitter.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Разделитель, Translate.TooltipsSetter_Set_Нажмите_и_удерживайте_левую_кнопку_мыши__а_затем_двигайте_влево_вправо__чтобы_изменить_положение_разделителя__Вы_сможете_изменить_ширину_меню_или_корзины, PlacementMode.Right));
+      frm.ButtonQty.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Количество_цена, Translate.TooltipsSetter_Set_Нажмите__чтобы_установить_количество_для_выбранных_блюд_товаров__Для_услуг_и_товаров__для_которых_разрешена_продажа_по_свободной_цене__доступно_изменение_розничной_цены_, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.EditItem
+      });
+      frm.ButtonSelectedDiscount.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Скидка, Translate.TooltipsSetter_Set_Нажмите__чтобы_установить_скидку_для_выбранных_блюд_товаров__Скидка_может_быть_установленка_как_процентом__так_и_суммой_, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.DiscountForItem
+      });
+      frm.ButtonAllDiscount.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Скидка_на_весь_чек, Translate.TooltipsSetter_Set_Нажмите__чтобы_установить_скидку_на_все_блюда_товары_в_чеке, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.DiscountForCheck
+      });
+      frm.ButtonComment.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Комментарий_код_маркировки, Translate.TooltipsSetter_Set_Нажмите__чтобы_указать_комментарий_для_выбранных_блюд_товаров__Если_эти_товары_подлежат_маркировки__то_в_роли_комментария_выступает_код_маркировки, PlacementMode.Right));
+      frm.ButtonDelete.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Удалить, Translate.TooltipsSetter_Set_Нажмите__чтобы_удалить_из_чека_выбранные_товары, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.DeleteItem
+      });
+      frm.ButtonPrint.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печатать, Translate.TooltipsSetter_Set_Нажмите__чтобы_распечатать_пред__чек_для_списка_товаров__Если_подключена_касса___чек_будет_напечатан_в_нефискальном_режиме));
+      frm.ButtonSelectClient.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выбрать_контакт, Translate.TooltipsSetter_Set_, PlacementMode.Top)
+      {
+        Hotkey = hotKeys.SelectClient
+      });
+      frm.ButtonClientName.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Изменить_контакт, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_другого_клиента_покупателя_вместо_указанного_, PlacementMode.Top)
+      {
+        DisabledText = Translate.TooltipsSetter_Set_Нажмите_нопку__Выбрать_контакт___чтобы_выбрать_клиента_покупателя
+      });
+      frm.PanelClientInfo.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Информация_о_контакте, Translate.TooltipsSetter_Set_На_этой_панели_отображается_информация_о_выбранном_клиенте_покупателе__Например__здесь_можно_увидеть__сумму_ранее_сделанных_покупок__скидку__задолженность_и_накопленные_баллы_, PlacementMode.Top)
+      {
+        DisabledText = Translate.TooltipsSetter_Set_Нажмите_кнопку__Выбрать_контакт___чтобы_увидеть_информацию_о_скидке__сумме_покупок_или_задолженности_клиента_покупателя
+      });
+      frm.ButtonSave.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сохранить_заказ, Translate.TooltipsSetter_Set_НажмитеЧтобыСохранитьИнформациюОТекущемЗаказе, PlacementMode.Top)
+      {
+        Hotkey = hotKeys.OkAction
+      });
+      frm.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отмена, Translate.TooltipsSetter_Set_Нажмите__чтобы_отменить_внесенные_изменения__Заказ_не_будет_сохранен__блюда_товары_из_чека_будут_удалены, PlacementMode.Top)
+      {
+        Hotkey = hotKeys.CancelAction
+      });
+    }
+
+    public static void Set(FrmSearchGoods frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.SearchTb.SearchTextBox.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Поисковая_строка, Translate.TooltipsSetter_Set_Введите_в_это_поле_запрос__по_которому_вы_хотите_найти_товар__Набор_полей__по_которым_происходит_поиск__зависит_от_настроек_фильтрации__Это_может_быть__название__штрихкод__описание__код_товара_или_любое_из_доп__полей__артикул__производитель_и_т_п__, PlacementMode.Bottom));
+      frm.SearchTb.ConfigBtn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Параметры_фильтрации, Translate.TooltipsSetter_Set_Нажмите__чтобы_показать_или_скрыть_дополнительные_параметры_фильтрации_, PlacementMode.Bottom));
+      frm.CategorySelectionControl.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Категории_товаров, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_категории__группы__товаров__по_которым_вы_хотите_отфильтровать_товары__В_списке_будут_показаны_те_товары__которые_входят_в_выборанные_категории, PlacementMode.Bottom));
+      frm.PanelSearchIn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Искать_в___, Translate.TooltipsSetter_Set_Выберите_поля__по_которым_будет_происходить_фильтрация_по_запросу__введенному_в_поисковую_строку_выше__Например__вы_можете_выключить_поиск_по_коду_товара__но_оставить_поиск_по_названию_и_штрихкоду_, PlacementMode.Bottom));
+      frm.PanelPriceFilter.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Фильтр_по_рознчной_цене, Translate.TooltipsSetter_Set_Укажите_розничную_цену_товара_и_оператор_сравнения__больше__меньше__равно___чтобы_найти_товары_нужного_ценового_диапазона__Оставьте_значение_поля_пустым__чтобы_отобразить_товары_с_любой_ценой, PlacementMode.Bottom));
+      frm.PanelStockFilter.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Фильтр_по_остатку, Translate.TooltipsSetter_Set_Уажите_значение_остатка_товара_на_складе_и_оператор_сравнения__больше__меньше__равно___чтобы_найти_товары_с_опредленным_количеством_в_остатке__Оставьте_значение_поля_пустым__чтобы_отобразить_товары_с_любым_остатком, PlacementMode.Bottom));
+      frm.ComboBoxSearchType.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Тип_поиска, Translate.TooltipsSetter_Set_НамжитеЧтобыВыбратьТипПоиска, PlacementMode.Bottom));
+      frm.ComboBoxStorage.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Склад, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбрать_склад_для_фильтрации__В_списке_будут_отображены_товары__у_которых_есть_остатки_на_выбранном_складе, PlacementMode.Bottom));
+      frm.ButtonNewGood.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Создать_новый_товар, Translate.TooltipsSetter_Set_НажмитеЧтобыСоздатьНовыйТовар, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.AddItem
+      });
+      frm.ButtonEditGood.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Изменить_товар, Translate.TooltipsSetter_Set_Нажмите__чтобы_изменить_выбранный_товар__Откроется_карточка_товара__в_которой_можно_будет_внести_изменения_в_свойства_товара, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.EditItem
+      });
+      frm.ButtonUpdateData.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Обновить_данные, Translate.TooltipsSetter_Set_НажмитеЧтобыОбновитьПОисковыйКэш, PlacementMode.Bottom));
+      frm.CheckBoxAddAllStocks.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Добавить_всё_количество, Translate.TooltipsSetter_Set_Если_опция_включена__то_в_документ_или_список__в_рамках_которого_запущен_поиск_товаров__будут_добавлен_товар_с_количеством__равном_ему_остатку_на_складе__Т_е__всё__что_осталось___будет_добавлено, PlacementMode.Bottom));
+      frm.CheckBoxCloseAfterAdd.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Не_закрывать_после_добавления, Translate.TooltipsSetter_Set_Если_опция_включена__то_после_нажатия_кнопки__Добавить__окно_не_будет_закрыто_и_вы_сможете_продолжить_поиск_и_добавление_товара_в_документ_список_без_необходимости_повторного_открытия_окна_поиска__Это_удобно_при_необходимости_поиска_и_добавления_большого_количества_товаров, PlacementMode.Bottom));
+      frm.ButtonOk.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Добавить_товар_в_список, Translate.TooltipsSetter_Set_Нажмите__чтобы_завершить_поиск_и_добавить_выбранные_товары_в_документ_или_список__в_рамках_которого_вы_запустили_поиск_товаров, PlacementMode.Left)
+      {
+        Hotkey = hotKeys.OkAction
+      });
+      frm.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отмена, Translate.TooltipsSetter_Set_Нажмите__чтобы_отменить_поиск__Окно_поиска_будет_закрыто, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.CancelAction
+      });
+    }
+
+    public static void Set(FrmSummaryReport frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.PanelKkmSum.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_наличности_в_ККМ, Translate.TooltipsSetter_Set_Сумма_наличных__которая_расчитана_подключенной_ККМ__В_идеале_это_значение_должно_совпадать_с_реальной_суммой_наличных_в_денежном_ящике, PlacementMode.Bottom));
+      frm.DateFilterControl.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выбор_периода, Translate.TooltipsSetter_Set_Выберите_период__за_который_вы_хотите_увидеть_информацию_о_работе_торговой_точке__Вы_можете_указать_начало_и_конец_периода_вручную_либо_нажать_кнопку_подходящего_периода, PlacementMode.Bottom));
+      frm.BlockRevenueSum.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_выручки, Translate.TooltipsSetter_Set_Выручка___это_сумма_всех_проданных_товаров_и_услуг_за_вычетом_возвратов_в_течение_выбранного_периода_, PlacementMode.Bottom));
+      frm.BlockRevenueChangePercent.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Динамика_выручки, Translate.TooltipsSetter_Set_Показывает_насколько_выросла_или_упала_выручка_относительно_предыдущего_аналогичного_периода__Например__если_выбран_один_день_для_просмотра__то_динамика_покажет_отношение_к_предыдущему_дню, PlacementMode.Bottom));
+      frm.BlockProfitPercent.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Маржинальность, Translate.TooltipsSetter_Set_Прибыльность_или_маржинальность___отношение_суммы_прибыли_к_сумме_выручки, PlacementMode.Bottom));
+      frm.BlockProfitSum.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_прибыли, Translate.TooltipsSetter_Set_Прибыль___это_разница_между_суммой_выручки_и_суммой_себестоимости__закупки__всех_проданных_товаров__Также_в_сумме_прибыли_учитываются_те_категории_движения_денежных_средств__для_которых_включена_соотвествующая_опция, PlacementMode.Bottom));
+      frm.BlockProfitChangePercent.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Динамика_прибыли, Translate.TooltipsSetter_Set_Показывает_насколько_выросла_или_упала_прибыль_относительно_предыдущего_аналогичного_периода__Например__если_выбран_один_месяц_для_просмотра__то_динамика_покажет_отношение_к_предыдущему_месяцу, PlacementMode.Bottom));
+      frm.PanelAvgCheckSum.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_среднего_чека, Translate.TooltipsSetter_Set_Средний_чек___это_сумма_всех_чеков__поделенных_на_их_количество_за_выбранный_период, PlacementMode.Bottom));
+      frm.BlockAvgCheckChangePercent.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Динамика_среднего_чека, Translate.TooltipsSetter_Set_Показывает_насколько_выросло_или_упало_значение_среднего_чека_относительно_предыдущего_аналогичного_периода__Например__если_выбран_один_квартал__то_динамика_покажет_отношение_к_предыдущему_кварталу_, PlacementMode.Bottom));
+      frm.ButtonSales.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_продаж, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_в_журнал_продаж__Будет_открыт_журнал_продаж__отфильтрованнный_за_тот_же_период__что_и_сводный_отчет__Вы_увидите_товары__проданные_в_указанный_период, PlacementMode.Bottom));
+      frm.ButtonCredits.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Список_задолженностей, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_списку_продаж__которые_были_оформлены_в_долг_за_период__выбранный_в_сводном_отчете__Вы_сможете_посмотреть_подробности_по_каждой_такой_продаже_и_внести_платеж_при_необходимости, PlacementMode.Bottom));
+      frm.ButtonReturns.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_возвратов, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_журналу_возвратов__отфильтрованный_за_тот_же_период__что_и_сводный_отчет__Вы_увидите__какие_товары_были_возвращены_в_течение_выбранного_периода_, PlacementMode.Bottom));
+      frm.ButtonPayments.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Информация_о_платежах, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_подробной_информации_о_суммах_платежей_по_продажам_и_возвратам_в_разрезе_спсобов_оплаты_за_период__выбранный_в_сводном_отчете__Например__вы_сможете_посмотреть__на_какую_сумму_было_оплачено_наличными_и_картой, PlacementMode.Bottom));
+      frm.ButtonCashOut.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_изъятий, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_журнал_выемки_денежных_средств__Журнал_будет_показан_за_тот_же_период__что_и_сводный_отчет, PlacementMode.Bottom));
+      frm.ButtonCashIn.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Журнал_внесений, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_журнал_внесения_денежных_средств__Журнал_будет_показан_за_тот_же_период__что_и_сводный_отчет, PlacementMode.Bottom));
+    }
+
+    public static void Set(FrmGoodsCatalog frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.SearchTb.SearchTextBox.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Поисковая_строка, Translate.TooltipsSetter_Set_Введите_в_это_поле_запрос__по_которому_вы_хотите_найти_товар__Набор_полей__по_которым_происходит_поиск__зависит_от_настроек_фильтрации__Это_может_быть__название__штрихкод__описание__код_товара_или_любое_из_доп__полей__артикул__производитель_и_т_п__, PlacementMode.Bottom));
+      frm.ButtonAddGood.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Создать_новый_товар, Translate.TooltipsSetter_Set_НажмитеЧтобыСоздатьНовыйТоварВКаталоге, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.AddItem
+      });
+      frm.ButtonEditGood.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Изменить_товар, Translate.TooltipsSetter_Set_Нажмите__чтобы_изменить_выбранный_товар__Откроется_карточка_товара__в_которой_можно_будет_внести_изменения_в_свойства_товара_, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.EditItem
+      });
+      frm.ButtonCopyGood.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Создать_копию, Translate.TooltipsSetter_Set_Нажмите__чтобы_создать_копию_одного_или_нескольких_выбранных_товаров__Будут_созданые_копии_товаров__но_без_складских_остатков_и_розничных_цен, PlacementMode.Right));
+      frm.ButtonJoinGoods.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Объединить_товары, Translate.TooltipsSetter_Set_Нажмите__чтобы_объединить_два_или_более_выбранных_товаров__Все_остатки_выбранных_товаров_будут_присвоены_основной_позиции__в_которую_выполняется_объединение__Во_всех_документах_объединяемые_товары_будут_заменены_на_основной__Остальные_товары_будут_удалены_из_каталога_, PlacementMode.Right));
+      frm.ButtonDeleteGoods.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Удалить_товары, Translate.TooltipsSetter_Set_НажмитеЧтобыУдалитьТоварыВКаталоге, PlacementMode.Right)
+      {
+        Hotkey = hotKeys.DeleteItem
+      });
+    }
+
+    public static void Set(FrmReturnSales frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.ButtonAddSelected.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Добавить_выбранные, Translate.TooltipsSetter_Set_Нажмите__чтобы_добавить_товары__выбранные_в_списке_продажи__слева____в_список_возврата__справа___При_добавлении_будет_запрошено_количество_товаров_к_возврату, PlacementMode.Right));
+      frm.ButtonAddAll.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Добавить_все, Translate.TooltipsSetter_Set_Нажмите__чтобы_добавить_все_проданные_товары__слева__в_список_для_возврата__справа___Количество_товаров_к_вовзрату_будет_равно_проданному_количеству_, PlacementMode.Right));
+      frm.ButtonEdit.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Изменить_количество, Translate.TooltipsSetter_Set_Нажмите__чтобы_изменить_количество_к_возврату_для_выбранным_в_списке_для_возврата_, PlacementMode.Right));
+      frm.ButtonDelete.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Удалить, Translate.TooltipsSetter_Set_Нажмите__чтобы_удалить_выбранные_товары_из_списка_возврата__Удаленные_из_списка_возврата_товары_останутся_в_продаже_и_не_будут_возвращены_, PlacementMode.Right));
+      frm.ConfirmPanelControl1.ButtonOk.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Продолжить_оформление_возврата, Translate.TooltipsSetter_Set_Нажмите__чтобы_продолжить_оформление_возврата__На_следующем_этапе_может_быть_запрошена_причина_возврата_или_способ_оплаты__которым_происходит_возврат_денежных_средств_, PlacementMode.Bottom));
+      frm.ConfirmPanelControl1.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отменить_оформление_возрата, Translate.TooltipsSetter_Set_Нажмите__чтобы_отменить_оформление_возврата__Внесенные_изменения_не_будут_сохранены__форма_будет_закрыта_, PlacementMode.Bottom));
+    }
+
+    public static void Set(FrmCreditClients frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.DateFilterControl.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выбор_периода, Translate.TooltipsSetter_Set_Выберите_период__за_который_вы_хотите_отфильтровать_список_продаж__оформленных_в_долг__В_списке_будут_отображены_те_продажи__которые_были_оформлены__созданы__в_указанный_промежуток_времени_, PlacementMode.Bottom));
+      frm.ClientSelectionControl.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Выбор_контакта, Translate.TooltipsSetter_Set_Выберите_контакт__покупателя___для_которого_вы_хотите_отфильтровать_список_продаж__оформленных_в_долг__В_списке_будут_отображены_те_продажи__которые_закреплены_за_выбранным_контактом__покупателем_, PlacementMode.Bottom));
+      frm.ButtonSaleInfo.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Карточка_продажи, Translate.TooltipsSetter_Set_Нажмите__чтобы_открыть_карточку_выбранной_продажи__В_карточке_вы_сможете_увидеть_перечень_проданных_товаров__историю_внесенных_платежей_и_т_п_, PlacementMode.Right));
+      frm.ButtonDoPayment.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Внести_платеж, Translate.TooltipsSetter_Set_Нажмите__чтобы_внести_платеж_для_выбранной_задолженности__Историю_внесенных_платежей_можно_будет_посмотреть_в_карточке_продажи_, PlacementMode.Right));
+      frm.ButtonUpdateData.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Обновить_кэш_задолженностей, Translate.TooltipsSetter_Set_НажмитеЧТобыОбновитьКэшЗадолженностей, PlacementMode.Bottom));
+    }
+
+    public static void Set(FrmCafeActiveOrders frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      HotKeys hotKeys = new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+      frm.ExpanderFilters.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Панель_фильтрации, Translate.TooltipsSetter_Set_Нажмите__чтобы_показать_скрыть_панель__на_которой_доступны_фильтры_заказов__дата__статус__номер_столика__клиент_и_т_д_));
+      frm.ButtonComment.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Комментарий_к_заказу, Translate.TooltipsSetter_Set_Нажмите__чтобы_ввести_комментарий_к_выбранному_заказу__Например__это_могут_быть_пожелания_клиента_по_заказу_или_адрес_доставки, PlacementMode.Right)
+      {
+        DisabledText = Translate.TooltipsSetter_Set_Выберите_один_из_заказов_в_левом_списке_для_установки_комментария
+      });
+      frm.ButtonPrint.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Печатать_пред_чек, Translate.TooltipsSetter_Set_НажмитеЧтобыРаспечататьПредЧек, PlacementMode.Right));
+      frm.ButtonDelete.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Удалить_заказ, Translate.TooltipsSetter_Set_Нажмите__чтобы_удалить_выбранные_заказы, PlacementMode.Right));
+      frm.ButtonAlsoMenu.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Еще___, Translate.TooltipsSetter_Set_НажмитеЧтобыУвидетьМенюДопДействий, PlacementMode.Right));
+      frm.ConfirmPanelControl1.ButtonOk.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_В_корзину, Translate.TooltipsSetter_Set_Нажмите__чтобы_выбранный_заказ_переместить_в__Корзину__и_продолжить_работу_с_ним__Вы_сможете_изменить_блюда_товары_в_заказе_или_закрыть_его_с_оплатой)
+      {
+        DisabledText = Translate.TooltipsSetter_Set_Выбрите_один_из_заказов__чтобы_продолжить_работу_с_ним
+      });
+      frm.ConfirmPanelControl1.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отмена, Translate.TooltipsSetter_Set_Нажмите__чтобы_закрыть_эту_форму_и_вернуться_в_главное_окно_режима_Кафе_));
+    }
+
+    public static void Set(FrmCafePreSave frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      TooltipsSetter.GetHotKeys();
+      frm.PanelTable.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Номер_столика, Translate.TooltipsSetter_Set_Укажите_номер_столка__за_которым_обслуживаются_гости_в_рамках_этого_заказа, PlacementMode.Right));
+      frm.PanelPerson.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Количество_гостей, Translate.TooltipsSetter_Set_Укажите_количество_гостей__которые_обслуживаются_в_рамках_этого_заказа, PlacementMode.Right));
+      frm.TextBoxComment.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Комментарий_к_заказу, Translate.TooltipsSetter_Set_Введите_комментарий_к_заказу__Например__это_может_быть_пожелание_гостя_к_блюдам_или_адрес_доставки, PlacementMode.Right));
+      frm.ButtonPay.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Оплатить_и_закрыть_заказ, Translate.TooltipsSetter_Set_Нажмите__чтобы_перейти_к_оплате_заказа_и_сохранить_заказ_в_статусе__Закрыт___Заказ_будет_сохранен_как_продажа__его_можно_будет_увидеть_в_журане_продаж_или_в_списке_заказов_в_статусе__закрыт_, PlacementMode.Right));
+      frm.ButtonSave.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сохранить_без_оплаты, Translate.TooltipsSetter_Set_Нажмите__чтобы_сохранить_изменения_в_заказе_без_оплаты__Заказ_будет_доступен_в_разделе_Активные_заказы___Вы_сможете_вернуться_к_его_редактированию_и_закрыть_при_необходимости, PlacementMode.Right));
+      frm.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отменить, Translate.TooltipsSetter_Set_Нажмите__чтобы_вернуться_к_редактированию_заказа, PlacementMode.Right));
+    }
+
+    public static void Set(Authorization frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      frm.ComboBoxUsers.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Пользователи_сотрудники, Translate.TooltipsSetter_Set_Выберите_из_списка_пользователя_сотрудника__для_которого_необходимо_выполнить_авторизацию_вход__Каждый_сотрудник_может_принадлежать_к_определенной_группе_с_назначенными_правами_доступа, PlacementMode.Right));
+      frm.PassBox.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Пароль_пользователя, Translate.TooltipsSetter_Set_Введите_пароль_выбранного_пользователя_сотрудника_для_авторизации_или_входа_, PlacementMode.Right));
+      frm.BarcodeTb.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Штрихкод_пользователя, Translate.TooltipsSetter_Set_Отсканируйте_штрихкод_пользователя_сотрудника_для_авторизации__, PlacementMode.Right));
+    }
+
+    public static void Set(FrmInsertPaymentMethods frm)
+    {
+      if (!ToolTipsHelper.IsToolTipsEnableAndActivate())
+        return;
+      frm.TextBoxTotalSum.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_товаров, Translate.TooltipsSetter_Set_Общая_сумма_товаров_в_чеке_или_заказе_с_учетом_скидки, PlacementMode.Right));
+      frm.TextBoxSumToPay.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_к_оплате, Translate.TooltipsSetter_Set_Сумма__которую_должен_оплатить_клиент_покупатель_за_вычетом_ранее_оплаченной_суммы, PlacementMode.Right));
+      frm.GridPayments.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Список_способов_оплаты, Translate.TooltipsSetter_Set_Список_доступных_спосбов_оплаты__При_необходимости_вы_можете_изменить_в_настройках_способы_оплаты_или_добавить_новые, PlacementMode.Right));
+      frm.TextBoxDelivery.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Сумма_сдачи, Translate.TooltipsSetter_Set_СуммаСдачиКоторуюНеобходимоВыдатьКлиенту, PlacementMode.Right));
+      frm.ConfirmPanelControl1.ButtonOk.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Оплатить, Translate.TooltipsSetter_Set_Нажмите__чтобы_зафиксировать_платежи_в_соотвествии_с_указанными_суммами_по_способам_оплаты_));
+      frm.ConfirmPanelControl1.ButtonCancel.SetToolTip(new HelpTip(Translate.TooltipsSetter_Set_Отмена, Translate.TooltipsSetter_Set_Нажмите__чтобы_отменить_прием_оплаты_и_вернуться_к_предыдущему_действию_));
+    }
+
+    public static void Set(FrmSettings frm) => ToolTipsHelper.IsToolTipsEnableAndActivate();
+
+    private static HotKeys GetHotKeys() => new ConfigsRepository<Gbs.Core.Config.Devices>().Get().Keyboard.HotKeys;
+  }
+}

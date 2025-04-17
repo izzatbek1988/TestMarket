@@ -1,0 +1,30 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:localizations="clr-namespace:Gbs.Resources.Localizations">
+  <Style TargetType="{x:Type xceed:MessageBox}">
+    <Setter Property="Control.Background" Value="{DynamicResource WindowsBackground}"/>
+    <Setter Property="Control.Foreground" Value="{DynamicResource DefaultForeground}"/>
+    <Setter Property="xceed:MessageBox.ButtonRegionBackground" Value="{DynamicResource Background40}"/>
+    <Setter Property="xceed:MessageBox.OkButtonStyle" Value="{DynamicResource MsbBoxButton}"/>
+    <Setter Property="xceed:MessageBox.NoButtonStyle" Value="{DynamicResource MsbBoxButton}"/>
+    <Setter Property="xceed:MessageBox.CancelButtonStyle" Value="{DynamicResource MsbBoxButton}"/>
+    <Setter Property="xceed:MessageBox.YesButtonStyle" Value="{DynamicResource MsbBoxButton}"/>
+    <Setter Property="xceed:MessageBox.OkButtonContent"
+            Value="{x:Static localizations:Translate.MessageBox_Ок}"/>
+    <Setter Property="xceed:MessageBox.NoButtonContent" Value="{x:Static localizations:Translate.Devices_Нет}"/>
+    <Setter Property="xceed:MessageBox.CancelButtonContent"
+            Value="{x:Static localizations:Translate.FrmInputMessage_Отмена}"/>
+    <Setter Property="xceed:MessageBox.YesButtonContent"
+            Value="{x:Static localizations:Translate.MessageBox_Да}"/>
+    <Setter Property="xceed:WindowControl.CaptionForeground" Value="{DynamicResource DefaultForeground}"/>
+  </Style>
+  <Style x:Key="MsbBoxButton" TargetType="{x:Type Button}">
+    <Setter Property="Control.Background" Value="{DynamicResource Background80}"/>
+    <Setter Property="Control.Foreground" Value="{DynamicResource DefaultForeground}"/>
+    <Setter Property="FrameworkElement.Cursor" Value="Hand"/>
+    <Style.Triggers>
+      <Trigger Property="UIElement.IsMouseOver" Value="true"/>
+    </Style.Triggers>
+  </Style>
+</ResourceDictionary>

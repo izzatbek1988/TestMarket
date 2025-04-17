@@ -1,0 +1,55 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.ExtraPrice.FrmListExtraPrice"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.ExtraPrice"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Style="{StaticResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmListExtraPrice_РедактированиеДопЦен}" Height="500"
+                        Width="410">
+  <FrameworkElement.DataContext>
+    <local:ListExtraPriceViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="4">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid x:Name="GridExtraPriceList" IsReadOnly="true" CanUserAddRows="false" Margin="4" RowHeaderWidth="0"
+              AutoGenerateColumns="false" ItemsSource="{Binding Path=ExtraPriceList}"
+              SelectedValue="{Binding Path=SelectedPrice}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"
+                      CommandParameter="{Binding ElementName=GridExtraPriceList, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodModificationCard_Название}" Width="2*"
+                            Binding="{Binding Path=Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListExtraPrice_Формула}" Visibility="Collapsed"
+                            Width="1*" Binding="{Binding Path=Сoeff, StringFormat=N2}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="0" Grid.Column="1">
+      <Button x:Name="btnAddEntity" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Style="{DynamicResource btnAction}" Command="{Binding Path=AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button x:Name="btnEditEntity" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Style="{DynamicResource btnAction}" Command="{Binding Path=EditCommand}"
+              CommandParameter="{Binding ElementName=GridExtraPriceList, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button x:Name="btnDelEntity" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Style="{DynamicResource btnAction}" Command="{Binding Path=DeleteCommand}"
+              CommandParameter="{Binding ElementName=GridExtraPriceList, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

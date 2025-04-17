@@ -1,0 +1,202 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Goods.FrmSearchGoods"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:goods="clr-namespace:Gbs.Forms.Goods"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:global="clr-namespace:Gbs.Core.Entities"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:my="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:converters="clr-namespace:Gbs.Helpers.XAML.Converters"
+                        Closed="FrmSearchGoods_OnClosed" Loaded="FrmSearchGoods_OnLoaded"
+                        Activated="FrmSearchGoods_OnActivated" TextInput="WindowWithSize_TextInput"
+                        WindowStartupLocation="CenterScreen"
+                        Title="{x:Static localizations:Translate.FrmSearchGoods_ПоискТоваров}" Height="600" Width="800"
+                        Style="{StaticResource sWindow}" MinHeight="600" MinWidth="800"
+                        FocusManager.FocusedElement="{Binding ElementName=SearchTb}">
+  <FrameworkElement.DataContext>
+    <goods:GoodsSearchModelView/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <converters:DecimalToStringConverter x:Key="decimalConverter"/>
+  </FrameworkElement.Resources>
+  <Grid Margin="0,0,0,0">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0" Orientation="Horizontal">
+      <userControls:TextBoxWithClearControl x:Name="SearchTb" Focusable="true" VerticalAlignment="Center" Width="350" Height="40"
+                                            TextFontSize="24" HorizontalAlignment="Left" Margin="10,10,0,0"
+                                            ConfigCommand="{Binding SetVisibilityPanelSearch}"
+                                            TextString="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+      <userControls:CategorySelectionControl x:Name="CategorySelectionControl" Margin="10,10,0,0" IsAllEquallyNull="true" Height="40"
+                                             HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand">
+        <userControls:CategorySelectionControl.GroupsListFilter>
+          <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">            <!-- constructor argument:
+                 GroupsList
+            -->
+
+          </Binding>
+        </userControls:CategorySelectionControl.GroupsListFilter>
+      </userControls:CategorySelectionControl>
+    </StackPanel>
+    <Grid Margin="10,5,60,0" Row="1" Column="0" Visibility="{Binding VisibilityPanelSearch}">
+      <StackPanel Orientation="Vertical">
+        <StackPanel Name="PanelSearchIn" Orientation="Horizontal" VerticalAlignment="Center">
+          <Label Content="{x:Static localizations:Translate.FrmSearchClient_ИскатьВ}" HorizontalAlignment="Left"
+                 VerticalAlignment="Center" Height="25" Width="75"/>
+          <Button Click="Button_Click" Name="FindButton" Height="25" Style="{DynamicResource btnLink}"
+                  VerticalAlignment="Center" Width="105" Cursor="Hand" Content="{Binding TextPropButton}">
+            <FrameworkElement.Resources>
+              <ContextMenu x:Key="ContextMenuGrid"/>
+            </FrameworkElement.Resources>
+          </Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+          <StackPanel>
+            <StackPanel Name="PanelPriceFilter" Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmGoodCard_Стоимость}" Width="75" Height="25"
+                     HorizontalAlignment="Left" VerticalAlignment="Center"/>
+              <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" SelectedIndex="0"
+                        ItemsSource="{Binding FilterPriceItems}"
+                        SelectedValue="{Binding SelectedFilterPrice, UpdateSourceTrigger=PropertyChanged}"/>
+              <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="4 0 0 0" Width="65" Minimum="0" VerticalAlignment="Center"
+                                  ShowButtonSpinner="false" Value="{Binding FilterPrice, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Name="PanelStockFilter" Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmSelectGoodStock_Остаток}" Height="25"
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Width="75"/>
+              <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" SelectedIndex="0"
+                        SelectedItem="{Binding SelectedFilterCount}" ItemsSource="{Binding FilterCountItems}"/>
+              <xctk:DecimalUpDown HorizontalAlignment="Left" Margin="4 0" Minimum="0" VerticalAlignment="Center" Width="65"
+                                  ShowButtonSpinner="false" Value="{Binding FilterCount, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+          </StackPanel>
+          <StackPanel Margin="8 0">
+            <ComboBox Name="ComboBoxSearchType" HorizontalAlignment="Left" VerticalAlignment="Center"
+                      SelectedValuePath="Key" DisplayMemberPath="Value" ItemsSource="{Binding ListSearchType}"
+                      SelectedValue="{Binding SelectedSearchType, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Name="ComboBoxStorage" HorizontalAlignment="Left" VerticalAlignment="Center" SelectedIndex="0"
+                      DisplayMemberPath="Name" ItemsSource="{Binding ListStorages}"
+                      SelectedValue="{Binding SelectedStorage}"/>
+          </StackPanel>
+        </StackPanel>
+      </StackPanel>
+    </Grid>
+    <Grid Row="2" Column="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <DataGrid TextInput="WindowWithSize_TextInput" Name="ListGoodsSearch" AutoGenerateColumns="false"
+                SelectedValuePath="Good" EnableRowVirtualization="true" VirtualizingPanel.IsVirtualizing="true"
+                VirtualizingPanel.VirtualizationMode="Recycling" Grid.Column="0" Margin="8 8 4   0"
+                RowHeaderWidth="0" ItemsSource="{Binding GoodsList}">
+        <FrameworkElement.Resources>
+          <ContextMenu x:Key="ContextMenuGrid"/>
+          <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+            <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ContextMenuGrid}"/>
+          </Style>
+        </FrameworkElement.Resources>
+        <UIElement.InputBindings>
+          <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=SelectGoodsCommand}"
+                        CommandParameter="{Binding ElementName=ListGoodsSearch, Path=SelectedItems}"/>
+          <KeyBinding Key="Enter" Command="{Binding Path=SelectGoodsCommand}"
+                      CommandParameter="{Binding ElementName=ListGoodsSearch, Path=SelectedItems}"/>
+        </UIElement.InputBindings>
+        <DataGrid.Columns>
+          <DataGridTemplateColumn Header="{x:Static localizations:Translate.Фото}" Width="100"
+                                  my:Extensions.Guid="7FD85029-4950-4788-A4A7-2278A4278D21" IsReadOnly="true" CanUserSort="false"
+                                  MaxWidth="250">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <Button Margin="0" Command="{Binding Path=ShowImageCommand}" Visibility="{Binding VisibilityImage}"
+                        CommandParameter="{Binding ElementName=ListGoodsSearch, Path=SelectedItems}">
+                  <Image Source="{Binding Image}"/>
+                </Button>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSearchGoods_ДатаДобавления}" Width="150"
+                              Visibility="Collapsed" my:Extensions.Guid="8A039498-503E-4C3D-A03E-E6E7E2235572"
+                              Binding="{Binding Path=Good.DateAdd, StringFormat=dd.MM.yyyy}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmAuthorization_ШтрихКод}" Width="150"
+                              my:Extensions.Guid="CF22F09D-9E8B-401A-A296-938024C3A072" Binding="{Binding Path=Good.Barcode}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSearchGoods_Категория}" Width="100"
+                              ElementStyle="{DynamicResource WrappedCell}"
+                              my:Extensions.Guid="DE02CF4A-8CFB-4268-94EB-A5287BF7CFD2" Binding="{Binding Path=Good.Group.Name}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}" Width="300"
+                              ElementStyle="{DynamicResource WrappedCell}"
+                              my:Extensions.Guid="7DAEE8AC-7C04-4FF4-B841-F7522124D61D" Binding="{Binding Path=Good.Name}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Остаток}" Width="100"
+                              my:Extensions.Guid="{x:Static global:GlobalDictionaries.StockColumnsUid}"
+                              CellStyle="{DynamicResource numberCellStyle}"
+                              Binding="{Binding Path=GoodTotalStock, Converter={StaticResource decimalConverter}}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodCard_Стоимость}" Width="100"
+                              my:Extensions.Guid="D0FF4FE0-5720-4045-B05B-5DED4F9467C5"
+                              CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=MaxPrice, StringFormat=N2}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.ExcelDataViewModel_Описание}" Width="100"
+                              ElementStyle="{DynamicResource WrappedCell}"
+                              my:Extensions.Guid="61A8249A-DCAF-40BB-9C50-7C303BB01783" Binding="{Binding Path=Good.Description}"/>
+        </DataGrid.Columns>
+      </DataGrid>
+      <StackPanel Grid.Column="1" Margin="0 4 4 4" Visibility="{Binding AddOrEditGoodVisibility}">
+        <Button Name="ButtonNewGood" Style="{DynamicResource btnAction}" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Command="{Binding Path=AddGoodsCommand}">
+          <Image Source="{DynamicResource IconAdd}"/>
+        </Button>
+        <Button Name="ButtonEditGood" Style="{DynamicResource btnAction}" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Command="{Binding Path=EditGoodsCommand}"
+                CommandParameter="{Binding ElementName=ListGoodsSearch, Path=SelectedItems}">
+          <Image Source="{DynamicResource IconEdit}"/>
+        </Button>
+      </StackPanel>
+    </Grid>
+    <ToolBarPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Margin=" 8 0">
+      <Label Content="{x:Static localizations:Translate.FrmGoodsCatalog_Наименований}"/>
+      <Label ContentStringFormat="N0" Content="{Binding GoodsList.Count, StringFormat=D}"/>
+      <Label Content="|" Visibility="{Binding VisibilityStock}"/>
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Товаров}"
+             Visibility="{Binding VisibilityStock}"/>
+      <Label ContentStringFormat="N2" Content="{Binding TotalGoodsStock, StringFormat=N2}"
+             Visibility="{Binding VisibilityStock}"/>
+      <Label Content="|"/>
+      <Button Name="ButtonUpdateData" Style="{DynamicResource btnLink}"
+              Content="{x:Static localizations:Translate.ОбновитьДанные}" VerticalContentAlignment="Center"
+              VerticalAlignment="Center" Command="{Binding ReloadData}"/>
+    </ToolBarPanel>
+    <Grid Margin="8" Row="5" Column="0">
+      <Button Name="ButtonOk" Style="{DynamicResource btnConfirm_Ok}" HorizontalAlignment="Left" Width="211"
+              Content="{x:Static localizations:Translate.FrmSearchGoods_ДОБАВИТЬ}"
+              CommandParameter="{Binding ElementName=ListGoodsSearch, Path=SelectedItems}"
+              Command="{Binding Path=SelectGoodsCommand}"/>
+      <Button Name="ButtonCancel" Style="{DynamicResource btnConfirm_Cancel}" HorizontalAlignment="Right"
+              FontSize="16" Content="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОТМЕНА}"
+              VerticalAlignment="Bottom"/>
+      <StackPanel Margin="246,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="350">
+        <CheckBox Name="CheckBoxCloseAfterAdd" IsEnabled="true" Margin="5 5 0 0"
+                  Content="{x:Static localizations:Translate.FrmSearchGoods_НеЗакрыватьОкноПослеДобавления}"
+                  VerticalAlignment="Top" HorizontalAlignment="Left"
+                  IsChecked="{Binding Path=OptionAfterAdd, UpdateSourceTrigger=PropertyChanged}"
+                  Visibility="{Binding OptionAfterAddVisibility}"/>
+        <CheckBox Name="CheckBoxAddAllStocks" IsEnabled="true"
+                  Content="{x:Static localizations:Translate.FrmSearchGoods_ДобавлятьВсеКолВоТовара}"
+                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5 5 0 0 "
+                  IsChecked="{Binding Path=OptionAllCount, UpdateSourceTrigger=PropertyChanged}"
+                  Visibility="{Binding OptionAllCountVisibility}"/>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,109 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.SendWaybills.FrmListSendWaybills"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.SendWaybills"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmMainWindow_ЖурналПеремещений}" Height="450" Width="800"
+                        MinHeight="450" MinWidth="800">
+  <FrameworkElement.DataContext>
+    <local:SendWaybillsJournalViewModel/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <ContextMenu x:Key="{x:Static local:SendWaybillsJournalViewModel.MoreMenuKey}" FontSize="25">
+      <MenuItem Header="{x:Static localizations:Translate.ПовторитьОтправку}"
+                Command="{Binding Path=RepeatSendWaybillCommand}"/>
+    </ContextMenu>
+    <ContextMenu x:Key="{x:Static local:SendWaybillsJournalViewModel.PrintMenuKey}" FontSize="25">
+      <MenuItem Header="{x:Static localizations:Translate.FrmWaybillsList_Накладная}"
+                Command="{Binding Path=PrintCommand}"/>
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Ценники}"
+                Command="{Binding Path=PrintTagForWaybill}"/>
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Этикетки}"
+                Command="{Binding Path=PrintLableForWaybill}"/>
+    </ContextMenu>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <Expander Grid.Row="0" Margin="5" Header="{x:Static localizations:Translate.FrmListClients_ФильтрПоиска}">
+      <StackPanel Orientation="Horizontal">
+        <userControls:DateFilterControl Margin="5" Width="340" CommandOnUpdate="{Binding FilterJournalCommand}"
+                                        ValueDateTimeStart="{Binding DateStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ValueDateTimeEnd="{Binding DateFinish, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <StackPanel Margin="0, 0" Width="280">
+          <Button VerticalAlignment="Top" Height="30" Margin="5,10,15,10" Content="{Binding ButtonContentStorage}"
+                  Command="{Binding SelectedStorage}"/>
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.ТочкаПолучатель}"/>
+            <ComboBox Width="150" Margin="5 0" ItemsSource="{Binding PointSales}"
+                      SelectedItem="{Binding SelectedPointSale, UpdateSourceTrigger=PropertyChanged}"/>
+          </StackPanel>
+        </StackPanel>
+      </StackPanel>
+    </Expander>
+    <DataGrid x:Name="SendWaybillJournalDataGrid" Grid.Row="1" Grid.Column="0" Margin="5"
+              HeadersVisibility="Column" ItemsSource="{Binding SendWaybillItemsList}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmJournalSales_ДатаВремя}" Width="1*"
+                            Binding="{Binding SendWaybillDocument.DateTime}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.ОтправленоВ}" Width="1*" Binding="{Binding PointSale}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" Width="1*"
+                            Binding="{Binding SendWaybillDocument.Storage.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Статус}" Width="1*"
+                            Visibility="Collapsed" Binding="{Binding Status}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="1*"
+                            Binding="{Binding SendWaybillDocument.Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="1*"
+                            Binding="{Binding UserAlias}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsCatalog_Наименований}" Width="1*"
+                            Binding="{Binding TotalName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Товаров}" Width="1*"
+                            Binding="{Binding TotalCount, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmReturnSales_Сумма}" Width="1*"
+                            Binding="{Binding TotalSaleSum, StringFormat=N2}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="4">
+      <Button Style="{DynamicResource btnAction}" Command="{Binding AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button Name="PrintButton" Style="{DynamicResource btnAction}" Command="{Binding ShowPrintMenuCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=SendWaybillJournalDataGrid}">
+        <Image Source="{DynamicResource IconPrint}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding DeleteCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=SendWaybillJournalDataGrid}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+      <Button Name="MoreButton" Style="{DynamicResource btnAction}" Cursor="Hand"
+              Command="{Binding ShowMenuCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=SendWaybillJournalDataGrid}">
+        <Image Source="{DynamicResource IconMore}"/>
+      </Button>
+    </StackPanel>
+    <ToolBarPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="780" Height="30"
+                  VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="3" Margin="5,0,0,0">
+      <Label Content="{x:Static localizations:Translate.FrmWriteOffJournal_КолВоЗаписей}"/>
+      <Label Content="{Binding SendWaybillItemsList.Count}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Товаров}"/>
+      <Label ContentStringFormat="N2" Content="{Binding TotalCount}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.FrmJournalSales_НаСумму}"/>
+      <Label ContentStringFormat="N2" Content="{Binding TotalSaleSum}"/>
+    </ToolBarPanel>
+  </Grid>
+</helpers:WindowWithSize>

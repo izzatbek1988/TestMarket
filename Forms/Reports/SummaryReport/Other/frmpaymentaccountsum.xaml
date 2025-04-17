@@ -1,0 +1,46 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Reports.SummaryReport.Other.FrmPaymentAccountSum"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Reports.SummaryReport.Other"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" Title="{x:Static localizations:Translate.БалансНаСчетах}"
+                        Height="450" Width="500" ResizeMode="NoResize">
+  <FrameworkElement.DataContext>
+    <local:PaymentAccountsAndSumViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="55"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="25"/>
+    </Grid.RowDefinitions>
+    <DataGrid Name="AccountsDataGrid" Margin="10, 10, 10, 0" ItemsSource="{Binding AccountPayments}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditSumCommand}"
+                      CommandParameter="{Binding ElementName=AccountsDataGrid, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCardMethodPayment_ДенежныйСчет}" Width="3*"
+                            Binding="{Binding Account.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" Width="*"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Sum, StringFormat=N2}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <ToolBarPanel Grid.Row="1" Grid.Column="0" Margin="10, 0" Orientation="Horizontal">
+      <Label FontWeight="Bold" Content="{x:Static localizations:Translate.FrmPaymentByMethods_ИТОГО}"/>
+      <Label ContentStringFormat="N2" Content="{Binding TotalSum, StringFormat=N2}"/>
+    </ToolBarPanel>
+    <Button Margin="0, 10" Grid.Row="0" Grid.Column="1" Style="{DynamicResource btnAction}" Height="50"
+            VerticalAlignment="Top" HorizontalAlignment="Left" Width="50"
+            Command="{Binding Path=EditSumCommand}"
+            CommandParameter="{Binding ElementName=AccountsDataGrid, Path=SelectedItems}">
+      <Image Source="{DynamicResource IconEdit}"/>
+    </Button>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,34 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Devices.FrmTaxKkmSettings"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Devices"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Title="{x:Static localizations:Translate.FrmTaxKkmSettings_НастройкиНалоговыхСтавок}"
+                        Style="{StaticResource sWindow}" Width="320" Height="380" ResizeMode="NoResize">
+  <FrameworkElement.DataContext>
+    <local:TaxKkmViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <DataGrid Name="GridPaymentsIndex" HorizontalAlignment="Left" Height="230" Margin="10,10,10,0"
+              VerticalAlignment="Top" AutoGenerateColumns="false" CanUserAddRows="false" ColumnWidth="0"
+              IsReadOnly="false" ItemsSource="{Binding TaxList}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmTaxKkmSettings_НазваниеНалога}" Width="2*"
+                            IsReadOnly="false" Binding="{Binding Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmClientCard_Значение}" Width="*" IsReadOnly="false"
+                            Binding="{Binding Value}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmPaymentMethodKkm_Номер}" Width="*" IsReadOnly="false"
+                            Binding="{Binding Index}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <Button Style="{DynamicResource btnLink}"
+            Content="{x:Static localizations:Translate.FrmTaxKkmSettings_ПечатьЧекаСИндексами}" Margin="5"
+            Cursor="Hand" Command="{Binding PrintTestCheckForIndex}"/>
+    <Button x:Name="btnSave" Style="{StaticResource btnOk}"
+            Content="{x:Static localizations:Translate.FrmSelectGoodStock_СОХРАНИТЬ}" FontSize="30"
+            Margin="45,5,45,5" Height="60" VerticalAlignment="Top" Command="{Binding Save}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

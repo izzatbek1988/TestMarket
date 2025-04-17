@@ -1,0 +1,34 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Cafe.FrmTableCafe"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Cafe"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmTableCafe_ИнформацияОЗаказе}" ResizeMode="NoResize"
+                        SizeToContent="WidthAndHeight">
+  <FrameworkElement.DataContext>
+    <local:TableCafeViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="10">
+      <TextBlock Text="{x:Static localizations:Translate.FrmCafePreSave_Столик}" FontSize="30"
+                 VerticalAlignment="Center" Width="140"/>
+      <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="80,0,0,0" VerticalAlignment="Center" FontSize="30" Width="116"
+                          Minimum="0" Maximum="9999" VerticalContentAlignment="Center" Text="0" TextAlignment="Left"
+                          Height="45" Value="{Binding NumTable, UpdateSourceTrigger=PropertyChanged}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="10 0 10 0">
+      <TextBlock Text="{x:Static localizations:Translate.FrmCafePreSave_Персоны}" FontSize="30"
+                 VerticalAlignment="Center" Width="140"/>
+      <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="80,0,0,0" VerticalAlignment="Top" FontSize="30" Width="116"
+                          Minimum="1" Maximum="9999" VerticalContentAlignment="Center" Height="45" Text="0"
+                          TextAlignment="Left" Value="{Binding CountGuest, UpdateSourceTrigger=PropertyChanged}"/>
+    </StackPanel>
+    <userControls:ConfirmPanelControl1 OkButtonCommand="{Binding SaveCommand}" CancelButtonCommand="{Binding CancelCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

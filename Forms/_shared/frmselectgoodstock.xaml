@@ -1,0 +1,59 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmSelectGoodStock"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms._shared"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:global="clr-namespace:Gbs.Core.Entities"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        WindowStartupLocation="CenterScreen"
+                        Title="{x:Static localizations:Translate.FrmSelectGoodStock_ВыборОстатка}" SizeToContent="Height"
+                        ResizeMode="NoResize" Style="{StaticResource sWindow}" Width="430">
+  <FrameworkElement.DataContext>
+    <local:StockModelView/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" MaxHeight="200"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="36" LineStackingStrategy="BlockLineHeight"
+               LineHeight="35" Text="{Binding Name}"/>
+    <DataGrid Name="StockGrid" Height="208" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Top"
+              ItemsSource="{Binding Path=ListData}" SelectedValue="{Binding SelectedStock}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=SelectStock}"
+                      CommandParameter="{Binding ElementName=StockGrid, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <FrameworkElement.Resources>
+        <xaml:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+      </FrameworkElement.Resources>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Модификация}" Width="2*"
+                            Binding="{Binding Path=Modification.Name}"
+                            Visibility="{Binding Data.VisibilityModification, Source={StaticResource Proxy}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Остаток}" Width="1*"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            uiElement:Extensions.Guid="{x:Static global:GlobalDictionaries.StockColumnsUid}"
+                            Binding="{Binding Path=Stock.Stock}"
+                            Visibility="{Binding Data.VisibilityStock, Source={StaticResource Proxy}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Цена}" Width="1*"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=Stock.Price, StringFormat=N2}"
+                            Visibility="{Binding Data.VisibilityInfo, Source={StaticResource Proxy}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" Width="1*"
+                            Binding="{Binding Path=Stock.Storage.Name}"
+                            Visibility="{Binding Data.VisibilityInfo, Source={StaticResource Proxy}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.КодМаркировки}" Width="1*"
+                            Binding="{Binding Path=MarkedInfo}"
+                            Visibility="{Binding Data.VisibilityMarkedInfo, Source={StaticResource Proxy}}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <userControls:ConfirmPanelControl1 Grid.Column="0" Grid.Row="2" OkButtonCommand="{Binding SelectStock}"
+                                       OkButtonParameter="{Binding ElementName=StockGrid, Path=SelectedItems}"/>
+  </Grid>
+</helpers:WindowWithSize>

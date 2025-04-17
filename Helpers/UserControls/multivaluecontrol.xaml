@@ -1,0 +1,81 @@
+<UserControl x:Class="Gbs.Helpers.UserControls.MultiValueControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             Name="MultiValueCntrl" Padding="0">
+  <Border BorderBrush="{DynamicResource DefaultForeground60}" BorderThickness="1"
+          Background="{DynamicResource ListMainBackground}" CornerRadius="3">
+    <Grid Margin="0">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" MinHeight="20"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <ScrollViewer x:Name="ScrollViewer" Margin="0" MinHeight="20" MaxHeight="100" VerticalScrollBarVisibility="Auto"
+                    VerticalAlignment="Stretch">
+        <ItemsControl x:Name="Items" ItemsSource="{Binding ElementName=MultiValueCntrl, Path=ValuesList}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderThickness="0" Background="{DynamicResource ListSecondBackground}" Margin="2 4"
+                      CornerRadius="5">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <TextBlock Grid.Column="0" Margin="2" TextWrapping="WrapWithOverflow" Text="{Binding Path=DisplayedValue}"/>
+                  <Button Grid.Column="1" Width="20" Height="20" Margin="0 0 0 0" Background="Transparent"
+                          BorderThickness="0" Command="{Binding ElementName=MultiValueCntrl, Path=DeleteValueCommand}"
+                          CommandParameter="{Binding}">
+                    <ContentControl.Content>
+                      <Image Source="{DynamicResource IconClose}"/>
+                    </ContentControl.Content>
+                  </Button>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+      <Border Grid.Column="1" Grid.Row="0" CornerRadius="0" BorderThickness="1 0 0 0"
+              BorderBrush="{DynamicResource DefaultForeground60}">
+        <WrapPanel Orientation="Horizontal" HorizontalAlignment="Right">
+          <Button Height="24" Margin="2" BorderThickness="0" Focusable="false"
+                  Background="{DynamicResource ListMainBackground}" SnapsToDevicePixels="true"
+                  Command="{Binding ElementName=MultiValueCntrl, Path=AddValueCommand}">
+            <ContentControl.Content>
+              <Image Source="{DynamicResource IconSmallAdd}"/>
+            </ContentControl.Content>
+          </Button>
+          <Button Height="24" Margin="2" BorderThickness="0" Focusable="false" Padding="0"
+                  Background="{DynamicResource ListMainBackground}"
+                  Command="{Binding ElementName=MultiValueCntrl, Path=ClearCommand}">
+            <ContentControl.Content>
+              <Image Source="{DynamicResource IconDelete}"/>
+            </ContentControl.Content>
+          </Button>
+        </WrapPanel>
+      </Border>
+    </Grid>
+  </Border>
+  <FrameworkElement.Style>
+    <Style TargetType="{x:Type UserControl}">
+      <Style.Triggers>
+        <Trigger Property="UIElement.IsMouseOver" Value="true"/>
+        <Trigger Property="UIElement.IsEnabled" Value="false">
+          <Setter Property="UIElement.Opacity" Value="0.6"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </FrameworkElement.Style>
+</UserControl>

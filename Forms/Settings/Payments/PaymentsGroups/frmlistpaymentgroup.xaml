@@ -1,0 +1,47 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Payments.PaymentsGroups.FrmListPaymentGroup"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Payments.PaymentsGroups"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Style="{StaticResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmSettings_ГруппыРасходовИДоходов}" Height="499.644"
+                        Width="409.968" ResizeMode="NoResize">
+  <FrameworkElement.DataContext>
+    <local:PaymentsGroupViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <TreeView SelectedItemChanged="TreeGroup_OnSelectedItemChanged" x:Name="treeGroup" Margin="8 8 0 8"
+              ItemsSource="{Binding Path=GroupList}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"/>
+      </UIElement.InputBindings>
+      <ItemsControl.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding Path=Childrens}">
+          <TextBlock Text="{Binding Path=Group.Name}"/>
+        </HierarchicalDataTemplate>
+      </ItemsControl.ItemTemplate>
+    </TreeView>
+    <StackPanel Grid.Row="0" Grid.Column="1" Margin="4 4 4 4">
+      <Button x:Name="btnAddGroup" Style="{DynamicResource btnAction}" Command="{Binding Path=AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button x:Name="btnEditGroup" Style="{DynamicResource btnAction}" Command="{Binding Path=EditCommand}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button x:Name="btnDelGroup" Style="{DynamicResource btnAction}" Command="{Binding Path=DeleteCommand}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

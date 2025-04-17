@@ -1,0 +1,146 @@
+<Page x:Class="Gbs.Forms.Settings.Pages.DevicesSubPages.PageSecondMonitor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Gbs.Forms.Settings.Pages.DevicesSubPages"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+      Title="PageSecondMonitor">
+  <FrameworkElement.DataContext>
+    <local:SecondMonitorPageViewModel/>
+  </FrameworkElement.DataContext>
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+      <Expander Header="{x:Static localizations:Translate.ВторойМонитор}">
+        <StackPanel Margin="5">
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.PageDevices_Монитор}" Margin="10,0"/>
+            <ComboBox Width="161" Margin="10,0" ItemsSource="{Binding MonitorList}" SelectedValue="{Binding Monitor}"/>
+          </StackPanel>
+          <GroupBox Margin="10" Visibility="{Binding VisibilityImage}">
+            <HeaderedContentControl.Header>
+              <CheckBox Name="PhotoCheckBox" Content="{x:Static localizations:Translate.СлайдШоу}"
+                        IsChecked="{Binding DevicesConfig.SecondMonitor.IsActivePhoto, UpdateSourceTrigger=PropertyChanged}"/>
+            </HeaderedContentControl.Header>
+            <StackPanel IsEnabled="{Binding ElementName=PhotoCheckBox, Path=IsChecked}">
+              <StackPanel Orientation="Horizontal">
+                <Label Content="{x:Static localizations:Translate.PageDevices_ПапкаСФото}"/>
+                <userControls:TextBoxFolderPathControl Margin="10 0 0 0" Width="215"
+                                                       FolderPath="{Binding Path=DevicesConfig.SecondMonitor.PathImages, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+              </StackPanel>
+              <StackPanel Orientation="Horizontal">
+                <Label Content="{x:Static localizations:Translate.PageDevices_Интервал}" Width="94"/>
+                <StackPanel Orientation="Horizontal">
+                  <xctk:IntegerUpDown Minimum="5" Maximum="120" Width="50" Height="23" HorizontalAlignment="Left"
+                                      Value="{Binding Path=DevicesConfig.SecondMonitor.Interval}"/>
+                  <Label>сек</Label>
+                </StackPanel>
+              </StackPanel>
+            </StackPanel>
+          </GroupBox>
+        </StackPanel>
+      </Expander>
+      <Expander Header="{x:Static localizations:Translate.PageDevices_ДисплейПокупателя}" IsEnabled="true">
+        <StackPanel Margin="5">
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.Дисплей}" Margin="0" Width="80"/>
+            <ComboBox Width="200" Margin="00" DisplayMemberPath="Value" SelectedValuePath="Key"
+                      ItemsSource="{Binding DisplayList}" SelectedValue="{Binding Display}"/>
+          </StackPanel>
+          <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsExpanded="true" Margin="5"
+                    Header="{x:Static localizations:Translate.PageAcquiringTerminal_НастройкаПодключения}"
+                    Visibility="{Binding VisibilitySettingDisplay}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Button Content="{x:Static localizations:Translate.PageBarcodeScanner_Настроить}" Width="120"
+                      HorizontalAlignment="Left" Margin="3" Command="{Binding Path=DoSettingDisplayCommand}"/>
+              <Button Grid.Row="0" Content="{x:Static localizations:Translate.PageDataBase_ПроверитьСвязь}" Width="96"
+                      HorizontalAlignment="Left" Margin="175,3,0,3" Style="{DynamicResource btnLink}"
+                      Command="{Binding Path=TestConnectionCommand}"/>
+            </Grid>
+          </Expander>
+          <StackPanel Orientation="Horizontal" Margin="0 5 0 5" Visibility="{Binding VisibilitySettingEcsDisplay}">
+            <Label Content="{x:Static localizations:Translate.Кодировка}" Width="80" VerticalAlignment="Center"
+                   Margin="10 0 0 0"/>
+            <ComboBox Width="162" Margin="0" DisplayMemberPath="Value" SelectedValuePath="Key"
+                      ItemsSource="{Binding EncodingDirectory}"
+                      SelectedValue="{Binding DevicesConfig.DisplayPayer.DisplayEncoding}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Margin="0 0 0 5" Visibility="{Binding VisibilitySettingDisplay}">
+            <Label Content="{x:Static localizations:Translate.КолВоСтрок}" Margin="10,0" Width="170"/>
+            <xctk:IntegerUpDown Width="50" Margin="10,0" Minimum="0" Maximum="5"
+                                Value="{Binding DevicesConfig.DisplayPayer.CountRow, UpdateSourceTrigger=PropertyChanged}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Visibility="{Binding VisibilitySettingDisplay}">
+            <Label Content="{x:Static localizations:Translate.КолВоСимволовВ1Строке}" Margin="10,0" Width="170"/>
+            <xctk:IntegerUpDown Width="50" Margin="10,0" Minimum="5" MaxHeight="50"
+                                Value="{Binding DevicesConfig.DisplayPayer.CountCharInRow, UpdateSourceTrigger=PropertyChanged}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"/>
+        </StackPanel>
+      </Expander>
+      <Expander Header="{x:Static localizations:Translate.ОднострочныйДисплейПокупателяТолькоЦифры}"
+                IsEnabled="true">
+        <StackPanel Margin="5">
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.Дисплей}" Margin="0" Width="80"/>
+            <ComboBox Width="200" Margin="00" DisplayMemberPath="Value" SelectedValuePath="Key"
+                      ItemsSource="{Binding DisplayNumbersList}" SelectedValue="{Binding DisplayNumbers}"/>
+          </StackPanel>
+          <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsExpanded="true" Margin="5"
+                    Header="{x:Static localizations:Translate.PageAcquiringTerminal_НастройкаПодключения}"
+                    Visibility="{Binding VisibilitySettingDisplayNumbers}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Button Content="{x:Static localizations:Translate.PageBarcodeScanner_Настроить}" Width="120"
+                      HorizontalAlignment="Left" Margin="3" Command="{Binding Path=DoSettingDisplayNumbersCommand}"/>
+              <Button Grid.Row="0" Content="{x:Static localizations:Translate.PageDataBase_ПроверитьСвязь}" Width="96"
+                      HorizontalAlignment="Left" Margin="175,3,0,3" Style="{DynamicResource btnLink}"
+                      Command="{Binding Path=TestConnectionDisplayNumbersCommand}"/>
+            </Grid>
+          </Expander>
+          <StackPanel Orientation="Horizontal"/>
+        </StackPanel>
+      </Expander>
+      <Expander Header="{x:Static localizations:Translate.ДисплейДляQRКода}"
+                Visibility="{Binding QrDisplayVisibility}">
+        <StackPanel Margin="5">
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.Дисплей}" Margin="10,0"/>
+            <ComboBox Width="161" Margin="10,0" DisplayMemberPath="Value" SelectedValuePath="Key"
+                      ItemsSource="{Binding DisplayQrList}" SelectedValue="{Binding DisplayQr}"/>
+          </StackPanel>
+          <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsExpanded="true" Margin="5"
+                    Header="{x:Static localizations:Translate.PageAcquiringTerminal_НастройкаПодключения}"
+                    Visibility="{Binding VisibilitySettingDisplayQr}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Button Content="{x:Static localizations:Translate.PageBarcodeScanner_Настроить}" Width="120"
+                      HorizontalAlignment="Left" Margin="3" Command="{Binding Path=DoSettingDisplayQrCommand}"/>
+              <Button Grid.Row="0" Content="{x:Static localizations:Translate.PageDataBase_ПроверитьСвязь}" Width="96"
+                      HorizontalAlignment="Left" Margin="175,3,0,3" Style="{DynamicResource btnLink}"
+                      Command="{Binding Path=TestConnectionQrCommand}"/>
+            </Grid>
+          </Expander>
+        </StackPanel>
+      </Expander>
+    </StackPanel>
+  </ScrollViewer>
+</Page>

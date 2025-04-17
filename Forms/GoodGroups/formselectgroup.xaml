@@ -1,0 +1,93 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.GoodGroups.FormSelectGroup"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:goodGroups="clr-namespace:Gbs.Forms.GoodGroups"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Title="{x:Static localizations:Translate.FormSelectGroup_ВыберитеКатегорию}" SizeToContent="Manual"
+                        Width="410" Height="550" ResizeMode="NoResize" Style="{StaticResource sWindow}"
+                        FocusManager.FocusedElement="{Binding ElementName=SearchTb}">
+  <FrameworkElement.DataContext>
+    <goodGroups:GroupsSelectedViewModel/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}" x:Name="tvs">
+      <Setter Property="TreeViewItem.IsExpanded"
+              Value="{Binding IsExpanded, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+    </Style>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <userControls:TextBoxWithClearControl x:Name="SearchTb" VerticalAlignment="Top" Height="40" TextFontSize="24" Grid.Column="0"
+                                          HorizontalAlignment="Stretch" Width="Auto" Margin="8 8 4 4" Grid.Row="0"
+                                          TextString="{Binding Path=FilterText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+    <TreeView Name="treeGroup" Margin=" 8 4 4 4" Grid.Row="1" Grid.Column="0" Padding="2"
+              ItemsSource="{Binding Path=GroupList}">
+      <UIElement.InputBindings>
+        <KeyBinding Key="Up" Command="{Binding UpButtonCommand}"/>
+        <KeyBinding Key="Down" Command="{Binding DownButtonCommand}"/>
+        <KeyBinding Key="Space" Command="{Binding SpaceButtonCommand}"/>
+      </UIElement.InputBindings>
+      <FrameworkElement.Resources>
+        <xaml:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+      </FrameworkElement.Resources>
+      <FrameworkElement.ContextMenu>
+        <ContextMenu Visibility="{Binding VisibleCheckBox}">
+          <MenuItem Header="{x:Static localizations:Translate.FormSelectGroup_ВыбратьВсеКатегории}"
+                    Command="{Binding SelectedAllGroupsCommand}"/>
+          <MenuItem Header="{x:Static localizations:Translate.FormSelectGroup_ВыбратьТолькоКатегорииВерхнегоУровня}"
+                    Command="{Binding SelectedParentGroupsCommand}"/>
+          <MenuItem Header="{x:Static localizations:Translate.FormSelectGroup_ВыбратьПодкатегорииДляВыбраннойКатегории}"
+                    Command="{Binding SelectedChildrensGroupCommand}"/>
+          <Separator/>
+          <MenuItem Header="{x:Static localizations:Translate.FormSelectGroup_СнятьОтметкиВсехКатегорий}"
+                    Command="{Binding OffSelectedAllGroupsCommand}"/>
+          <MenuItem Header="{x:Static localizations:Translate.FormSelectGroup_СнятьОтметкиСКатегорийВерхнегоУровня}"
+                    Command="{Binding OffSelectedParentGroupsCommand}"/>
+          <MenuItem Header="{x:Static localizations:Translate.FormSelectGroup_СнятьОтметкиСПодкатегорийДляВыбраннойКатегории}"
+                    Command="{Binding OffSelectedChildrensGroupCommand}"/>
+        </ContextMenu>
+      </FrameworkElement.ContextMenu>
+      <ItemsControl.ItemTemplate>
+        <HierarchicalDataTemplate ItemsSource="{Binding Path=Childrens}">
+          <StackPanel Orientation="Horizontal">
+            <CheckBox x:Name="chb1" TabIndex="0" Margin="0" VerticalAlignment="Center"
+                      Visibility="{Binding Data.VisibleCheckBox, Source={StaticResource Proxy}}"
+                      Tag="{Binding Path=Group}"
+                      IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Margin="4,0" VerticalAlignment="Center" Text="{Binding Path=Group.Name}"/>
+          </StackPanel>
+        </HierarchicalDataTemplate>
+      </ItemsControl.ItemTemplate>
+    </TreeView>
+    <StackPanel Grid.Row="1" Grid.Column="1" Margin="0 0 4 4">
+      <Button VerticalAlignment="Top" Style="{DynamicResource btnAction}" Command="{Binding Path=AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button VerticalAlignment="Top" Style="{DynamicResource btnAction}" Command="{Binding Path=EditCommand}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+    </StackPanel>
+    <ToolBarPanel Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0" Orientation="Horizontal" Margin=" 4 0 0 0">
+      <Label Content="{x:Static localizations:Translate.FormGroup_Категорий}"/>
+      <Label Content="{Binding TotalCountGroup}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.Выбрано}"/>
+      <Label Content="{Binding SelectedCountGroup}"/>
+    </ToolBarPanel>
+    <userControls:ConfirmPanelControl1 Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="0" OkButtonCommand="{Binding GetSelectedGroup}"/>
+  </Grid>
+</helpers:WindowWithSize>

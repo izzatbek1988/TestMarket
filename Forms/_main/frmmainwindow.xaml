@@ -1,0 +1,655 @@
+<helpers:WindowWithSize x:Class="Gbs.MainWindow"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:global="clr-namespace:Gbs.Core.Entities"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:my="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Closing="MainWindow_OnClosing" PreviewKeyUp="MainWindow_OnPreviewKeyUp"
+                        TextInput="WindowWithSize_TextInput" WindowStartupLocation="CenterScreen"
+                        Style="{StaticResource sWindow}" Height="635" Width="1038.5" MinWidth="1000" MinHeight="635"
+                        Title="{Binding TitleMainWindow}" IsEnabled="{Binding IsActiveMain}">
+  <FrameworkElement.DataContext>
+    <local:MainWindowViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*" MinHeight="300"/>
+      <RowDefinition Height="0"/>
+      <RowDefinition Height="0"/>
+      <RowDefinition Height="195" MinHeight="195" MaxHeight="195"/>
+    </Grid.RowDefinitions>
+    <Menu Name="MainMenu" VerticalAlignment="Center" Grid.Row="0" IsTabStop="false"
+          HorizontalAlignment="Stretch">
+      <MenuItem Name="MainMenuItem_file" Header="{x:Static localizations:Translate.FrmMainWindow_Файл}">
+        <MenuItem x:Name="ItemSettings" Header="{x:Static localizations:Translate.FrmMainWindow_Настройки}"
+                  Command="{Binding Settings}"/>
+        <Separator/>
+        <MenuItem x:Name="ItemUsers" Header="{x:Static localizations:Translate.FrmMainWindow_Пользователи}"
+                  Command="{Binding UsersShow}"/>
+        <MenuItem x:Name="ItemPoint" Header="{x:Static localizations:Translate.FrmMainWindow_СменитьБазуДанных}"
+                  Visibility="{Binding VisibilitySelectPoint}" Command="{Binding PointShow}"/>
+        <Separator/>
+        <MenuItem x:Name="ItemExit" Header="{x:Static localizations:Translate.FrmMainWindow_Выход}"
+                  Command="{Binding Exit}"/>
+      </MenuItem>
+      <MenuItem Name="MenuItem_reports" Header="{x:Static localizations:Translate.FrmMainWindow_Отчеты}">
+        <MenuItem Name="MenuItem_reports_summary"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_СводныйОтчет}"
+                  Command="{Binding SummaryReport}"/>
+        <MenuItem Name="MenuItem_reports_saller"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ОтчетПродавца}"
+                  Visibility="{Binding SellerReportMenuVisibility}" Command="{Binding SellerReport}"/>
+        <Separator/>
+        <MenuItem Name="ItemMagazineSale" Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналПродаж}"
+                  Command="{Binding SalesJournal}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_reports_master"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_МастерОтчетов}"
+                  Command="{Binding ReportWizard}"/>
+        <MenuItem Visibility="Collapsed"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ПользовательскиеОтчеты}"
+                  Command="{Binding CustomReports}"/>
+      </MenuItem>
+      <MenuItem Name="MenuItem_actions" Header="{x:Static localizations:Translate.FrmMainWindow_Действия}">
+        <MenuItem Name="MenuItem_actions_cashOut"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_СнятьДенСредства}"
+                  Command="{Binding RemoveCash}"/>
+        <MenuItem Name="MenuItem_actions_cashIn"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ВнестиДенСредства}"
+                  Command="{Binding DepositСash}"/>
+        <MenuItem Name="MenuItem_actions_cashMove"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ПереместитьДенСредства}"
+                  Command="{Binding SendСash}"/>
+        <MenuItem Name="MenuItem_actions_cashRecalc"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ПересчитатьКассу}"
+                  Command="{Binding CountKassa}"/>
+        <Separator Visibility="{Binding KkmMenuVisibility}"/>
+        <MenuItem Name="MenuItem_actions_kkmXreport"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ККМСнятьXОтчет}"
+                  Command="{Binding Path=GetKkmXReport}" Visibility="{Binding KkmMenuVisibility}"/>
+        <MenuItem Name="MenuItem_actions_kkmZreport"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ККМСнятьZОтчет}"
+                  Command="{Binding Path=GetKkmZReport}" Visibility="{Binding KkmMenuVisibility}"/>
+        <Separator Visibility="{Binding Path=HiPosMenuVisibility}"/>
+        <MenuItem Name="MenuItem_PKKM_online_mode" Header="{x:Static localizations:Translate.ПККМОнлайнРежим}"
+                  Command="{Binding Path=SetOnlineModePrro}" Visibility="{Binding HiPosMenuVisibility}"/>
+        <MenuItem Name="MenuItem_PKKM_offline_mode" Header="{x:Static localizations:Translate.ПККМОффлайнРежим}"
+                  Command="{Binding Path=SetOfflineModePrro}" Visibility="{Binding HiPosMenuVisibility}"/>
+        <MenuItem Name="MenuItem_PKKM_account" Header="{x:Static localizations:Translate.ПККМЛичныйКабинет}"
+                  Command="{Binding Path=OpenPrroInBrowser}" Visibility="{Binding HiPosMenuVisibility}"/>
+        <Separator Visibility="{Binding Path=AcquiringMenuVisibility}"/>
+        <MenuItem Name="MenuItem_actions_acquiringReport"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЭквайрингСнятьОтчет}"
+                  Command="{Binding Path=AcquiringGetReportCommand}"
+                  Visibility="{Binding Path=AcquiringMenuVisibility}"/>
+        <MenuItem Name="MenuItem_actions_acquiringShiftClose"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЭквайрингЗакрытьСмену}"
+                  Command="{Binding Path=AcquiringCloseSessionCommand}"
+                  Visibility="{Binding Path=AcquiringMenuVisibility}"/>
+        <MenuItem Name="MenuItem_actions_serviceMenu"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЭквайрингСервисноеМеню}"
+                  Command="{Binding Path=AcquiringServiceMenuCommand}"
+                  Visibility="{Binding Path=AcquiringServiceMenuVisibility}"/>
+      </MenuItem>
+      <MenuItem Name="MenuItem_goods" Header="{x:Static localizations:Translate.FrmMainWindow_Товары}">
+        <MenuItem Name="ItemGoodsCatalog" Header="{x:Static localizations:Translate.FrmMainWindow_КаталогТоваров}"
+                  Command="{Binding CatalogGoods}"/>
+        <MenuItem Name="MenuItem_goods_groups"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_КатегорииТоваров}"
+                  Command="{Binding GroupsGood}"/>
+        <Separator/>
+        <MenuItem Visibility="Collapsed"
+                  Header="{x:Static localizations:Translate.JournalGoodViewModel_Возврат_поступления}">
+          <MenuItem Header="{x:Static localizations:Translate.НовыйВозвратПоступления}"
+                    Command="{Binding NewReturnWaybill}"/>
+          <MenuItem Header="{x:Static localizations:Translate.ЖурналВозвратовПоступления}"
+                    Command="{Binding JornalReturnWaybill}"/>
+        </MenuItem>
+        <MenuItem Name="MenuItem_goods_priceTags" Header="{x:Static localizations:Translate.FrmMainWindow_Ценники}"
+                  Command="{Binding PriceTag}"/>
+        <MenuItem Name="MenuItem_goods_lables" Header="{x:Static localizations:Translate.FrmMainWindow_Этикетки}"
+                  Command="{Binding Lable}"/>
+        <MenuItem Name="MenuItem_goods_packing" Header="{x:Static localizations:Translate.Фасовка}"
+                  Command="{Binding Packing}"/>
+        <MenuItem Name="MenuItem_goods_markedLables"
+                  Header="{x:Static localizations:Translate.ЭтикеткиДляМаркировки}"
+                  Visibility="{Binding MarkedLableMenuVisibility}" Command="{Binding MarkedLable}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_goods_goodsGroupingEdit"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ГрупповоеРедактированиеТоваров}"
+                  Command="{Binding MenuGoodGroupEditing}"/>
+        <MenuItem Name="MenuItem_goods_groupsGroupingEdit"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ГрупповоеРедактированиеКатегорий}"
+                  Command="{Binding MenuCategoriesGroupEditing}"/>
+        <Separator Visibility="{Binding MenuShowRemoteCatalogVisibility}"/>
+        <MenuItem Name="MenuItem_goods_remoteCatalog"
+                  Header="{x:Static localizations:Translate.ПросмотрОстатковНаДругойТорговойТочке}"
+                  Visibility="{Binding MenuShowRemoteCatalogVisibility}" Command="{Binding MenuShowRemoteCatalog}"/>
+      </MenuItem>
+      <MenuItem Name="MenuItem_documents" Header="{x:Static localizations:Translate.FrmMainWindow_Документы}">
+        <MenuItem Name="MenuItem_documents_newWaybill"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_НовоеПоступление}"
+                  Command="{Binding NewWaybill}"/>
+        <MenuItem Name="MenuItem_documents_waybillsJournal"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналПоступлений}"
+                  Command="{Binding JornalWaybill}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_documents_newInvenoty"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_НоваяИнвентаризация}"
+                  Command="{Binding MenuInventoryDo}"/>
+        <MenuItem Name="MenuItem_documents_inventoriesJournal"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналИнвентаризаций}"
+                  Command="{Binding MenuInventoryJournal}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_documents_newWriteoff"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_НовоеСписание}"
+                  Command="{Binding MenuWriteOffGoods}"/>
+        <MenuItem Name="MenuItem_documents_writeoffsJournal"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналСписаний}"
+                  Command="{Binding MenuWriteOffJournal}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_documents_sendToOtherPoint"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ОтправитьНаДругуюТочку}"
+                  Command="{Binding MenuSendWaybill}"/>
+        <MenuItem Name="MenuItem_documents_otherPointSendsJournal"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналОтправлений}"
+                  Command="{Binding MenuSendWaybillJournal}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_documents_moveToOtherStorage"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ПереместитьНаДругойСклад}"
+                  Command="{Binding MenuSendStorage}"/>
+        <MenuItem Name="MenuItem_documents_storageMovesJournal"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналПеремещений}"
+                  Command="{Binding MenuSendStorageJournal}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_documents_newOrder" Header="{x:Static localizations:Translate.НовыйЗаказРезерв}"
+                  Command="{Binding SalesOrderCard}"/>
+        <MenuItem Name="MenuItem_documents_clientOrdersJournal"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналЗаказовРезервов}"
+                  Command="{Binding SalesOrder}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_documents_newProduction"
+                  Header="{x:Static localizations:Translate.ProductionCardViewModel_SaveCommand_Производство_товара}"
+                  Command="{Binding ProductionCard}"/>
+        <MenuItem Name="MenuItem_documents_productionsJournal"
+                  Header="{x:Static localizations:Translate.ЖурналПроизводства}" Command="{Binding ProductionList}"/>
+        <MenuItem Name="MenuItem_documents_quickProduction"
+                  Header="{x:Static localizations:Translate.БыстроеПроизводство}" Command="{Binding SpeedProduction}"/>
+      </MenuItem>
+      <MenuItem Name="MenuItem_contacts" Header="{x:Static localizations:Translate.FrmMainWindow_Контакты}">
+        <MenuItem Name="ItemClientAdd" Header="{x:Static localizations:Translate.FrmMainWindow_Добавить}"
+                  Command="{Binding NewClient}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_contacts_groups"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ГруппыКонтактов}"
+                  Command="{Binding GroupsClient}"/>
+        <MenuItem Name="MenuItem_contacts_list"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_СписокКонтактов}"
+                  Command="{Binding CatalogClients}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_contacts_credits" Header="{x:Static localizations:Translate.FrmMainWindow_Должники}"
+                  Command="{Binding Borrower}"/>
+        <Separator Visibility="{Binding FindOrgByInnVisibility}"/>
+        <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_ПоискКомпанииПоИНН}"
+                  Visibility="{Binding FindOrgByInnVisibility}" Command="{Binding FindOrgByInn}"/>
+      </MenuItem>
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Сервис}"
+                Visibility="{Binding ServiceMenuVisibility}">
+        <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_ВыгрузитьАрхивВДомОфис}"
+                  Visibility="{Binding CreateFileHomeVisibility}" Command="{Binding CreateFileHome}"/>
+        <Separator Visibility="{Binding VisibilitySeparatorService}"/>
+        <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_НаFTPСервер}"
+                  Command="{Binding CreateFileCatalogFtp}" Visibility="{Binding CreateFileCatalogFtpVisibility}"/>
+        <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Локально}"
+                  Command="{Binding CreateFileCatalogLocal}" Visibility="{Binding CreateFileCatalogLocalVisibility}"/>
+      </MenuItem>
+      <MenuItem Header="{x:Static localizations:Translate.PageVisualModelView_ЕГАИС}"
+                Visibility="{Binding EgaisMenuVisibility}">
+        <MenuItem Header="{x:Static localizations:Translate.ВходящиеНакладные}" Command="{Binding EgaisTtnList}"/>
+        <Separator/>
+        <MenuItem Header="{x:Static localizations:Translate.СформироватьАктСписанияАлкоголя}"
+                  Command="{Binding EgaisWriteOff}"/>
+        <MenuItem Header="{x:Static localizations:Translate.ЖурналАктовСписания}"
+                  Command="{Binding EgaisWriteOffList}"/>
+        <Separator Visibility="{Binding BlockMenuForHomeVisibility}"/>
+        <MenuItem Header="{x:Static localizations:Translate.КонтрольКранов}"
+                  Command="{Binding EgaisManagerForTapBeer}" Visibility="{Binding BlockMenuForHomeVisibility}"/>
+        <MenuItem Header="{x:Static localizations:Translate.ЖурналВскрытияКегРазливноеПиво}"
+                  Command="{Binding EgaisListOpenKegaBeer}" Visibility="{Binding BlockMenuForHomeVisibility}"/>
+      </MenuItem>
+      <MenuItem Name="MenuItem_help" Header="{x:Static localizations:Translate.FrmMainWindow_Справка}">
+        <MenuItem Name="MenuItem_help_about" Header="{x:Static localizations:Translate.FrmMainWindow_ОПрограмме}"
+                  Command="{Binding ProgramInfo}"/>
+        <MenuItem Name="MenuItem_help_checkUpdate"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ПроверитьОбновление}"
+                  Command="{Binding Path=CheckUpdateCommand}" Visibility="{Binding VisibilityCheckUpdate}"/>
+        <MenuItem Name="MenuItem_help_licenseInfo"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ИнформацияОЛицензии}"
+                  Command="{Binding LicenseInfo}"/>
+        <Separator Visibility="{Binding Path=VkAndChangelogMenuItemsVisibility}"/>
+        <MenuItem Name="MenuItem_help_changelog"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_ЖурналИзменений}"
+                  Visibility="{Binding Path=VkAndChangelogMenuItemsVisibility}" Command="{Binding ChangeLog}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_help_support" Header="{x:Static localizations:Translate.СлужбаПоддержки}"
+                  Visibility="{Binding SupportLinkMenuItemVisibility}" Command="{Binding WriteSupport}"/>
+        <MenuItem Name="MenuItem_help_onlineHelp"
+                  Header="{x:Static localizations:Translate.FrmMainWindow_БазаЗнанийOnlineСправка}"
+                  Visibility="{Binding KbLinkMenuItemVisibility}" Command="{Binding OnlineHelp}"/>
+        <Separator/>
+        <MenuItem Name="MenuItem_help_site" Header="{x:Static localizations:Translate.FrmMainWindow_ПосетитьНашСайт}"
+                  Visibility="{Binding MainPageLinkMenuItemVisibility}" Command="{Binding Path=Site}"/>
+        <MenuItem Name="MenuItem_help_vk" Header="{x:Static localizations:Translate.FrmMainWindow_МыВконтакте}"
+                  Visibility="{Binding Path=VkAndChangelogMenuItemsVisibility}" Command="{Binding Vk}"/>
+        <Separator Visibility="{Binding SendDataSupportMenuVisibility}"/>
+        <MenuItem Header="{x:Static localizations:Translate.ОбращениеВТехническуюПоддержку}"
+                  Visibility="{Binding SendDataSupportMenuVisibility}" Command="{Binding SendDataForSupport}"/>
+      </MenuItem>
+    </Menu>
+    <StackPanel Grid.Row="1" Orientation="Horizontal">
+      <userControls:TextBoxWithClearControl x:Name="TxtSearch" HorizontalAlignment="Left" Margin="8 4 8 4" VerticalAlignment="Center"
+                                            Width="250" TextFontSize="22" Height="40"
+                                            IsEnabled="{Binding IsEnableSearchBox, UpdateSourceTrigger=PropertyChanged}"
+                                            TextString="{Binding Path=SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+      <Button Name="ButtonSearch" HorizontalAlignment="Left" IsTabStop="false" VerticalAlignment="Center"
+              Width="40" Height="40" Margin="0, 10" Style="{DynamicResource btnAction}"
+              Command="{Binding Path=SelectGoodCommand}">
+        <Image Source="{DynamicResource IconSearchInList}"/>
+      </Button>
+      <Button Name="ButtonFavorites" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40"
+              IsTabStop="false" Height="40" Style="{DynamicResource btnAction}" Margin="8, 10"
+              Command="{Binding ShowSelectGood}">
+        <Image Source="{DynamicResource IconFavorites}"/>
+      </Button>
+      <Button Name="ButtonGoToCafe" HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto"
+              IsTabStop="false" Height="40" Style="{DynamicResource btnAction}" Margin="8,10,3,-3"
+              Command="{Binding ShowCafeCommand}" Visibility="{Binding VisibilityButtonCafe}">
+        <StackPanel Orientation="Horizontal">
+          <Image Source="{DynamicResource IconCafeMode}"/>
+          <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_ВернутьсяВКАФЕ}" Width="100"
+                     TextWrapping="Wrap" FontSize="12" VerticalAlignment="Center"/>
+        </StackPanel>
+      </Button>
+    </StackPanel>
+    <StackPanel Orientation="Vertical" Margin="0,0,16,0" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Right"
+                VerticalAlignment="Center">
+      <TextBlock MouseUp="UIElement_OnMouseUp" Name="TextBlockTime" Opacity="0.7" VerticalAlignment="Top"
+                 FontSize="40" HorizontalAlignment="Center" Margin="0 -40 0 0" Text="{Binding Path=Time}"/>
+      <TextBlock Opacity="0.7" HorizontalAlignment="Center" TextAlignment="Center" FontSize="14"
+                 VerticalAlignment="Top" Text="{Binding Path=Date}"/>
+    </StackPanel>
+    <Grid Row="2">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*" MinHeight="260"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition x:Name="RowDefinitionSelectGoods" Height="Auto" MaxHeight="250"/>
+      </Grid.RowDefinitions>
+      <GroupBox Margin="8,0, 8, 0" Grid.Row="0">
+        <HeaderedContentControl.Header>
+          <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Margin="0 0 10 0 " IsTabStop="false" Style="{StaticResource btnLink}" Content="&lt;--"
+                    Visibility="{Binding BasketSwitcherVisibility}" Command="{Binding PrevBasketCommand}"/>
+            <Label Padding="3 0" Content="{x:Static localizations:Translate.FrmMainWindow_Корзина2}"/>
+            <Label Padding="3 0" Visibility="{Binding BasketSwitcherVisibility}"
+                   Content="{Binding CurrentBasketIndex}"/>
+            <Label Padding="3 0" Content="/" Visibility="{Binding BasketSwitcherVisibility}"/>
+            <Label Padding="3 0" Visibility="{Binding BasketSwitcherVisibility}" Content="{Binding TotalBaskets}"/>
+            <Button Margin="10 0 0 0 " IsTabStop="false" Style="{StaticResource btnLink}" Content="--&gt;"
+                    Visibility="{Binding BasketSwitcherVisibility}" Command="{Binding NextBasketCommand}"/>
+          </StackPanel>
+        </HeaderedContentControl.Header>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <DataGrid ColumnHeaderDragCompleted="BasketGrid_OnColumnHeaderDragCompleted"
+                    PreviewTouchDown="BasketGrid_OnPreviewTouchDown" x:Name="BasketGrid" Grid.Row="0" Grid.Column="0"
+                    IsTabStop="false" Uid="" HorizontalScrollBarVisibility="Auto"
+                    ItemsSource="{Binding Path=CurrentBasket.Items}"
+                    SelectedItem="{Binding Path=CurrentBasket.SelectedItem}"
+                    FontSize="{Binding FontSize, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <FrameworkElement.Resources>
+              <ContextMenu x:Key="ContextMenuGrid"/>
+              <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+                <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ContextMenuGrid}"/>
+              </Style>
+              <Style x:Key="DTextBlockStyle" TargetType="{x:Type TextBlock}">
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding IsSelected, ElementName=GridWaybillItems}" Value="True">
+                    <Setter Property="TextBlock.Foreground" Value="White"/>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </FrameworkElement.Resources>
+            <UIElement.InputBindings>
+              <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=CurrentBasket.EditQuantityCommand}"
+                            CommandParameter="{Binding ElementName=BasketGrid, Path=SelectedItems}"/>
+            </UIElement.InputBindings>
+            <DataGrid.Columns>
+              <DataGridTextColumn my:Extensions.Guid="1B164D06-652E-48F9-B865-1BAF3D88213C"
+                                  Header="{x:Static localizations:Translate.FrmMainWindow_ШтрихКод}" Width="150"
+                                  Binding="{Binding Path=Good.Barcode}"/>
+              <DataGridTextColumn my:Extensions.Guid="9D6BC306-73DD-40B7-B62E-8271CDBE8DB7"
+                                  Header="{x:Static localizations:Translate.FrmMainWindow_Категория}" Width="150"
+                                  Binding="{Binding Path=Good.Group.Name}"/>
+              <DataGridTemplateColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}"
+                                      SortMemberPath="DisplayedName" Width="250"
+                                      my:Extensions.Guid="8FB74BC2-9E00-4BC9-9C7D-A5598909E7BE">
+                <DataGridColumn.CellStyle>
+                  <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                    <Setter Property="Control.Padding" Value="0"/>
+                  </Style>
+                </DataGridColumn.CellStyle>
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Grid Width="Auto" Height="Auto" Margin="0 8 0 0" Cursor="{Binding CursorWithDisplayedName}">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
+                      <TextBlock Style="{StaticResource WrappedCell}" TextAlignment="Left" Margin="4 0 4 0"
+                                 ToolTipService.InitialShowDelay="100" Text="{Binding DisplayedName}"
+                                 ToolTipService.ToolTip="{Binding ErrorStrForDisplayedName, Mode=OneWay}"/>
+                      <Border Margin="0 4 0 -1" Grid.Row="1" Height="4" Background="{Binding DisplayedNameColor}"/>
+                    </Grid>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTemplateColumn Header="{x:Static localizations:Translate.FrmMainWindow_Цена}" SortMemberPath="SalePrice"
+                                      Width="60" my:Extensions.Guid="3498244B-8B76-43B1-8FF8-248358385AB5">
+                <DataGridColumn.CellStyle>
+                  <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                    <Setter Property="Control.Padding" Value="0"/>
+                  </Style>
+                </DataGridColumn.CellStyle>
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Grid Width="Auto" Height="Auto" Margin="0 8 0 0" Cursor="{Binding CursorWithPrice}">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
+                      <TextBlock Style="{StaticResource DTextBlockStyle}" TextAlignment="Right" Margin="4 0 4 0"
+                                 ToolTipService.InitialShowDelay="100" Text="{Binding SalePrice, StringFormat=N2}"
+                                 ToolTipService.ToolTip="{Binding ErrorStrForPrice, Mode=OneWay}"/>
+                      <Border Margin="0 4 0 -1" Grid.Row="1" Height="4" Background="{Binding PriceColor}"/>
+                    </Grid>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTextColumn my:Extensions.Guid="848555C5-31BB-4253-A416-E13661D8A5E8"
+                                  Header="{x:Static localizations:Translate.FrmMainWindow_КолВо}" Width="50"
+                                  CellStyle="{DynamicResource numberCellStyle}"
+                                  Binding="{Binding Path=Quantity, StringFormat='# ##0.###'}"/>
+              <DataGridTextColumn my:Extensions.Guid="1F7990DC-635C-43AA-8A0A-4DA661052B7F"
+                                  Header="{x:Static localizations:Translate.FrmMainWindow_Скидка}" Width="55"
+                                  CellStyle="{DynamicResource numberCellStyle}"
+                                  Binding="{Binding Path=Discount.Value, StringFormat=N2}"/>
+              <DataGridTextColumn my:Extensions.Guid="9D7A38D5-088F-4876-AE73-D46C8CD8C694"
+                                  Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" Width="50"
+                                  CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=TotalSum, StringFormat=N2}"/>
+              <DataGridTemplateColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" SortMemberPath="Comment"
+                                      Width="125" my:Extensions.Guid="99400869-69A3-4556-97BF-3871D9308249">
+                <DataGridColumn.CellStyle>
+                  <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+                    <Setter Property="Control.Padding" Value="0"/>
+                  </Style>
+                </DataGridColumn.CellStyle>
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <Grid Width="Auto" Height="Auto" Margin="0 8 0 0" Cursor="{Binding Cursor}">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
+                      <TextBlock Style="{StaticResource DTextBlockStyle}" TextAlignment="Right" Margin="4 0 4 0"
+                                 ToolTipService.InitialShowDelay="100" Text="{Binding Comment}"
+                                 ToolTipService.ToolTip="{Binding ErrorStr, Mode=OneWay}"/>
+                      <Border Margin="0 4 0 -1" Grid.Row="1" Height="4" Background="{Binding CommentColor}"/>
+                    </Grid>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+              <DataGridTextColumn my:Extensions.Guid="{x:Static global:GlobalDictionaries.StockColumnsUid}"
+                                  Header="{x:Static localizations:Translate.FrmSelectGoodStock_Остаток}" Width="100"
+                                  CellStyle="{DynamicResource numberCellStyle}"
+                                  Binding="{Binding Path=TotalSumStock, StringFormat=N2}"/>
+              <DataGridTextColumn my:Extensions.Guid="49B242BD-026E-4BAF-944B-F168230C0C9D"
+                                  Header="{x:Static localizations:Translate.ExcelDataViewModel_Описание}" Width="100"
+                                  Binding="{Binding Path=Good.Description}"/>
+            </DataGrid.Columns>
+          </DataGrid>
+          <WrapPanel Orientation="Vertical" Grid.Column="1" Grid.RowSpan="2" Grid.Row="0">
+            <Button Name="ButtonQty" HorizontalAlignment="Right" IsTabStop="false" Focusable="false"
+                    VerticalAlignment="Top" Style="{DynamicResource btnAction}" UseLayoutRounding="true"
+                    Command="{Binding Path=CurrentBasket.EditQuantityCommand}"
+                    CommandParameter="{Binding ElementName=BasketGrid, Path=SelectedItems}">
+              <Control Template="{DynamicResource QuantityIconControl}" IsTabStop="false"/>
+            </Button>
+            <Button Name="ButtonDiscount" IsTabStop="false" HorizontalAlignment="Right" VerticalAlignment="Top"
+                    Style="{DynamicResource btnAction}" Command="{Binding Path=CurrentBasket.EditDiscountCommand}"
+                    CommandParameter="{Binding ElementName=BasketGrid, Path=SelectedItems}">
+              <Image Source="{DynamicResource IconDiscount}"/>
+            </Button>
+            <Button Name="ButtonAllDiscount" IsTabStop="false" HorizontalAlignment="Right" VerticalAlignment="Top"
+                    Style="{DynamicResource btnAction}" Cursor="Hand" Visibility="{Binding VisibilityAllDiscountBtn}"
+                    Command="{Binding Path=CurrentBasket.EditAllDiscountCommand}"
+                    CommandParameter="{Binding ElementName=BasketGrid, Path=SelectedItems}">
+              <Image Source="{DynamicResource IconReceiptDiscount}"/>
+            </Button>
+            <Button Name="ButtonDelete" IsTabStop="false" Focusable="false" HorizontalAlignment="Right"
+                    VerticalAlignment="Top" Style="{DynamicResource btnAction}"
+                    CommandParameter="{Binding ElementName=BasketGrid, Path=SelectedItems}"
+                    Command="{Binding Path=CurrentBasket.DeleteItemCommand}">
+              <Control Template="{DynamicResource DeleteIconControl}" IsTabStop="false"/>
+            </Button>
+            <Button Name="ButtonComment" IsTabStop="false" HorizontalAlignment="Right" VerticalAlignment="Top"
+                    Style="{DynamicResource btnAction}" Command="{Binding CurrentBasket.EditCommentCommand}"
+                    CommandParameter="{Binding ElementName=BasketGrid, Path=SelectedItems}">
+              <Control Template="{DynamicResource CommentIconControl}" IsTabStop="false"/>
+            </Button>
+            <Button Name="ButtonWeight" IsTabStop="false" HorizontalAlignment="Right" VerticalAlignment="Top"
+                    Style="{DynamicResource btnAction}" Visibility="{Binding VisibilityScalesWeight}"
+                    Command="{Binding ShowScalesWeightCommand}">
+              <Control Template="{DynamicResource ScaleIconControl}" IsTabStop="false"/>
+            </Button>
+          </WrapPanel>
+          <WrapPanel Grid.Row="1" Margin="0,0,5,0" Orientation="Horizontal" Height="Auto" VerticalAlignment="Bottom">
+            <Label Content="{x:Static localizations:Translate.FrmMainWindow_Товаров}"/>
+            <Label ContentStringFormat="N2" Content="{Binding Path=CurrentBasket.TotalQuantity}"/>
+            <Label Content="|"/>
+            <Label Content="{x:Static localizations:Translate.FrmMainWindow_Наименований}"/>
+            <Label Content="{Binding Path=CurrentBasket.Items.Count}"/>
+            <Label Content="|"/>
+            <Label Content="{x:Static localizations:Translate.FrmMainWindow_СкидкаПоЧеку}"/>
+            <Label ContentStringFormat="N2" Content="{Binding Path=CurrentBasket.TotalDiscount}"/>
+            <Label Content="+" Visibility="{Binding CurrentBasket.CheckDiscountVisibility}"/>
+            <Label ContentStringFormat="N2" Content="{Binding Path=CurrentBasket.KkmCheckCorrection}"
+                   Visibility="{Binding CurrentBasket.CheckDiscountVisibility}"/>
+            <Label Content="|"/>
+            <Label Content="{x:Static localizations:Translate.FrmMainWindow_ОплаченоСертификатом}"
+                   Visibility="{Binding CurrentBasket.VisibilitySumCertificate}"/>
+            <Label ContentStringFormat="N2" Content="{Binding CurrentBasket.CertificatesPaymentSum, Mode=OneWay}"
+                   Visibility="{Binding CurrentBasket.VisibilitySumCertificate}"/>
+            <Label Content="|" Visibility="{Binding CurrentBasket.VisibilitySumCertificate}"/>
+            <Label Content="{x:Static localizations:Translate.GlobalDictionaries_Предоплата}"
+                   Visibility="{Binding CurrentBasket.VisibilitySumPrepaid}"/>
+            <Label ContentStringFormat="N2" Content="{Binding CurrentBasket.PrepaidPaymentsSum, Mode=OneWay}"
+                   Visibility="{Binding CurrentBasket.VisibilitySumPrepaid}"/>
+            <Label Content="|" Visibility="{Binding CurrentBasket.VisibilitySumPrepaid}"/>
+            <Label Content="{x:Static localizations:Translate.FrmMainWindow_Склад}"
+                   Visibility="{Binding CurrentBasket.VisibilityStorageInfo}"/>
+            <Label Content="{Binding CurrentBasket.StorageName}"
+                   Visibility="{Binding CurrentBasket.VisibilityStorageInfo}"/>
+          </WrapPanel>
+        </Grid>
+      </GroupBox>
+      <GridSplitter DragCompleted="Thumb_OnDragCompleted" Grid.Row="1" HorizontalAlignment="Stretch" Height="4"
+                    Width="100" IsTabStop="false" Background="{StaticResource Background80}" ShowsPreview="true"
+                    Margin="0,4,0,4" Visibility="{Binding VisibilityItemsSelectGood}"/>
+      <ScrollViewer Name="ScrollViewerSelectItems" Grid.Row="2" Margin="4, 0" VerticalScrollBarVisibility="Auto"
+                    Height="Auto" MaxHeight="250" VerticalAlignment="Stretch"
+                    Visibility="{Binding VisibilityItemsSelectGood}">
+        <ItemsControl x:Name="MyItems" Height="Auto" IsTabStop="false" ItemsSource="{Binding MenuItems}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <WrapPanel/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Button Margin="4" Width="130" Height="50" FontSize="14" IsTabStop="false" Padding="4"
+                      Command="{Binding ElementName=MyItems, Path=DataContext.AddSelectGood}"
+                      CommandParameter="{Binding}">
+                <ContentControl.Content>
+                  <TextBlock TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"
+                             Text="{Binding SelectGood.DisplayName}" FontWeight="{Binding FontWeight}"/>
+                </ContentControl.Content>
+              </Button>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Grid>
+    <Grid Row="5" VerticalAlignment="Bottom" Height="180" Margin="0,0,228,9.5">
+      <StackPanel Orientation="Horizontal">
+        <GroupBox HorizontalAlignment="Left" Height="161" Margin="8,4,4,4" VerticalAlignment="Top" Width="375"
+                  BorderThickness="1" Header="{x:Static localizations:Translate.FrmCardSale_Итого}">
+          <Grid Margin="4,0,4,0">
+            <Grid.RowDefinitions>
+              <RowDefinition/>
+              <RowDefinition/>
+              <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Name="LabelTotalSum" Grid.Row="0" ContentStringFormat="N2" FontSize="30" Padding="2"
+                   HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"
+                   Content="{Binding Path=CurrentBasket.TotalSum, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_СУММА}" FontSize="26"
+                       VerticalAlignment="Center" Margin="0,0,179,0"/>
+            <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_ПОЛУЧЕНО}" Grid.Row="1" FontSize="26"
+                       VerticalAlignment="Center" Margin="0,0,200,0"/>
+            <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_СДАЧА}" Grid.Row="2" FontSize="26"
+                       FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,196,0"/>
+            <xctk:DecimalUpDown GotFocus="UIElement_OnGotFocus" PreviewLostKeyboardFocus="UIElement_OnLostFocus"
+                                Name="InsertDecimalUpDown" Padding="0" Grid.Row="1" DisplayDefaultValueOnEmptyText="true"
+                                FormatString="N2" AllowSpin="false" ShowButtonSpinner="false" FontSize="30" Height="42"
+                                HorizontalAlignment="Right" Width="175" VerticalAlignment="Center" Minimum="0"
+                                TextAlignment="Right"
+                                Value="{Binding Path=CurrentBasket.ReceiveSum, UpdateSourceTrigger=PropertyChanged}"/>
+            <Label Name="LabelChangeSum" ContentStringFormat="N2" FontSize="30" Padding="2"
+                   HorizontalContentAlignment="Right" Grid.Row="2" HorizontalAlignment="Right"
+                   VerticalAlignment="Center" FontWeight="Bold" Content="{Binding Path=CurrentBasket.ChangeSum}"/>
+          </Grid>
+        </GroupBox>
+        <StackPanel Orientation="Vertical">
+          <GroupBox Header="{x:Static localizations:Translate.FrmMainWindow_Печатать}" HorizontalAlignment="Left"
+                    VerticalAlignment="Top" Width="350">
+            <DockPanel>
+              <CheckBox Name="CheckBoxPrintCheck" Content="{x:Static localizations:Translate.FrmMainWindow_Чек}"
+                        HorizontalAlignment="Left" VerticalAlignment="Center" Height="22"
+                        IsChecked="{Binding Path=CurrentBasket.IsPrintCheck}"
+                        IsEnabled="{Binding Path=CurrentBasket.IsEnablePrintCheck}"/>
+              <Button Name="ButtonPrintDocs" IsTabStop="false"
+                      Content="{x:Static localizations:Translate.FrmMainWindow_ПечататьДопДокумент}"
+                      VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource btnLink}" Height="16"
+                      Command="{Binding PrintDocumentCommand}"/>
+            </DockPanel>
+          </GroupBox>
+          <GroupBox HorizontalAlignment="Left" Height="93" Width="350">
+            <HeaderedContentControl.Header>
+              <CheckBox Name="CheckBoxClient" IsTabStop="false" Style="{DynamicResource HeaderCheckBox}"
+                        Content="{x:Static localizations:Translate.FrmMainWindow_Покупатель}"
+                        Command="{Binding Path=SelectClientCommand, UpdateSourceTrigger=PropertyChanged}"
+                        IsChecked="{Binding Path=CurrentBasket.IsCheckedClient}"/>
+            </HeaderedContentControl.Header>
+            <StackPanel Margin="5 0 0 0" IsEnabled="{Binding Path=CurrentBasket.IsCheckedClient}">
+              <StackPanel Orientation="Horizontal">
+                <Button Name="ButtonSelectClient" HorizontalAlignment="Left" Margin="0 0 0 0"
+                        VerticalContentAlignment="Center"
+                        Content="{x:Static localizations:Translate.FrmMainWindow_Покупатель}" FontSize="12"
+                        Style="{StaticResource btnLink}" VerticalAlignment="Center" Width="68" Height="20"
+                        Command="{Binding Path=SelectClientCommand}"/>
+                <TextBlock HorizontalAlignment="Left" Margin="0 0 0 0" VerticalAlignment="Center" Height="15"
+                           Text="{Binding Path=CurrentBasket.ClientName}"/>
+              </StackPanel>
+              <Grid Margin="0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="40"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_СуммаПокупок}" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" Margin="2 0 16 0" Grid.Row="0" Grid.Column="0"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"
+                           Text="{Binding CurrentBasket.Client.TotalSalesSum, FallbackValue=0.00, StringFormat=N2}"/>
+                <Button Name="ButtonClientCredit" Content="{x:Static localizations:Translate.FrmMainWindow_Долг}"
+                        Style="{DynamicResource btnLink}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Margin="2 0 16 0" Grid.Row="0" Grid.Column="3" Command="{Binding OpenCreditList}"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4">
+                  <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Height="15"
+                             Text="{Binding CurrentBasket.Client.TotalCreditSum, FallbackValue=0.00, StringFormat=N2}"/>
+                  <Button Content="[!]" VerticalAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"
+                          Width="12" Style="{DynamicResource btnLink}" Height="15"
+                          Command="{Binding CurrentBasket.ShowNotificationCredit}"
+                          Visibility="{Binding CurrentBasket.VisibilityInfoCredit}"/>
+                </StackPanel>
+                <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_lblСкидка}" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" Margin="2 0 16 0" Grid.Row="1" Grid.Column="0"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"
+                           Text="{Binding CurrentBasket.Client.Client.Group.Discount, FallbackValue=0.00%, StringFormat='{0:N2} %'}"/>
+                <TextBlock Text="{x:Static localizations:Translate.FrmMainWindow_Баллы}" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" Height="16" Margin="2 2 16 2" Grid.Row="1" Grid.Column="3"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Height="16" Grid.Row="1" Grid.Column="4"
+                           Text="{Binding CurrentBasket.Client.TotalBonusSum, FallbackValue=0.00, StringFormat=N2}"/>
+              </Grid>
+              <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"/>
+              </StackPanel>
+            </StackPanel>
+          </GroupBox>
+        </StackPanel>
+      </StackPanel>
+    </Grid>
+    <Grid Margin="0,0,0,0.5" Row="5">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="1*"/>
+        <ColumnDefinition Width="221"/>
+      </Grid.ColumnDefinitions>
+      <Button Name="ButtonTotal" Margin="8,8,10,0" FontSize="36" Height="89" VerticalAlignment="Top"
+              Style="{StaticResource btnOk}" Content="{x:Static localizations:Translate.FrmMainWindow_ИТОГ}"
+              Grid.Column="1" IsTabStop="false" Cursor="Hand" Command="{Binding Path=SaveSaleCommand}"/>
+      <Button Name="ButtonCancel" Margin="51,118,10,0" Height="40" VerticalAlignment="Top" IsTabStop="false"
+              Style="{StaticResource btnCancel}"
+              Content="{x:Static localizations:Translate.FrmClientCard_ОТМЕНА}" Grid.Column="1"
+              Command="{Binding CancelDocumentCommand}"/>
+    </Grid>
+    <ToolBarPanel Margin="5,2,5,0.5" Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Row="5">
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Сотрудники}" VerticalAlignment="Center"/>
+      <Label VerticalAlignment="Center" Content="{Binding UserOnlineString}"/>
+      <Label Content="|" VerticalAlignment="Center"/>
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Продажа}" VerticalAlignment="Center"/>
+      <Button Name="ButtonSaleNumber" VerticalAlignment="Center" IsTabStop="false" HorizontalAlignment="Center"
+              Style="{StaticResource btnLink}" Content="{Binding CurrentBasket.SaleNumber}"
+              Command="{Binding SalesJournal}"/>
+    </ToolBarPanel>
+  </Grid>
+</helpers:WindowWithSize>

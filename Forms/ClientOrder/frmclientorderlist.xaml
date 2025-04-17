@@ -1,0 +1,129 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.ClientOrder.ClientOrderList"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.ClientOrder"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        Style="{DynamicResource sWindow}" MinHeight="450" MinWidth="890"
+                        Title="{x:Static localizations:Translate.FrmClientOrderList_ЗаказыРезервы}" Height="450"
+                        Width="890">
+  <FrameworkElement.DataContext>
+    <local:ClientOrderListViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="0,0,2,0">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="245*"/>
+      <ColumnDefinition Width="584*"/>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="1.25"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="30"/>
+    </Grid.RowDefinitions>
+    <Menu VerticalAlignment="Top" Grid.ColumnSpan="4" Margin="0,0,1,0">
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Файл}">
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodsCatalog_СохранитьКак}"
+                  Command="{Binding ExportFile}" CommandParameter="{Binding ElementName=ListClientOrder}"/>
+      </MenuItem>
+    </Menu>
+    <WrapPanel Orientation="Vertical" Grid.Row="1" Grid.Column="2" Margin="0,5,1,0">
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Path=AddOrderCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Path=EditCommand}"
+              CommandParameter="{Binding ElementName=ListClientOrder, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding PrintOrdersCommand}"
+              CommandParameter="{Binding ElementName=ListClientOrder, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconPrint}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Grid.Row="1"
+              CommandParameter="{Binding ElementName=ListClientOrder, Path=SelectedItems}"
+              Command="{Binding Path=DeleteCommand}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </WrapPanel>
+    <ToolBarPanel Orientation="Horizontal" Grid.Row="2" Margin="10,4,10,0" Grid.ColumnSpan="3" Grid.Column="0">
+      <Label Content="{x:Static localizations:Translate.FrmClientOrderList_ВсегоЗаказов}"/>
+      <Label Content="{Binding Path=ClientOrderList.Count}"/>
+      <Label Content="| "/>
+      <Label Content="{x:Static localizations:Translate.FrmClientOrderList_СуммаЗаказов}"/>
+      <Label ContentStringFormat="N2" Content="{Binding Path=TotalSumOrder}"/>
+    </ToolBarPanel>
+    <DataGrid x:Name="ListClientOrder" Margin="10,10,58,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+              ItemsSource="{Binding ClientOrderList}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"
+                      CommandParameter="{Binding ElementName=ListClientOrder, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="№" Width="35" uiElement:Extensions.Guid="3420DFD3-A6A0-4404-B2D7-1D19CD3F19D9"
+                            Binding="{Binding Path=Document.Number}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Статус}" Width="70"
+                            uiElement:Extensions.Guid="A4F95F46-FB06-47DC-A52C-5F20780FEA93" Binding="{Binding Path=Status}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillsList_Дата}" Width="100"
+                            uiElement:Extensions.Guid="5E7ACCCE-25FE-4745-BD7A-C84A400A2112"
+                            Binding="{Binding Path=Document.DateTime, StringFormat='dd.MM.yyyy HH:mm'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Покупатель}" Width="150"
+                            uiElement:Extensions.Guid="2835B0AF-1FA2-47E5-9746-B478BED87911"
+                            Binding="{Binding Path=ClientName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillsList_Товаров}"
+                            CellStyle="{DynamicResource numberCellStyle}" Width="100"
+                            uiElement:Extensions.Guid="96E4166B-AB15-4310-BB6C-6A4019C028B7"
+                            Binding="{Binding Path=TotalCountGood}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" Width="80"
+                            uiElement:Extensions.Guid="CE856076-3AAE-4D44-A9AD-515CF0871633"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=Sum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="150"
+                            uiElement:Extensions.Guid="FA635986-71B8-41F5-B046-3F55253AF4D8" Binding="{Binding Path=UserName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="150"
+                            uiElement:Extensions.Guid="06556425-A601-40D1-834B-9603A44ED2B1"
+                            Binding="{Binding Path=Document.Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.GlobalDictionaries_Предоплата}" Width="150"
+                            uiElement:Extensions.Guid="B1E10FAF-38C6-4DAE-9191-FEE45C4020A3"
+                            Binding="{Binding Path=TotalSumPayment, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmClientOrderCard_АктуаленДо}" Width="150"
+                            uiElement:Extensions.Guid="C0B6621E-6C3E-47F1-A576-BF8BFF5107D3"
+                            Binding="{Binding Path=OptionalOrder.ActualityOrderDate, StringFormat=dd.MM.yyyy}"/>
+        <DataGridCheckBoxColumn Header="{x:Static localizations:Translate.РезервироватьТовар}" Width="150"
+                                uiElement:Extensions.Guid="29AB7238-4640-4EF4-877F-7D3B33012618"
+                                Binding="{Binding Path=OptionalOrder.IsReserveGood}"/>
+        <DataGridCheckBoxColumn Header="{x:Static localizations:Translate.СохранятьЦену}" Width="150"
+                                uiElement:Extensions.Guid="82AD5F30-532F-4EDD-A4F2-7A08B8BBC7EB"
+                                Binding="{Binding Path=OptionalOrder.IsSavePriceValue}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <Expander Grid.Row="0" Grid.Column="0"
+              Header="{x:Static localizations:Translate.FrmListClients_ФильтрПоиска}" Margin="10,35,10,0"
+              IsExpanded="false" Grid.ColumnSpan="3">
+      <StackPanel Orientation="Horizontal">
+        <userControls:DateFilterControl Margin="5,0,5,0" Width="340" VerticalContentAlignment="Center"
+                                        CommandOnUpdate="{Binding JournalFilterCommand}"
+                                        ValueDateTimeStart="{Binding DateStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ValueDateTimeEnd="{Binding DateFinish, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <StackPanel Margin="0, 0" Width="199">
+          <Button VerticalAlignment="Top" Height="30" Margin="10,0,0,0" HorizontalAlignment="Left" Width="176"
+                  Content="{Binding ButtonContentStorage}" Command="{Binding SelectedStorage}"/>
+          <Grid>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Статус}" Margin="10,10,10 0 "
+                         VerticalAlignment="Center"/>
+              <ComboBox Width="133" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="0,10 10 0 "
+                        ItemsSource="{Binding Statuses}" SelectedValue="{Binding SelectedStatus}"/>
+            </StackPanel>
+          </Grid>
+        </StackPanel>
+        <userControls:ClientSelectionControl Margin="0, 0, 10, 0" Width="304" Height="65"
+                                             Client="{Binding Client, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                             IsCheckedClient="{Binding IsCheckedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+      </StackPanel>
+    </Expander>
+  </Grid>
+</helpers:WindowWithSize>

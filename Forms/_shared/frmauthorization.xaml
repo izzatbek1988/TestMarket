@@ -1,0 +1,72 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.Authorization"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:shared="clr-namespace:Gbs.Forms._shared"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Loaded="Authorization_OnLoaded" Style="{StaticResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmAuthorization_Авторизация}" Width="330"
+                        ResizeMode="NoResize" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+  <FrameworkElement.DataContext>
+    <shared:AuthorizationViewModel/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <xaml:InverseBooleanConverter x:Key="ConverterExpanded"/>
+  </FrameworkElement.Resources>
+  <UIElement.InputBindings>
+    <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+  </UIElement.InputBindings>
+  <Grid Height="Auto">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0">
+      <TextBlock Text="{x:Static localizations:Translate.FrmAuthorization_ДляВыполненияДанногоДействияНеобходимоПройтиАвторизацию}"
+                 TextWrapping="Wrap" Margin="10 3" FontSize="14" FontStyle="Italic" TextAlignment="Center"/>
+      <Button Content="Войти без авторизации (DEBUG)" Style="{DynamicResource btnLink}"
+              HorizontalAlignment="Center" Command="{Binding AuthDebugCommand}"
+              Visibility="{Binding DebugVisibility}"/>
+    </StackPanel>
+    <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="10 3" FontSize="14" FontStyle="Italic"
+               TextAlignment="Center" FontWeight="Bold" Height="{Binding HeightActionText}"
+               Text="{Binding ActionText}"/>
+    <Expander Header="{x:Static localizations:Translate.FrmAuthorization_Пароль}" Grid.Row="2" Margin="5"
+              IsExpanded="{Binding Path=ShowExpandedPass}">
+      <StackPanel Margin="3">
+        <ComboBox Name="ComboBoxUsers" Margin="10 0 10 10" VerticalAlignment="Top" Height="39" Width="Auto"
+                  DisplayMemberPath="Alias" SelectedValuePath="Uid" FontSize="24" ItemsSource="{Binding ListUsers}"
+                  SelectedItem="{Binding SelectedUser}" SelectedValue="{Binding SelectedUser.Uid}">
+          <UIElement.InputBindings>
+            <MouseBinding MouseAction="LeftClick"/>
+          </UIElement.InputBindings>
+        </ComboBox>
+        <xctk:WatermarkPasswordBox PasswordChanged="WatermarkPasswordBox_OnPasswordChanged" Name="PassBox" PasswordChar="*"
+                                   Watermark="{x:Static localizations:Translate.FrmAuthorization_Пароль}" Width="200" Height="40"
+                                   VerticalAlignment="Top" KeepWatermarkOnGotFocus="true" FontSize="24">
+          <UIElement.InputBindings>
+            <KeyBinding Key="Enter" Command="{Binding Path=PassCheckCommand}"/>
+          </UIElement.InputBindings>
+        </xctk:WatermarkPasswordBox>
+      </StackPanel>
+    </Expander>
+    <Expander Header="{x:Static localizations:Translate.FrmAuthorization_ШтрихКод}" Margin="5" Grid.Row="3"
+              IsExpanded="{Binding Path=ShowExpandedPass, Converter={StaticResource ConverterExpanded}, UpdateSourceTrigger=PropertyChanged}">
+      <Grid Height="Auto">
+        <TextBox Name="BarcodeTb" Height="39" VerticalAlignment="Top" HorizontalAlignment="Center" Width="250"
+                 Margin="5" FontSize="24" Text="{Binding Barcode, UpdateSourceTrigger=PropertyChanged}">
+          <UIElement.InputBindings>
+            <KeyBinding Key="Enter" Command="{Binding Path=BarcodeCheckCommand}"/>
+          </UIElement.InputBindings>
+        </TextBox>
+      </Grid>
+    </Expander>
+  </Grid>
+</helpers:WindowWithSize>

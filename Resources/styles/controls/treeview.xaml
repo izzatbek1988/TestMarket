@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style TargetType="{x:Type TreeView}">
+    <Setter Property="Control.Background">
+      <Setter.Value>
+        <SolidColorBrush Color="{DynamicResource ListMainBackgroundColor}" Opacity="0.8"/>
+      </Setter.Value>
+    </Setter>
+    <Style.Resources>
+      <SolidColorBrush Color="{DynamicResource DefaultForegroundColor}"
+                       x:Key="{x:Static SystemColors.HighlightTextBrushKey}"/>
+    </Style.Resources>
+  </Style>
+  <Style TargetType="{x:Type TreeViewItem}">
+    <Setter Property="Control.Foreground" Value="{DynamicResource DefaultForeground}"/>
+    <Setter Property="Control.Padding" Value="2"/>
+    <Style.Triggers>
+      <MultiTrigger>
+        <MultiTrigger.Conditions>
+          <Condition Property="TreeViewItem.IsSelected" Value="true"/>
+          <Condition Property="TreeViewItem.IsSelectionActive" Value="false"/>
+        </MultiTrigger.Conditions>
+        <Setter Property="Control.Foreground" Value="{DynamicResource InvertForeground}"/>
+      </MultiTrigger>
+    </Style.Triggers>
+    <Style.Resources>
+      <SolidColorBrush Color="DeepSkyBlue" x:Key="{x:Static SystemColors.ControlBrushKey}"/>
+      <SolidColorBrush Color="DeepSkyBlue" x:Key="{x:Static SystemColors.HighlightBrushKey}"/>
+      <SolidColorBrush Color="{DynamicResource DefaultForegroundColor}"
+                       x:Key="{x:Static SystemColors.HighlightTextBrushKey}"/>
+      <SolidColorBrush Color="DeepSkyBlue" x:Key="{x:Static SystemColors.ControlTextBrushKey}"/>
+    </Style.Resources>
+  </Style>
+</ResourceDictionary>

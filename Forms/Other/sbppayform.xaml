@@ -1,0 +1,36 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Other.SbpPayForm"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:devices="clr-namespace:Gbs.Forms.Settings.Devices"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:other="clr-namespace:Gbs.Forms.Other"
+                        Closing="SbpPayForm_OnClosing" Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.ОплатаПоQRКоду}" Width="650" ResizeMode="NoResize"
+                        SizeToContent="WidthAndHeight">
+  <FrameworkElement.DataContext>
+    <other:SbpPayViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel Orientation="Horizontal">
+    <StackPanel>
+      <Image Margin="16 16 8 0" Height="250" Width="250" Source="{Binding QrImage}"/>
+      <Button Content="{x:Static localizations:Translate.ПроверитьСтатусОплаты}"
+              Style="{DynamicResource btnLink}" HorizontalAlignment="Center" Margin="5 5 5 10"
+              VerticalAlignment="Center" IsEnabled="{Binding IsEnableBtnCheckStatus}"
+              Visibility="{Binding VisibilityBtnCheckStatus}" Command="{Binding CheckStatusPayCommand}"/>
+    </StackPanel>
+    <Grid Margin="8 16">
+      <Grid.RowDefinitions>
+        <RowDefinition/>
+        <RowDefinition/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <TextBlock Grid.Row="0" FontSize="32" FontWeight="Bold" Margin="0 0 0 20" Text="{Binding SumForForm}"/>
+      <TextBlock Grid.Row="1"
+                 Text="{x:Static localizations:Translate.ДляОплатыОтсканируйтеQRКодВМобильномПриложенииБанкаИлиШтатнойКамеройТелефона}"
+                 Width="289" TextWrapping="Wrap" VerticalAlignment="Bottom" FontSize="22"/>
+    </Grid>
+  </StackPanel>
+</helpers:WindowWithSize>

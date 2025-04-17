@@ -1,0 +1,207 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Waybills.FrmWaybillsList"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Waybills"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:my="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:global="clr-namespace:Gbs.Core.Entities"
+                        xmlns:converters="clr-namespace:Gbs.Helpers.XAML.Converters"
+                        Loaded="FrmWaybillsList_OnLoaded"
+                        Title="{x:Static localizations:Translate.FrmWaybillsList_ЖурналПоступлений}" Height="576"
+                        Width="1000" Style="{StaticResource sWindow}" MinWidth="842" MinHeight="600">
+  <FrameworkElement.Resources>
+    <converters:DecimalToStringConverter x:Key="decimalConverter"/>
+    <ContextMenu x:Key="{x:Static local:WaybillsViewModel.AlsoMenuKey}" FontSize="25" Placement="Bottom">
+      <MenuItem Header="{x:Static localizations:Translate.FrmWaybillsList_ГрупповоеРедактирование}"
+                Command="{Binding DoGroupEditCommand}"
+                CommandParameter="{Binding ElementName=ListWaybills, Path=SelectedItems}"/>
+      <MenuItem Header="{x:Static localizations:Translate.FrmWaybillsList_СоздатьПеремещение}"
+                Command="{Binding CreateMoveCommand}"/>
+    </ContextMenu>
+    <ContextMenu x:Key="{x:Static local:WaybillsViewModel.PrintMenuKey}" FontSize="25" Placement="Bottom">
+      <MenuItem Header="{x:Static localizations:Translate.FrmWaybillsList_Накладная}"
+                Command="{Binding Path=PrintWaybills}"/>
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Ценники}"
+                Command="{Binding Path=PrintTagForWaybill}"/>
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Этикетки}"
+                Command="{Binding Path=PrintLableForWaybill}"/>
+    </ContextMenu>
+  </FrameworkElement.Resources>
+  <FrameworkElement.DataContext>
+    <local:WaybillsViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="0,0,2,0">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="1.25"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Menu VerticalAlignment="Top" Grid.ColumnSpan="3" Margin="0,0,0,5" Grid.Row="0">
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Файл}">
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodsCatalog_СохранитьКак}"
+                  Command="{Binding ExportFile}" CommandParameter="{Binding ElementName=ListWaybills}"/>
+      </MenuItem>
+    </Menu>
+    <StackPanel Margin="0,0,0,0" Orientation="Vertical" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+      <StackPanel Orientation="Horizontal">
+        <userControls:DateFilterControl Margin="8,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                        ValueDateTimeStart="{Binding ValueDateTimeStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ValueDateTimeEnd="{Binding ValueDateTimeEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        CommandOnUpdate="{Binding LoadWaybillsCommand}"/>
+        <userControls:TextBoxWithClearControl x:Name="SearchText" VerticalAlignment="Top" Width="348" Height="40" TextFontSize="24"
+                                              Margin="0,0,0,0" HorizontalAlignment="Left" ConfigCommand="{Binding SetVisibilityPanelSearch}"
+                                              TextString="{Binding Path=SearchText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <Button Margin="5 0 5 5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="240" Height="40"
+                FontSize="16" Content="{Binding ButtonContentSup}" Command="{Binding GetSupplier}"/>
+      </StackPanel>
+      <StackPanel Orientation="Vertical" Margin="8 2" Visibility="{Binding VisibilityPanelSearch}">
+        <StackPanel Orientation="Horizontal" Margin="0 4 0 0">
+          <Button Click="StorageButton_OnClick" Name="StorageButton" Style="{DynamicResource comboboxButton}"
+                  Width="140" HorizontalAlignment="Left" VerticalAlignment="Center"
+                  Content="{Binding ButtonContentStorage}">
+            <FrameworkElement.Resources>
+              <ContextMenu x:Key="ContextMenuGrid"/>
+            </FrameworkElement.Resources>
+          </Button>
+          <ComboBox Height="22" VerticalAlignment="Center" DisplayMemberPath="Value" SelectedValuePath="Key"
+                    Margin="10 0" HorizontalAlignment="Left" Width="140" ItemsSource="{Binding Statuses}"
+                    SelectedValue="{Binding SelectedStatus, UpdateSourceTrigger=PropertyChanged}"/>
+          <ComboBox Height="22" VerticalAlignment="Center" DisplayMemberPath="Value" SelectedValuePath="Key"
+                    Margin="0 0" HorizontalAlignment="Left" Width="140" ItemsSource="{Binding StatusesPayment}"
+                    SelectedValue="{Binding SelectedExtraOption, UpdateSourceTrigger=PropertyChanged}"/>
+          <ComboBox Height="22" VerticalAlignment="Center" DisplayMemberPath="Name" SelectedValuePath="Uid"
+                    Margin="10 0" HorizontalAlignment="Left" Width="140" ItemsSource="{Binding SectionList}"
+                    SelectedValue="{Binding SelectedSection, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+      </StackPanel>
+    </StackPanel>
+    <WrapPanel Orientation="Vertical" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2">
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Path=AddNewWaybill}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Path=EditCardWaybill}"
+              Visibility="{Binding VisibilityNoForReturn}"
+              CommandParameter="{Binding ElementName=ListWaybills, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button Name="ButtonPrint" Style="{DynamicResource btnAction}" Command="{Binding ShowMenuPrintCommand}"
+              CommandParameter="{Binding ElementName=ListWaybills, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconPrint}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}"
+              CommandParameter="{Binding ElementName=ListWaybills, Path=SelectedItems}"
+              Command="{Binding Path=DeleteWaybill}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+      <Button Name="ButtonGr" Style="{StaticResource btnAction}" Visibility="{Binding VisibilityNoForReturn}"
+              Command="{Binding DoGroupCommand}"
+              CommandParameter="{Binding ElementName=ListWaybills, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconMore}"/>
+      </Button>
+    </WrapPanel>
+    <DataGrid x:Name="ListWaybills" AutoGenerateColumns="false" CanUserAddRows="false" IsReadOnly="true"
+              Margin=" 8 4 4 0" Grid.Row="2" Grid.Column="0" EnableRowVirtualization="true"
+              EnableColumnVirtualization="true" SelectedValue="{Binding SelectedWaybill}"
+              ItemsSource="{Binding WaybillItemsList}">
+      <FrameworkElement.Resources>
+        <ContextMenu x:Key="ContextMenuGrid"/>
+        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+          <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ContextMenuGrid}"/>
+        </Style>
+      </FrameworkElement.Resources>
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCardWaybill}"
+                      CommandParameter="{Binding ElementName=ListWaybills, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillsList_Дата}" Width="100"
+                            my:Extensions.Guid="5E7ACCCE-25FE-4745-BD7A-C84A400A2112"
+                            Binding="{Binding Path=Document.DateTime, StringFormat='dd.MM.yyyy HH:mm'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillsList_Накладной}" Width="100"
+                            my:Extensions.Guid="3420DFD3-A6A0-4404-B2D7-1D19CD3F19D9" Binding="{Binding Path=Document.Number}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" Width="150"
+                            my:Extensions.Guid="2835B0AF-1FA2-47E5-9746-B478BED87911"
+                            Binding="{Binding Path=Document.Storage.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmClientGroup_Поставщик}" Width="150"
+                            my:Extensions.Guid="96E4166B-AB15-4310-BB6C-6A4019C028B7" Binding="{Binding Path=NameContractor}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillsList_Товаров}" Width="80"
+                            my:Extensions.Guid="92776431-9D59-4116-82AC-637F315EB106"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            Binding="{Binding Path=SumCountItems, Converter={StaticResource decimalConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListReturn_Наименований}" Width="110"
+                            my:Extensions.Guid="CAD6C61B-F768-4DF7-9818-ECF7310DA280"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            Binding="{Binding Path=SumCountNameItems, StringFormat=N0}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillCard_ЗакупочнаяX0aСумма}" Width="80"
+                            my:Extensions.Guid="{x:Static global:GlobalDictionaries.BuyPriceUid}"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            Binding="{Binding Path=SumItems, Converter={StaticResource decimalConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWriteOffJournal_РозничнаяСумма}" Width="80"
+                            my:Extensions.Guid="9150A403-612E-4195-8556-84CCBEDBBAC2"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            Binding="{Binding Path=SaleSumItems, Converter={StaticResource decimalConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="200"
+                            my:Extensions.Guid="FA635986-71B8-41F5-B046-3F55253AF4D8" Binding="{Binding Path=NameUser}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillsList_Задолженность}" Width="80"
+                            my:Extensions.Guid="{x:Static local:WaybillsViewModel.CreditColumnUid}"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=SumCredit, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCardSale_Оплачено}" Width="80"
+                            my:Extensions.Guid="{x:Static local:WaybillsViewModel.PaymentsColumnUid}"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=SumPayments, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="120"
+                            my:Extensions.Guid="3F06EEBC-81ED-4F51-88A5-8B5A3D5370CE"
+                            ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding Path=Document.Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMagazineSale_Секция}" Width="80"
+                            my:Extensions.Guid="A17E121A-086D-4314-82BD-7521DF584D66"
+                            Binding="{Binding Path=Document.Section.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Статус}"
+                            my:Extensions.Guid="F2F68BCB-C8C4-4A03-AA6A-576C784D52B4" Binding="{Binding Status}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <WrapPanel Orientation="Horizontal" Grid.Row="3" Margin="4 0 4 0" Grid.ColumnSpan="2" Grid.Column="0">
+      <StackPanel Orientation="Horizontal">
+        <Label Content="{x:Static localizations:Translate.FrmWaybillsList_Поступлений}"/>
+        <Label Content="{Binding Path=WaybillItemsList.Count}"/>
+      </StackPanel>
+      <Label Content="| "/>
+      <StackPanel Orientation="Horizontal">
+        <Label Content="{x:Static localizations:Translate.FrmMainWindow_Товаров}"/>
+        <Label ContentStringFormat="N2" Content="{Binding Path=TotalGoodsItemsCount}"/>
+      </StackPanel>
+      <Label Content="|"/>
+      <StackPanel Orientation="Horizontal" Visibility="{Binding VisibilityBuySum}">
+        <Label Content="{x:Static localizations:Translate.FrmGoodsCatalog_НаСуммуЗакупка}"/>
+        <Label ContentStringFormat="N2" Content="{Binding Path=TotalBuySum}"/>
+      </StackPanel>
+      <Label Content="|"/>
+      <StackPanel Orientation="Horizontal" Visibility="{Binding VisibilityBuySum}">
+        <Label Content="{x:Static localizations:Translate.FrmListClients_НаСуммуРозница}"/>
+        <Label ContentStringFormat="N2" Content="{Binding Path=TotalSaleSum}"/>
+      </StackPanel>
+      <Label Content="|"/>
+      <StackPanel Orientation="Horizontal" Visibility="{Binding VisibilityPaymentsSum}">
+        <Label Content="{x:Static localizations:Translate.Оплачено}"/>
+        <Label ContentStringFormat="N2" Content="{Binding Path=TotalPaymentsSum}"/>
+      </StackPanel>
+      <Label Content="|" Visibility="{Binding VisibilityPaymentsSum}"/>
+      <StackPanel Orientation="Horizontal" Visibility="{Binding VisibilityCreditSum}">
+        <Label Content="{x:Static localizations:Translate.FrmWaybillsList_Задолженность}"/>
+        <Label ContentStringFormat="N2" Content="{Binding Path=TotalCreditSum}"/>
+      </StackPanel>
+      <Label Content="|"/>
+      <Button Name="ButtonUpdateData" Style="{DynamicResource btnLink}"
+              Content="{x:Static localizations:Translate.ОбновитьДанные}" VerticalContentAlignment="Center"
+              VerticalAlignment="Center" Command="{Binding ReloadData}"/>
+    </WrapPanel>
+  </Grid>
+</helpers:WindowWithSize>

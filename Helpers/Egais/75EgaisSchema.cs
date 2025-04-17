@@ -1,0 +1,53 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Gbs.Helpers.Egais.producedimp
+// Assembly: Market, Version=6.6.12.2634, Culture=neutral, PublicKeyToken=null
+// MVID: 1F63B1D6-03C1-4223-9A1B-4EA2EB09E32F
+// Assembly location: C:\Program Files (x86)\F-Lab\Market 6\Market.exe
+
+using System;
+using System.CodeDom.Compiler;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Xml.Serialization;
+
+#nullable disable
+namespace Gbs.Helpers.Egais
+{
+  [GeneratedCode("xsd", "4.8.3928.0")]
+  [DebuggerStepThrough]
+  [DesignerCategory("code")]
+  [XmlType(Namespace = "http://fsrar.ru/WEGAIS/ClaimIssueFSM")]
+  [Serializable]
+  public class producedimp
+  {
+    private object typeClaimField;
+    private string cONTRACTNUMBERField;
+    private DateTime cONTRACTDATEField;
+    private OrgInfoForeign_v2 sHIPPERField;
+
+    public object TypeClaim
+    {
+      get => this.typeClaimField;
+      set => this.typeClaimField = value;
+    }
+
+    public string CONTRACTNUMBER
+    {
+      get => this.cONTRACTNUMBERField;
+      set => this.cONTRACTNUMBERField = value;
+    }
+
+    [XmlElement(DataType = "date")]
+    public DateTime CONTRACTDATE
+    {
+      get => this.cONTRACTDATEField;
+      set => this.cONTRACTDATEField = value;
+    }
+
+    public OrgInfoForeign_v2 SHIPPER
+    {
+      get => this.sHIPPERField;
+      set => this.sHIPPERField = value;
+    }
+  }
+}

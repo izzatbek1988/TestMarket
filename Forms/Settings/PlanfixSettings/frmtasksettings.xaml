@@ -1,0 +1,43 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.PlanfixSettings.FrmTaskSettings"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.PlanfixSettings"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:settings="clr-namespace:Gbs.Forms.Settings"
+                        Style="{DynamicResource sWindow}" MinHeight="400" MinWidth="650"
+                        Title="{x:Static localizations:Translate.FrmTaskSettings_НастройкаСущностиЗадачи}" Height="400"
+                        Width="650">
+  <FrameworkElement.DataContext>
+    <local:TaskPlanFixViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="35"/>
+      <RowDefinition Height="219*"/>
+      <RowDefinition Height="94*"/>
+    </Grid.RowDefinitions>
+    <Label Grid.Row="0" Margin="3" FontSize="14" Content="{Binding Title}"/>
+    <DataGrid Grid.Row="1" Margin="10,10,10,5" ItemsSource="{Binding Items}">
+      <FrameworkElement.Resources>
+        <xaml:BindingProxy x:Key="proxy" Data="{Binding}"/>
+      </FrameworkElement.Resources>
+      <DataGrid.Columns>
+        <DataGridTextColumn Width="2*" Header="{x:Static localizations:Translate.Параметр}" Binding="{Binding NameItem}"/>
+        <DataGridTemplateColumn Width="1*" Header="{x:Static localizations:Translate.FrmAnalinicSetting_ПолеПланФикс}">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <ComboBox DisplayMemberPath="Name" SelectedValuePath="Id" ItemsSource="{Binding Fields}"
+                        SelectedValue="{Binding PlanFixId, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <userControls:ConfirmPanelControl1 Grid.Row="1" Margin="0,229,0,-7.5" Grid.RowSpan="2" OkButtonCommand="{Binding Path=SaveCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,27 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Main.FrmFirstMain"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Main"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        Closing="Window_Closing" WindowStartupLocation="CenterScreen" Style="{StaticResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmFirstMain_ПодготовкаКПервомуЗапуску}" Width="600"
+                        ResizeMode="NoResize" Height="550">
+  <FrameworkElement.DataContext>
+    <local:FirstSetupViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Height="Auto">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Frame Name="PageContent" Grid.Row="0" VerticalAlignment="Top" VerticalContentAlignment="Top"
+           NavigationUIVisibility="Hidden" Content="{Binding Path=CurrentPage}"/>
+    <userControls:ConfirmPanelControl1 Grid.Row="1" Margin="0,0,0,0" OkButtonText="{x:Static localizations:Translate.FrmFirstMain_ДАЛЕЕ}"
+                                       CancelButtonText="{x:Static localizations:Translate.НАЗАД}" OkButtonCommand="{Binding NextPage}"
+                                       CancelButtonCommand="{Binding LastPage}" VisibilityCancelButton="{Binding VisibilityCancelButton}"/>
+  </Grid>
+</helpers:WindowWithSize>

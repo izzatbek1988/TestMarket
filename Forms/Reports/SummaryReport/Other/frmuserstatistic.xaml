@@ -1,0 +1,44 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Reports.SummaryReport.Other.FrmUserStatistic"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Reports.SummaryReport.Other"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmUserStatistic_СтатистикаПоСотрудниками}" Height="385"
+                        Width="580">
+  <FrameworkElement.DataContext>
+    <local:UsersStatisticViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="311*"/>
+    </Grid.RowDefinitions>
+    <Expander Grid.Row="0" IsExpanded="false"
+              Header="{x:Static localizations:Translate.FrmListPaymentsActions_Период}" Margin="5, 5">
+      <StackPanel Orientation="Horizontal">
+        <DatePicker Width="130" Margin="5"
+                    SelectedDate="{Binding ValueDateTimeStart, UpdateSourceTrigger=PropertyChanged}"/>
+        <DatePicker Width="130" Margin="5"
+                    SelectedDate="{Binding ValueDateTimeEnd, UpdateSourceTrigger=PropertyChanged}"/>
+      </StackPanel>
+    </Expander>
+    <DataGrid Name="GridStatisticUser" Grid.Row="1" Margin="10,10,10,10" ItemsSource="{Binding Users}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="180"
+                            Binding="{Binding User.Alias}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_КолВоПродаж}"
+                            CellStyle="{DynamicResource numberCellStyle}" Width="130" Binding="{Binding SaleCount}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_ПроданоТоваров}"
+                            CellStyle="{DynamicResource numberCellStyle}" Width="130"
+                            Binding="{Binding GoodTotal, StringFormat=F}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_СуммаПродаж}"
+                            CellStyle="{DynamicResource numberCellStyle}" Width="130"
+                            Binding="{Binding SaleSum, StringFormat=F}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
+</helpers:WindowWithSize>

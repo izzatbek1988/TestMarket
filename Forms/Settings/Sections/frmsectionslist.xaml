@@ -1,0 +1,74 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Sections.FrmSectionsList"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Sections"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Style="{StaticResource sWindow}" MinHeight="300" MinWidth="300"
+                        Title="{x:Static localizations:Translate.FrmSectionsList_СписокСекций}" Height="500" Width="410"
+                        ResizeMode="CanResizeWithGrip">
+  <FrameworkElement.DataContext>
+    <local:SectionListViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="4">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid x:Name="GridSectionList" IsReadOnly="true" CanUserAddRows="false" Margin="4"
+              SelectionMode="Extended" AutoGenerateColumns="false" ItemsSource="{Binding Path=SectionList}"
+              SelectedValue="{Binding Path=SelectedSection}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"
+                      CommandParameter="{Binding ElementName=GridSectionList, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.FrmSectionsList_НазваниеСекции}" Width="170">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding DisplayName}" FontWeight="{Binding FontWeight}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.FrmLicenseInfo_GBSID}" Width="150">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Section.GbsId}" FontWeight="{Binding FontWeight}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.ПоследняяАктивность}" Width="150">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding Path=DateTimeLast, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         FontWeight="{Binding FontWeight}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="0" Grid.Column="1">
+      <Button x:Name="btnEditEntity" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Style="{DynamicResource btnAction}" Command="{Binding Path=EditCommand}"
+              CommandParameter="{Binding ElementName=GridSectionList, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" HorizontalAlignment="Center" VerticalAlignment="Top"
+              Command="{Binding Path=JoinCommand}"
+              CommandParameter="{Binding ElementName=GridSectionList, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconMerge}"/>
+      </Button>
+      <Button x:Name="btnDelEntity" HorizontalAlignment="Left" VerticalAlignment="Top"
+              Style="{DynamicResource btnAction}" Command="{Binding Path=DeleteCommand}"
+              CommandParameter="{Binding ElementName=GridSectionList, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,33 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Devices.FrmTestScannerForFfd12"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Devices"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" ResizeMode="NoResize" SizeToContent="WidthAndHeight"
+                        Title="{x:Static localizations:Translate.FrmTestScannerForFfd12_ПроверкаСканераШК}"
+                        FocusManager.FocusedElement="{Binding ElementName=MatrixTextBox}">
+  <FrameworkElement.DataContext>
+    <local:TestScannerForFfd12ViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel Orientation="Horizontal">
+    <Image Margin="5" Height="150" Width="150" Stretch="Uniform" Source="{Binding DataMatrixImage}"/>
+    <StackPanel Width="418" Margin="10">
+      <TextBlock Text="{x:Static localizations:Translate.FrmTestScannerForFfd12_ПросканируйтеDataMatrixКодИзЭтогоОкнаИНажмитеКнопкуПроверить}"
+                 FontSize="18" TextWrapping="Wrap" Margin="0" TextAlignment="Center"/>
+      <TextBox Name="MatrixTextBox" Margin="5" Height="35" Width="Auto" FontSize="18" TextWrapping="Wrap"
+               VerticalContentAlignment="Center"
+               Text="{Binding TextScanner, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Margin="5 0 5 5 " TextWrapping="Wrap" Text="{Binding KeysInfoText}"/>
+        <Button Style="{DynamicResource btnLink}" Content="{x:Static localizations:Translate.Установить}"
+                Visibility="{Binding SetGsHotKeyVisibility}" Command="{Binding SetGsHotKeyCommand}"/>
+      </StackPanel>
+      <Button Margin="10 5" Height="50" Style="{DynamicResource btnOk}"
+              Content="{x:Static localizations:Translate.FrmTestScannerForFfd12_ПРОВЕРИТЬ}" Width="250"
+              Cursor="Hand" Command="{Binding CheckTextCommand}"/>
+    </StackPanel>
+  </StackPanel>
+</helpers:WindowWithSize>

@@ -1,0 +1,108 @@
+<Page x:Class="Gbs.Forms.Main.FirstSetupPage.PageInsertUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Gbs.Forms.Main.FirstSetupPage"
+      xmlns:xxceed="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+      Title="Page" Height="615" Width="595"
+      FocusManager.FocusedElement="{Binding ElementName=ClientNameTb}">
+  <FrameworkElement.DataContext>
+    <local:PageUserViewModel/>
+  </FrameworkElement.DataContext>
+  <UIElement.InputBindings>
+    <KeyBinding Key="T" Modifiers="Control" Command="{Binding GenerateTestDataCommand}"/>
+  </UIElement.InputBindings>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="1*"/>
+      <ColumnDefinition Width="5*"/>
+      <ColumnDefinition Width="1*"/>
+    </Grid.ColumnDefinitions>
+    <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
+      <TextBlock Background="{DynamicResource Background80}" HorizontalAlignment="Stretch" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Foreground="{DynamicResource DefaultForeground}" FontSize="35"
+                 TextAlignment="Center">
+        <Run Text="{x:Static localizations:Translate.PageInsertUser_Шаг2Из2}"/>
+        <Run Text=" - "/>
+        <Run Text="{x:Static localizations:Translate.PageInsertUser_УчетнаяЗапись}"/>
+      </TextBlock>
+      <TextBlock Margin="20,10,20,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"
+                 TextAlignment="Center"
+                 Text="{x:Static localizations:Translate.PageInsertUser_ЗаполнитеДанныеУчетнойЗаписиАдминистратораДляПолногоКонтроляЗаПрограммойАдминистраторомЯвляетсяВладелецОрганизацииИлиДоверенноеЛицо}"/>
+    </StackPanel>
+    <GroupBox Header="{x:Static localizations:Translate.PageInsertUser_Администратор}" Grid.Row="1"
+              Grid.Column="1" Margin="0,10,0,0">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="170"/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="3" Text="{x:Static localizations:Translate.FrmClientCard_ФИО}"/>
+        <TextBox Name="ClientNameTb" Grid.Row="0" Grid.Column="1" Margin="3" Width="Auto"
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding Path=Client.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"
+                   Text="{x:Static localizations:Translate.FrmClientCard_EMail}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Margin="3" HorizontalAlignment="Left"
+                 Text="{Binding Path=Client.Email, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Margin="3" Grid.Row="2" Grid.Column="0"
+                   Text="{x:Static localizations:Translate.FrmAuthorization_Пароль}"
+                   Visibility="{Binding VisibilityShopData}"/>
+        <TextBlock Margin="3" Grid.Row="3" Grid.Column="0"
+                   Text="{x:Static localizations:Translate.PageInsertUser_ПовторитеПароль}"
+                   Visibility="{Binding VisibilityShopData}"/>
+        <xxceed:WatermarkPasswordBox x:Name="PassBox1" Grid.Row="2" Grid.Column="1" PasswordChar="*" Margin="3"
+                                     HorizontalAlignment="Left" Width="144" Watermark="" Visibility="{Binding VisibilityShopData}"/>
+        <xxceed:WatermarkPasswordBox x:Name="PassBox2" Grid.Row="3" Grid.Column="1" PasswordChar="*" Margin="3"
+                                     HorizontalAlignment="Left" Width="144" Watermark="" Visibility="{Binding VisibilityShopData}"/>
+      </Grid>
+    </GroupBox>
+    <GroupBox Header="{x:Static localizations:Translate.PageInsertUser_ТорговаяТочка}" Grid.Row="2"
+              Grid.Column="1" Margin="0,10" Visibility="{Binding VisibilityShopData}">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="170"/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="3" Grid.Row="0" Grid.Column="0"
+                   Text="{x:Static localizations:Translate.PageInsertUser_НазваниеОрганизации}"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Margin="3"
+                   Text="{x:Static localizations:Translate.PageInsertUser_НазваниеТорговойТочки}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Width="Auto" Margin="3"
+                 Text="{Binding Path=Organization.Name, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Width="Auto" Margin="3"
+                 Text="{Binding Path=SalePoint.Description.NamePoint, UpdateSourceTrigger=PropertyChanged}"/>
+      </Grid>
+    </GroupBox>
+    <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1" Margin="0, 5"
+                Visibility="{Binding VisibilityHomeData}">
+      <TextBlock Text="{x:Static localizations:Translate.ПапкаОбменаСДомОфис}" VerticalAlignment="Center"
+                 Margin="5 0"/>
+      <userControls:TextBoxFolderPathControl VerticalAlignment="Top" Margin="35 0 0 0" Width="230"
+                                             SelectFolderCommand="{Binding SelectRemotePathCommand}"
+                                             FolderPath="{Binding Path=Config.RemoteControl.Cloud.Path}"/>
+    </StackPanel>
+  </Grid>
+</Page>

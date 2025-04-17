@@ -1,0 +1,59 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Clients.FrmSearchClient"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Clients"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Loaded="FrmSearchClient_OnLoaded" Closed="FrmSearchClient_OnClosed"
+                        Activated="FrmSearchClient_OnActivated" WindowStartupLocation="CenterScreen"
+                        Title="{x:Static localizations:Translate.FrmSearchClient_ПоискКонтакта}"
+                        SizeToContent="WidthAndHeight" Style="{StaticResource sWindow}" ResizeMode="NoResize"
+                        FocusManager.FocusedElement="{Binding ElementName=TextBoxSearch}">
+  <FrameworkElement.DataContext>
+    <local:SearchClientViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <userControls:TextBoxWithClearControl x:Name="TextBoxSearch" VerticalAlignment="Top" Height="40" TextFontSize="24" Margin="5 5 5 5"
+                                          HorizontalAlignment="Left" Width="370" ConfigCommand="{Binding SetVisibilityPanelSearch}"
+                                          TextString="{Binding Path=FilterClients, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="5 -5 0 0"
+                Visibility="{Binding VisibilityPanelSearch}">
+      <Label Content="{x:Static localizations:Translate.FrmSearchClient_ИскатьВ}" HorizontalAlignment="Left"
+             VerticalAlignment="Center" Height="25" Width="75"/>
+      <Button Click="FindButton_OnClick" Name="FindButton" Height="25" Style="{DynamicResource btnLink}"
+              Margin="5,0,0,0" VerticalAlignment="Center" Width="130" Cursor="Hand"
+              Content="{Binding TextPropButton}">
+        <FrameworkElement.Resources>
+          <ContextMenu x:Key="ContextMenuGrid"/>
+        </FrameworkElement.Resources>
+      </Button>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <DataGrid Name="ClientSearchGrid" IsReadOnly="true" HorizontalAlignment="Left" Margin="5,0,0,0" Width="370"
+                Height="300" AutoGenerateColumns="false" CanUserAddRows="false" SelectionMode="Single"
+                ItemsSource="{Binding Path=ClientsList}" SelectedValue="{Binding Path=SelectedClient}">
+        <UIElement.InputBindings>
+          <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=SelectClient}"/>
+        </UIElement.InputBindings>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSearchClient_ФИО}" Width="250"
+                              ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding Path=Name}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSearchClient_Телефон}" Width="120"
+                              Binding="{Binding Path=Phone}"/>
+        </DataGrid.Columns>
+      </DataGrid>
+      <Button Margin="5,0,5,0" Style="{DynamicResource btnAction}" VerticalAlignment="Top" Grid.Row="2"
+              Command="{Binding Path=AddClient}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+    </StackPanel>
+    <Button Name="ButtonUpdateData" Margin="0" Style="{DynamicResource btnLink}"
+            Content="{x:Static localizations:Translate.ОбновитьДанные}" VerticalContentAlignment="Center"
+            HorizontalAlignment="Right" Width="160" Command="{Binding ReloadData}"/>
+    <userControls:ConfirmPanelControl1 OkButtonText="{x:Static localizations:Translate.FrmSearchClient_ВЫБРАТЬ}"
+                                       OkButtonCommand="{Binding SelectClient}" CancelButtonCommand="{Binding Path=CloseFrm}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

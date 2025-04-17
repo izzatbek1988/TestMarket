@@ -1,0 +1,64 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Users.FrmUserList"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Users"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Title="{x:Static localizations:Translate.UsersPage_Сотрудники}" Height="430" Width="750"
+                        MinHeight="300" MinWidth="600" Style="{StaticResource sWindow}" ResizeMode="CanResize">
+  <FrameworkElement.DataContext>
+    <local:UserListViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid Name="ListUsers" Grid.Column="0" Margin="8 8 4 4" AutoGenerateColumns="false"
+              CanUserAddRows="false" RowHeaderWidth="0" IsReadOnly="true" ItemsSource="{Binding Path=UsersList}"
+              SelectedValue="{Binding Path=SelectedUser}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"
+                      CommandParameter="{Binding ElementName=ListUsers, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserCard_Псевдоним}" Width="150"
+                            Binding="{Binding Path=Alias}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmClientCard_ФИО}" Width="200"
+                            Binding="{Binding Path=Client.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserCard_Принят}" Width="100"
+                            Binding="{Binding Path=DateIn, StringFormat=dd.MM.yyyy}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserCard_Уволен}" Width="100"
+                            Binding="{Binding Path=DateOut, StringFormat=dd.MM.yyyy}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmClientCard_Группа}" Width="125"
+                            Binding="{Binding Path=Group.Name}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="0" Grid.Column="1" Margin="0 4 4 0">
+      <Button Style="{DynamicResource btnAction}" Command="{Binding AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button x:Name="btnEditEntity" Style="{DynamicResource btnAction}" Command="{Binding EditCommand}"
+              CommandParameter="{Binding ElementName=ListUsers, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Cursor="Hand" Command="{Binding DeleteCommand}"
+              CommandParameter="{Binding ElementName=ListUsers, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+    <ToolBarPanel Margin="4 2" Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+      <Label Content="{x:Static localizations:Translate.FrmUserList_ВсегоСотрудников}"/>
+      <Label Content="{Binding UsersList.Count}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.FrmUserList_АктивныхСотрудников}"/>
+      <Label Content="{Binding ActiveUserCount}"/>
+    </ToolBarPanel>
+  </Grid>
+</helpers:WindowWithSize>

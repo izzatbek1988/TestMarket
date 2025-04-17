@@ -1,0 +1,188 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.FrmSettings"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:settings="clr-namespace:Gbs.Forms.Settings"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        WindowStartupLocation="CenterScreen"
+                        Title="{x:Static localizations:Translate.FrmMainWindow_Настройки}" MinHeight="450" MinWidth="545"
+                        MaxWidth="800" SizeToContent="Width" Height="670" ResizeMode="NoResize"
+                        Style="{StaticResource sWindow}">
+  <UIElement.InputBindings>
+    <KeyBinding Key="F1" Modifiers="Control + Shift" Command="{Binding ShowTestPageCommand}"/>
+  </UIElement.InputBindings>
+  <FrameworkElement.DataContext>
+    <settings:SettingsViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="188"/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="400*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <userControls:ConfirmPanelControl1 Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0.0,0,-0.5" CancelButtonCommand="{Binding Path=Close}"
+                                         OkButtonCommand="{Binding Path=SaveSetting}"/>
+      <TabControl Name="TabControl" Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" TabStripPlacement="Left"
+                  Margin="-2,-1,0,-6" BorderThickness="1 0 0 0" HorizontalContentAlignment="Left"
+                  SelectedIndex="{Binding SelectedTab}">
+        <FrameworkElement.Resources>
+          <Style TargetType="{x:Type TabItem}" BasedOn="{StaticResource {x:Type TabItem}}">
+            <Setter Property="Control.Template">
+              <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                  <Grid>
+                    <Border Name="Border" Margin="-1" BorderBrush="{DynamicResource Border80}" BorderThickness="1"
+                            CornerRadius="0" TextElement.Foreground="{DynamicResource DefaultForeground}" Padding="12 6">
+                      <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Left" ContentSource="Header"
+                                        Margin="4,2,24,2" RecognizesAccessKey="true"/>
+                      <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource ListMainBackgroundColor}" Opacity="0.8"/>
+                      </Border.Background>
+                    </Border>
+                  </Grid>
+                  <ControlTemplate.Triggers>
+                    <Trigger Property="TabItem.IsSelected" Value="true">
+                      <Setter Property="Panel.ZIndex" Value="100"/>
+                      <Setter TargetName="Border" Value="{DynamicResource SelectionBackground}" Property="Border.Background"/>
+                      <Setter TargetName="Border" Property="Border.BorderThickness" Value="1,1,1,0"/>
+                      <Setter TargetName="ContentSite" Value="{DynamicResource SelectionForeground}"
+                              Property="TextElement.Foreground"/>
+                    </Trigger>
+                  </ControlTemplate.Triggers>
+                </ControlTemplate>
+              </Setter.Value>
+            </Setter>
+          </Style>
+          <Style TargetType="{x:Type Frame}">
+            <Setter Property="FrameworkElement.Width" Value="420"/>
+          </Style>
+        </FrameworkElement.Resources>
+        <TabItem Name="TabMainSettings" Header="{x:Static localizations:Translate.FrmClientCard_Основные}">
+          <Frame NavigationUIVisibility="Hidden" Margin="0,0,0,-23" Content="{Binding Path=BasicPage}"/>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmMainWindow_Товары}" Height="31"
+                 VerticalAlignment="Bottom" Visibility="{Binding VisibilityBlockHome}">
+          <Frame NavigationUIVisibility="Hidden" Content="{Binding GoodsPage}"/>
+        </TabItem>
+        <TabItem Name="ActionsGoodTab" Header="{x:Static localizations:Translate.FrmMainWindow_ДействияСТоваром}">
+          <Frame NavigationUIVisibility="Hidden" Content="{Binding ActionsGoodPage}"/>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmSettings_СкидкиБаллы}"
+                 Visibility="{Binding VisibilityBlockHome}">
+          <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding DiscountPage}"/>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.UsersPage_Сотрудники}">
+          <Frame Name="UsersPage" Margin="0,0,0,0" NavigationUIVisibility="Hidden"
+                 Content="{Binding Path=UsersPage}"/>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmSettings_ДенежныеСредства}"
+                 Visibility="{Binding VisibilityBlockHome}">
+          <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=PaymentsPage}"/>
+        </TabItem>
+        <TabItem Name="RemoteTab" Header="{x:Static localizations:Translate.FrmSettings_УдаленныйКонтроль}">
+          <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=RemoteControlPage}"/>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmSettings_БазаДанных}">
+          <Frame NavigationUIVisibility="Hidden" Margin="0" Content="{Binding Path=DbPage}"/>
+        </TabItem>
+        <TabItem Name="ClientsPage" Header="{x:Static localizations:Translate.FrmMainWindow_Контакты}"
+                 Visibility="{Binding VisibilityBlockHome}">
+          <Frame NavigationUIVisibility="Hidden" Content="{Binding Path=ClientsPage}"/>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmSettings_Оборудование}">
+          <ContentControl.Content>
+            <Frame Name="DevicesPage" Margin="0,0,0,0" NavigationUIVisibility="Hidden"
+                   Content="{Binding Path=DevicesPage}"/>
+          </ContentControl.Content>
+        </TabItem>
+        <TabItem Header="TEST_Оборудование" Visibility="Collapsed">
+          <ContentControl.Content>
+            <Frame Name="NewDevicesPage" Margin="0,0,0,0" NavigationUIVisibility="Hidden"
+                   Content="{Binding Path=ListDevicesPage}"/>
+          </ContentControl.Content>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmSettings_Дополнительно}">
+          <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=OtherPage}"/>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmSettings_ВнешнийВид}">
+          <ContentControl.Content>
+            <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=ViewPage}"/>
+          </ContentControl.Content>
+        </TabItem>
+        <TabItem Name="BillTabItem" Header="{x:Static localizations:Translate.Законодательство}"
+                 Visibility="{Binding VisibilitySettingByLegal}">
+          <ContentControl.Content>
+            <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=LegalPage}"/>
+          </ContentControl.Content>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmSettings_Интеграции}"
+                 Visibility="{Binding VisibilityBlockHome}">
+          <ContentControl.Content>
+            <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=IntegrationsPage}"/>
+          </ContentControl.Content>
+        </TabItem>
+        <TabItem Header="{x:Static localizations:Translate.FrmMainWindow_ВыгрузкаДанных}"
+                 Visibility="{Binding VisibilityBlockHome}">
+          <ContentControl.Content>
+            <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=ExchangeDataPage}"/>
+          </ContentControl.Content>
+        </TabItem>
+        <TabItem Name="CafeTabItem"
+                 Header="{x:Static localizations:Translate.GlobalDictionaries_ModeProgramDictionary_Кафе}">
+          <ContentControl.Content>
+            <Frame Margin="0,0,0,0" NavigationUIVisibility="Hidden" Content="{Binding Path=CafePage}"/>
+          </ContentControl.Content>
+        </TabItem>
+        <TabItem Header="ТЕСТИРОВАНИЕ" Visibility="{Binding Path=TestPageVisibility}">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <FrameworkElement.Resources>
+              <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="FrameworkElement.Margin" Value="3"/>
+                <Setter Property="FrameworkElement.Height" Value="25"/>
+              </Style>
+            </FrameworkElement.Resources>
+            <ScrollViewer VerticalScrollBarVisibility="Visible" Cursor="Hand">
+              <StackPanel>
+                <Button Click="ButtonBase2_OnClick" Content="Убрать отрицательные баллы"/>
+                <Button Click="buttonCleareStocks_OnClick"
+                        Content="{x:Static localizations:Translate.FrmSettings_ОчисткаОстатков}"/>
+                <Button Click="ButtonBase_OnClick_polycloudtest" Content="Test get client from PolyCloud"/>
+                <Button Click="ButtonBase_OnClick_lev" Content="Test levinshtain"/>
+                <Button Click="ButtonBase_DbDeadLock" Content="Test DB deadlock"/>
+                <Button Click="ButtonBase_OnClickMsgBoxCommandsList" Content="Msg box commands list"/>
+                <Button Click="ButtonBase_OnClick_checkboxes" Content="Msg box checkboxes list"/>
+                <userControls:MultiValueControl AddValueCommand="{Binding AddCommand}">
+                  <userControls:MultiValueControl.ValuesList>
+                    <Binding>                      <!-- constructor argument:
+                           MultiList
+                      -->
+
+                    </Binding>
+                  </userControls:MultiValueControl.ValuesList>
+                </userControls:MultiValueControl>
+                <Button Content="get stock error goods" Command="{Binding GetErrorGoodsStock}"/>
+                <Button Content="run PF update" Command="{Binding RunPfUpdate}"/>
+                <Button Content="clear all cache" Command="{Binding ClearAllCache}"/>
+              </StackPanel>
+            </ScrollViewer>
+            <Button Grid.Row="1" Content="{x:Static localizations:Translate.FrmSettings_СохранитьНастройки}"
+                    Width="150" Height="30" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    Background="DarkGreen" Foreground="White" Command="{Binding SaveTestingSettings}"/>
+          </Grid>
+        </TabItem>
+      </TabControl>
+    </Grid>
+  </Grid>
+</helpers:WindowWithSize>

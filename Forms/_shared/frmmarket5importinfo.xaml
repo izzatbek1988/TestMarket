@@ -1,0 +1,39 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmProgressInfo"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms._shared"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Closing="Window_Closing" Style="{StaticResource sWindow}" ResizeMode="NoResize"
+                        WindowStartupLocation="CenterScreen"
+                        Title="{x:Static localizations:Translate.FrmProgressInfo_ПроцессПереносаДанных}" Height="350"
+                        Width="700">
+  <FrameworkElement.DataContext>
+    <local:ProgressInfoViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal" Grid.Row="0">
+      <TextBlock Margin="5" Text="{x:Static localizations:Translate.FrmProgressInfo_ТекущаяЗадача}"/>
+      <TextBlock Margin="5" Text="{Binding Path=CurrentTask}"/>
+    </StackPanel>
+    <StackPanel Grid.Row="1" Orientation="Horizontal">
+      <TextBlock Margin="5" Text="{x:Static localizations:Translate.FrmProgressInfo_ПрогрессЗадачи}"/>
+      <TextBlock Margin="5" Text="{Binding Path=CurrentTaskStep, StringFormat='### ##0'}"/>
+      <TextBlock Margin="5" Text="{x:Static localizations:Translate.FrmProgressInfo_Из}"/>
+      <TextBlock Margin="5" Text="{Binding Path=TaskTotalSteps, StringFormat='### ##0'}"/>
+    </StackPanel>
+    <ProgressBar Grid.Row="2" Background="Transparent" BorderThickness="0"
+                 Foreground="{DynamicResource SelectionBackground}" Height="10" Margin="0 0 0 0"
+                 VerticalAlignment="Bottom" IsIndeterminate="{Binding Path=IsIndeterminate}"/>
+    <TextBox VerticalScrollBarVisibility="Auto" Margin="5,0,5,5" IsReadOnly="true" Grid.Row="3" Height="Auto"
+             Width="Auto" Text="{Binding Path=ProgressLog}"/>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,277 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Goods.FrmGoodCard"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Goods"
+                        xmlns:converter="clr-namespace:Gbs.Helpers.XAML.Converters"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:controls="clr-namespace:DotNetKit.Windows.Controls"
+                        Loaded="WindowWithSize_Loaded"
+                        Title="{x:Static localizations:Translate.FrmGoodCard_КарточкаТовара}" Width="610"
+                        Style="{StaticResource sWindow}" Height="640" ResizeMode="NoResize"
+                        FocusManager.FocusedElement="{Binding ElementName=TextBoxName}"
+                        WindowStartupLocation="CenterScreen">
+  <FrameworkElement.DataContext>
+    <local:GoodCardModelView/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <converter:DecimalToStringConverter x:Key="decimalConverter"/>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Menu VerticalAlignment="Top" Grid.Row="0" Height="28">
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Файл}">
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodCard_Печать}" Command="{Binding PrintCardCommand}"/>
+        <MenuItem Header="{x:Static localizations:Translate.СохранитьЖурналКак}" Command="{Binding ExportFile}"
+                  CommandParameter="{Binding JournalPage.DataGridParent}"/>
+      </MenuItem>
+    </Menu>
+    <StackPanel Grid.Row="1">
+      <StackPanel Orientation="Horizontal" Margin="4 4 4 0">
+        <Label Content="{x:Static localizations:Translate.FrmMainWindow_Наименование}" Height="24"
+               VerticalAlignment="Center" HorizontalAlignment="Left" Width="100"/>
+        <TextBox Name="TextBoxName" VerticalAlignment="Center" Width="423"
+                 Text="{Binding Path=Good.Name, UpdateSourceTrigger=PropertyChanged}"
+                 Visibility="{Binding TextBoxNameVisibility}"/>
+        <ComboBox Name="ComboBoxName" IsEditable="true" VerticalAlignment="Center" Width="423"
+                  Text="{Binding Path=Good.Name, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding NameListMiDays}" SelectedItem="{Binding Good.Name}"
+                  Visibility="{Binding ComboBoxNameVisibility}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="4 0" Visibility="{Binding VisibilityAmClassifier}">
+        <Label Content="{x:Static localizations:Translate.Классификатор}" VerticalAlignment="Center" Width="100"/>
+        <controls:AutoCompleteComboBox SelectedValuePath="Code" TextSearch.TextPath="DisplayName" Width="423"
+                                       ItemsSource="{Binding AmClassifiers}" SelectedItem="{Binding AmClassSelectedItem}"
+                                       SelectedValue="{Binding AmClassSelectedValue}">
+          <FrameworkElement.Resources>
+            <Style x:Key="DTextBlockStyle" TargetType="{x:Type TextBlock}">
+              <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected, ElementName=GridWaybillItems}" Value="True">
+                  <Setter Property="TextBlock.Foreground" Value="White"/>
+                </DataTrigger>
+              </Style.Triggers>
+            </Style>
+          </FrameworkElement.Resources>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <StackPanel>
+                <TextBlock MaxWidth="600" Style="{StaticResource DTextBlockStyle}" TextWrapping="Wrap"
+                           Text="{Binding DisplayName}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </controls:AutoCompleteComboBox>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="4, 0">
+        <Label Content="{x:Static localizations:Translate.FrmAuthorization_ШтрихКод}" Height="26"
+               VerticalAlignment="Center" Width="100"/>
+        <TextBox VerticalAlignment="Center" HorizontalAlignment="Left" Width="200"
+                 Text="{Binding Path=Barcode, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Content="{x:Static localizations:Translate.FrmGoodCard_Генерировать}"
+                Style="{StaticResource btnLink}" HorizontalAlignment="Left" VerticalAlignment="Center"
+                Margin="8, 0" Command="{Binding GeneratedBarcode}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Margin="4 0">
+        <Label Content="{x:Static localizations:Translate.FrmMainWindow_Категория}" VerticalAlignment="Center"
+               Width="100"/>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Width="199" Height="26" Margin="2"
+                Content="{Binding Path=GroupName}" Command="{Binding Path=SelectGroupCommand}"/>
+      </StackPanel>
+    </StackPanel>
+    <Grid Row="2" Visibility="{Binding VisibilityButtonGroup}">
+      <Button Style="{DynamicResource btnLink}"
+              Content="{x:Static localizations:Translate.ВыберитеКатегориюТовара}" FontSize="30"
+              HorizontalAlignment="Center" Cursor="Hand" Command="{Binding Path=SelectGroupCommand}"
+              Visibility="{Binding VisibilityButtonGroup}"/>
+    </Grid>
+    <TabControl Grid.Row="2" Margin="5, 5, 5, 0" SelectedIndex="{Binding SelectedTab}"
+                Visibility="{Binding VisibilityTabControl}">
+      <TabItem Header="{x:Static localizations:Translate.ЦеныИОстатки}" Padding="8"
+               Visibility="{Binding Path=VisibilityBasicTab}">
+        <Grid>
+          <Grid Visibility="{Binding VisibilityTextBox}">
+            <TextBlock Text="{x:Static localizations:Translate.НетДоступа}" FontSize="50" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Margin="149,71,145,148.5"/>
+            <Button Content="{x:Static localizations:Translate.FrmAuthorization_Авторизация}" Margin="149,143,152,83"
+                    FontSize="25" HorizontalAlignment="Center" Style="{DynamicResource btnLink}"
+                    Command="{Binding AuthUserCommand}"/>
+          </Grid>
+          <Grid Visibility="{Binding VisibilityGridStock}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DataGrid Name="StockGrid" Margin="5,10,5,0" HorizontalScrollBarVisibility="Auto"
+                      ScrollViewer.CanContentScroll="true" VerticalScrollBarVisibility="Auto" Grid.Row="0"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                      ItemsSource="{Binding Path=ExtraPricesDataTable}" SelectedValue="{Binding SelectedStock}">
+              <FrameworkElement.Resources>
+                <xaml:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+              </FrameworkElement.Resources>
+              <UIElement.InputBindings>
+                <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditStock}"
+                              CommandParameter="{Binding ElementName=StockGrid, Path=SelectedItems}"/>
+              </UIElement.InputBindings>
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Модификация}" Width="Auto"
+                                    MaxWidth="120" Visibility="{Binding Data.VisibilityModification, Source={StaticResource Proxy}}"
+                                    Binding="{Binding Path=Modification.Name}"/>
+                <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Остаток}" Width="70"
+                                    CellStyle="{DynamicResource numberCellStyle}"
+                                    Binding="{Binding Path=GoodStock.Stock, Converter={StaticResource decimalConverter}}"
+                                    Visibility="{Binding Data.VisibilityStockForGood, Source={StaticResource Proxy}}"/>
+                <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_ЗакупочнаяЦена}" Width="110"
+                                    CellStyle="{DynamicResource numberCellStyle}"
+                                    Visibility="{Binding Data.VisibilityBuyPrice, Source={StaticResource Proxy}}"
+                                    Binding="{Binding Path=BuyPrice, StringFormat=N2}"/>
+                <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_РозничнаяЦена}" Width="110"
+                                    CellStyle="{DynamicResource numberCellStyle}"
+                                    Binding="{Binding Path=GoodStock.Price, StringFormat=N2}"/>
+                <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" Width="100"
+                                    Binding="{Binding Path=GoodStock.Storage.Name}"/>
+                <DataGridTextColumn Header="{x:Static localizations:Translate.КодСправкиПродукцииЕГАИС}" Width="110"
+                                    Visibility="{Binding Data.VisibilityFbNumber, Source={StaticResource Proxy}}"
+                                    Binding="{Binding Path=FbNumberForEgais}"/>
+              </DataGrid.Columns>
+            </DataGrid>
+            <ToolBarPanel Orientation="Horizontal" Grid.Row="1" Height="25" VerticalAlignment="Top" Grid.Column="0"
+                          Visibility="{Binding VisibilityStockForGood}">
+              <Label Content="{x:Static localizations:Translate.FrmGoodsQuantity_Количество}"/>
+              <Label ContentStringFormat="N2" Content="{Binding SumStock}"/>
+            </ToolBarPanel>
+            <Button Click="StockOptionButton_Click" Name="StockOptionButton"
+                    Content="{x:Static localizations:Translate.НастройкаОстатков}" Style="{DynamicResource btnLink}"
+                    Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" Margin="0 0 5 0" Height="25"
+                    VerticalAlignment="Top" Cursor="Hand">
+              <FrameworkElement.Resources>
+                <ContextMenu x:Key="ContextMenuGrid"/>
+              </FrameworkElement.Resources>
+            </Button>
+            <StackPanel HorizontalAlignment="Left" Margin="0,10,0,0" Grid.Row="0" VerticalAlignment="Top" Grid.Column="1"
+                        IsEnabled="{Binding IsEnabledGoodStock}">
+              <Button Margin="5, 0, 5, 5" Style="{DynamicResource btnAction}" Height="50" VerticalAlignment="Top"
+                      HorizontalAlignment="Left" Width="50" Command="{Binding Path=AddStock}"
+                      CommandParameter="{Binding ElementName=StockGrid, Path=SelectedItems}">
+                <Image Source="{DynamicResource IconAdd}"/>
+              </Button>
+              <Button Margin="5" Style="{DynamicResource btnAction}" Height="50" VerticalAlignment="Top"
+                      HorizontalAlignment="Left" Width="50" Command="{Binding Path=EditStock}"
+                      CommandParameter="{Binding ElementName=StockGrid, Path=SelectedItems}">
+                <Image Source="{DynamicResource IconEdit}"/>
+              </Button>
+              <Button Margin="5" VerticalAlignment="Top" Height="50" Style="{DynamicResource btnAction}"
+                      HorizontalAlignment="Left" Width="50"
+                      CommandParameter="{Binding ElementName=StockGrid, Path=SelectedItems}"
+                      Command="{Binding Path=DeleteStock}">
+                <Image Source="{DynamicResource IconDelete}"/>
+              </Button>
+            </StackPanel>
+          </Grid>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmGoodCard_Основное}" TabIndex="1" Padding="6"
+               Visibility="{Binding Path=VisibilityCertificate}">
+        <Grid>
+          <Frame NavigationUIVisibility="Hidden" Content="{Binding Path=CertificateBasicPage}"/>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmGoodCard_ДопИнформация}" Padding="6"
+               Visibility="{Binding Path=VisibilityTabItems}">
+        <StackPanel Margin="0,0,0,0" Orientation="Vertical">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition/>
+              <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+              <Label Content="{x:Static localizations:Translate.FrmGoodModificationCard_Описание}"/>
+              <TextBox AcceptsReturn="true" TextWrapping="Wrap" Margin="4" Width="Auto" Height="50"
+                       ScrollViewer.CanContentScroll="true" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                       Text="{Binding Good.Description, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+              <Label Content="{x:Static localizations:Translate.FrmGoodCard_ДопШтрихКоды}"/>
+              <TextBox AcceptsReturn="true" TextWrapping="Wrap" Width="Auto" Height="50" Margin="5"
+                       ScrollViewer.CanContentScroll="true" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                       Text="{Binding Path=Barcodes, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+          </Grid>
+          <Label Content="{x:Static localizations:Translate.ДополнительныеСвойства}"/>
+          <DataGrid SelectionUnit="Cell" CanUserAddRows="false" Margin="5" AutoGenerateColumns="false"
+                    RowHeaderWidth="0" IsReadOnly="false" IsSynchronizedWithCurrentItem="True" Width="Auto"
+                    VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Height="225"
+                    ItemsSource="{Binding Path=ValuesPropertiesList}">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}"
+                                  ElementStyle="{DynamicResource WrappedCell}" IsReadOnly="true" Width="Auto" MaxWidth="200"
+                                  Binding="{Binding Path=Type.Name}"/>
+              <DataGridTemplateColumn Width="*" uiElement:Extensions.Guid="02509ABB-F083-40D9-BA6B-3CB0EE638CD2"
+                                      Header="{x:Static localizations:Translate.FrmClientCard_Значение}" CanUserResize="false"
+                                      CanUserReorder="false">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <userControls:InputByTypeControl Value="{Binding Path=Value.Value}" TypeOfData="{Binding Path=Type.Type}"/>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmGoodCard_Изображения}" Padding="6"
+               Visibility="{Binding Path=VisibilityTabItems}">
+        <Grid>
+          <Frame NavigationUIVisibility="Hidden" Height="Auto" VerticalAlignment="Stretch"
+                 Content="{Binding Path=ImageGood}"/>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmGoodCard_Модификации}" Padding="6"
+               Visibility="{Binding Path=VisibilityModificationTab}">
+        <Grid Height="Auto" VerticalAlignment="Stretch" IsEnabled="{Binding IsEnabledPageMod}">
+          <Label Content="{x:Static localizations:Translate.FrmGoodCard_СвойстваМодификации}" Margin="5,8,410,0"
+                 Height="29" VerticalAlignment="Top"/>
+          <ComboBox Name="SetStatusesComboBox" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="156,10,0,0"
+                    Height="24" VerticalAlignment="Top" SelectedIndex="0" HorizontalAlignment="Left" Width="345"
+                    ItemsSource="{Binding Path=GoodSetStatuses}" IsEnabled="{Binding IsEnabledSetModificationType}"
+                    SelectedValue="{Binding Path=GoodsSetStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+          <Frame Name="ModificationControlPanel" Margin="0,40,0,0" NavigationUIVisibility="Hidden" Height="Auto"
+                 VerticalAlignment="Stretch"/>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.Сертификаты}" TabIndex="1" Padding="6"
+               Visibility="{Binding Path=VisibilityCertificate}">
+        <Grid>
+          <Frame NavigationUIVisibility="Hidden" Content="{Binding Path=CertificatePage}"/>
+        </Grid>
+      </TabItem>
+      <TabItem Padding="6" Header="{Binding JournalPageTitle}" IsEnabled="{Binding IsEnabledForWaybill}">
+        <Grid>
+          <Grid Visibility="{Binding VisibilityTextBoxHistory}">
+            <TextBlock Text="{x:Static localizations:Translate.НетДоступа}" FontSize="50" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Margin="149,71,152,148.5"/>
+            <Button Content="{x:Static localizations:Translate.FrmAuthorization_Авторизация}" Margin="149,143,152,83"
+                    FontSize="25" Style="{DynamicResource btnLink}" Command="{Binding AuthUserCommand}"/>
+          </Grid>
+          <Frame NavigationUIVisibility="Hidden" Height="Auto" Content="{Binding Path=JournalPage}"
+                 Visibility="{Binding VisibilityGridHistory}"/>
+        </Grid>
+      </TabItem>
+    </TabControl>
+    <userControls:ConfirmPanelControl1 Grid.Row="3" OkButtonCommand="{Binding Path=SaveGood}"
+                                       CancelButtonCommand="{Binding Path=CloseCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

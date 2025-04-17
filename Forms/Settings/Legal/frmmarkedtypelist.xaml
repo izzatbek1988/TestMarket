@@ -1,0 +1,79 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Legal.FrmMarkedTypeList"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Legal"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+                        Title="{x:Static localizations:Translate.ТоварныеГруппыДляМаркировки}">
+  <FrameworkElement.DataContext>
+    <local:MarkedTypeListViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <DataGrid Margin="5" CanUserReorderColumns="false" CanUserResizeColumns="false" Height="500" RowHeight="35"
+              ItemsSource="{Binding Items}">
+      <FrameworkElement.Resources>
+        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+          <Setter Property="Control.Padding" Value="2"/>
+        </Style>
+      </FrameworkElement.Resources>
+      <DataGrid.Columns>
+        <DataGridTemplateColumn>
+          <DataGridColumn.Header>
+            <TextBlock Text="{x:Static localizations:Translate.ТоварнаяГруппа}" TextWrapping="Wrap"
+                       HorizontalAlignment="Center" TextAlignment="Center"/>
+          </DataGridColumn.Header>
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding Name}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="80">
+          <DataGridColumn.Header>
+            <TextBlock Text="{x:Static localizations:Translate.УчастникОборота}" TextWrapping="Wrap"
+                       HorizontalAlignment="Center" TextAlignment="Center"/>
+          </DataGridColumn.Header>
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        IsChecked="{Binding IsActive, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="110">
+          <DataGridColumn.Header>
+            <TextBlock Text="{x:Static localizations:Translate.РазрешительныйРежим}" TextWrapping="Wrap"
+                       HorizontalAlignment="Center" TextAlignment="Center"/>
+          </DataGridColumn.Header>
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" IsEnabled="{Binding IsEnabledAllowedMode}"
+                        IsChecked="{Binding IsAllowedMode, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="90">
+          <DataGridColumn.Header>
+            <TextBlock Text="{x:Static localizations:Translate.ПроверятьВладельцаКМ}" TextWrapping="Wrap"
+                       HorizontalAlignment="Center" TextAlignment="Center"/>
+          </DataGridColumn.Header>
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center" IsEnabled="{Binding IsEnabledOwner}"
+                        IsChecked="{Binding IsCheckOwner, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <userControls:ConfirmPanelControl1 Width="540" HorizontalAlignment="Left" OkButtonCommand="{Binding Path=SaveCommand}"
+                                       CancelButtonCommand="{Binding Path=CloseCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

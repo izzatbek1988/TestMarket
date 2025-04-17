@@ -1,0 +1,53 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Payments.PaymentMethods.FrmPaymentMethods"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Payments.PaymentMethods"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Closing="FrmPaymentMethods_OnClosing" Style="{StaticResource sWindow}" MinHeight="300"
+                        MinWidth="400" Title="{x:Static localizations:Translate.FrmPaymentMethodKkm_СпособыОплаты}"
+                        Height="500" Width="800">
+  <FrameworkElement.DataContext>
+    <local:PaymentMethodsViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid Name="GridPaymentMethodsList" Margin="10,10,0,10" AllowDrop="true" SelectionMode="Extended"
+              ItemsSource="{Binding Path=PaymentMethods}" SelectedValue="{Binding Path=SelectedMethod}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodModificationCard_Название}" Width="250"
+                            Binding="{Binding Path=Method.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMagazineSale_Секция}" Width="200"
+                            Binding="{Binding Path=Section.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCardMethodPayment_ДенежныйСчет}" Width="200"
+                            Binding="{Binding Path=Account.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.ТипВККМ}" Width="200" Binding="{Binding Path=TypeMethod}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="0" Grid.Column="1" Margin="4">
+      <Button x:Name="btnAddEntity" Style="{DynamicResource btnAction}" Command="{Binding Path=AddCommand}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button x:Name="btnEditEntity" Style="{DynamicResource btnAction}" Command="{Binding Path=EditCommand}"
+              CommandParameter="{Binding ElementName=GridPaymentMethodsList, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button x:Name="btnDelEntity" Style="{DynamicResource btnAction}" Command="{Binding Path=DeleteCommand}"
+              CommandParameter="{Binding ElementName=GridPaymentMethodsList, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,58 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Cafe.FrmCafePreSave"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Cafe"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" ResizeMode="NoResize"
+                        Title="{x:Static localizations:Translate.FrmCafePreSave_СохранениеЗаказа}"
+                        SizeToContent="WidthAndHeight">
+  <FrameworkElement.DataContext>
+    <local:PreSaveOrderViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <StackPanel Margin="4">
+      <StackPanel Name="PanelTable" Orientation="Horizontal" Margin="4"
+                  Visibility="{Binding VisibilityPanelTableInfo}">
+        <TextBlock Text="{x:Static localizations:Translate.FrmCafePreSave_Столик}" TextWrapping="Wrap" FontSize="25"
+                   Width="180" VerticalAlignment="Center"/>
+        <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="25" Width="116"
+                            Minimum="0" Maximum="9999" VerticalContentAlignment="Center" Height="45" Text="0"
+                            TextAlignment="Left" Value="{Binding Basket.NumTable, UpdateSourceTrigger=PropertyChanged}"/>
+      </StackPanel>
+      <StackPanel Name="PanelPerson" Orientation="Horizontal" Margin="4"
+                  Visibility="{Binding VisibilityPanelTableInfo}">
+        <TextBlock Text="{x:Static localizations:Translate.FrmCafePreSave_Персоны}" FontSize="25"
+                   VerticalAlignment="Center" Width="180"/>
+        <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" FontSize="25" Width="116"
+                            Minimum="1" Maximum="9999" VerticalContentAlignment="Center" Height="45" Text="0"
+                            TextAlignment="Left" Value="{Binding Basket.CountGuest, UpdateSourceTrigger=PropertyChanged}"/>
+      </StackPanel>
+      <GroupBox Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Margin="4" Height="120">
+        <TextBox Name="TextBoxComment" Margin="5,5" TextWrapping="Wrap" Height="Auto" Width="Auto"
+                 Text="{Binding Basket.Comment, UpdateSourceTrigger=PropertyChanged}"/>
+      </GroupBox>
+      <DockPanel Margin="4">
+        <TextBlock Text="{x:Static localizations:Translate.FrmInsertPaymentMethods_ИТОГО}" FontSize="25"
+                   Margin="0 0 8 0" FontWeight="Bold" VerticalAlignment="Center"/>
+        <TextBlock FontSize="25" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right"
+                   Text="{Binding Basket.TotalSum, StringFormat=N2}"/>
+      </DockPanel>
+      <StackPanel Orientation="Vertical">
+        <Button Name="ButtonPay" Style="{DynamicResource btnConfirm_Ok}"
+                Content="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОПЛАТИТЬ}"
+                Command="{Binding SaveCloseOrderCommand}"/>
+        <Button Name="ButtonSave" Style="{DynamicResource btnConfirm_Ext}"
+                Content="{x:Static localizations:Translate.FrmSelectGoodStock_СОХРАНИТЬ}"
+                Command="{Binding SaveDraftOrderCommand}"/>
+      </StackPanel>
+      <Button Name="ButtonCancel" Style="{DynamicResource btnConfirm_Cancel}"
+              Content="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОТМЕНА}" Margin="0 16 0 8"
+              Command="{Binding CancelCommand}"/>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

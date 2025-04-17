@@ -1,0 +1,42 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Egais.Tap.FrmSelectTap"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:tap="clr-namespace:Gbs.Forms.Egais.Tap"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" Width="550" Title="{x:Static localizations:Translate.ВыборКрана}"
+                        ResizeMode="NoResize" SizeToContent="Height">
+  <FrameworkElement.DataContext>
+    <tap:SelectTapViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" MaxHeight="200"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="36" HorizontalAlignment="Left"
+               LineStackingStrategy="BlockLineHeight" LineHeight="35" MaxWidth="500" Text="{Binding Name}"/>
+    <DataGrid Name="TapGrid" Height="208" Margin="10,10,10,0" Grid.Row="1" VerticalAlignment="Top"
+              SelectionMode="Single" ItemsSource="{Binding Path=Items}" SelectedValue="{Binding SelectedTap}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=SelectTap}"
+                      CommandParameter="{Binding ElementName=TapGrid, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.Кран}" Width="150" Binding="{Binding Path=Tap.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.КодМаркировки}" Width="180"
+                            Binding="{Binding Path=MarkedInfo}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.СрокГодности}" Width="150"
+                            Binding="{Binding Path=ExpirationDate, StringFormat=dd.MM.yyyy}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <userControls:ConfirmPanelControl1 Grid.Column="0" Grid.Row="2"
+                                       OkButtonText="{x:Static localizations:Translate.FrmSelectedTemplateFR_ВЫБРАТЬ}"
+                                       OkButtonCommand="{Binding SelectTap}" CancelButtonCommand="{Binding CancelSelectTap}"
+                                       OkButtonParameter="{Binding ElementName=TapGrid, Path=SelectedItems}"/>
+  </Grid>
+</helpers:WindowWithSize>

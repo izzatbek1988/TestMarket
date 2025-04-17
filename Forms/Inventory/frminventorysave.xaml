@@ -1,0 +1,34 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Inventory.FrmInventorySave"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Inventory"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.ЗавершениеИнвентаризации}">
+  <FrameworkElement.DataContext>
+    <local:InventorySaveViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="4">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0" Margin="4 4 4 12">
+      <Label Content="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}"/>
+      <TextBox MinLines="5" MaxLines="5" AcceptsReturn="true" VerticalScrollBarVisibility="Auto" Margin="2 0"
+               Height="70" Width="Auto" Text="{Binding Comment}"/>
+    </StackPanel>
+    <Button Content="{x:Static localizations:Translate.ПРИОСТАНОВИТЬ}" Style="{DynamicResource btnConfirm_Ext}"
+            Grid.Row="2" Command="{Binding Path=PauseCommand}"/>
+    <Button Content="{x:Static localizations:Translate.ЗАВЕРШИТЬ}" Style="{DynamicResource btnConfirm_Ok}"
+            Grid.Row="1" Command="{Binding Path=FinishCommand}"/>
+    <Button Content="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОТМЕНА}" Width="120"
+            Style="{DynamicResource btnConfirm_Cancel}" Margin="0 16 0 4" Grid.Row="3"
+            Command="{Binding Path=BackCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

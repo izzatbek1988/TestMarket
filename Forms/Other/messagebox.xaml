@@ -1,0 +1,146 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Other.MessageBox"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Other"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        MouseDown="MessageBox_OnMouseDown" Activated="MessageBox_OnActivated"
+                        PreviewKeyDown="MessageBox_OnPreviewKeyDown" WindowStartupLocation="CenterScreen"
+                        Style="{DynamicResource sWindow}" WindowStyle="None" Width="500" SizeToContent="Height"
+                        ResizeMode="NoResize" BorderThickness="0" Background="Transparent" AllowsTransparency="true"
+                        BorderBrush="{DynamicResource Background40}" Title="{Binding Title}">
+  <FrameworkElement.DataContext>
+    <local:MessBoxViewModel/>
+  </FrameworkElement.DataContext>
+  <UIElement.InputBindings>
+    <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+  </UIElement.InputBindings>
+  <Border BorderThickness="2" CornerRadius="5" Background="{Binding Color}">
+    <Border.BorderBrush>
+      <SolidColorBrush Color="{DynamicResource ListMainBackgroundColor}" Opacity="0.5"/>
+    </Border.BorderBrush>
+    <Border BorderThickness="3" CornerRadius="5" Opacity="1" Background="{DynamicResource WindowsBackground}"
+            BorderBrush="{Binding Path=Color}">
+      <Border CornerRadius="5" Background="{DynamicResource ListMainBackground80}">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="50"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="20"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Label FontSize="10" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right"
+                 Content="{Binding AppVersion}"/>
+          <TextBlock TextAlignment="Left" Grid.Column="1" Grid.Row="1" FontSize="18" FontWeight="Bold"
+                     Padding="0 15 5 0" Text="{Binding Title}"/>
+          <Grid Name="ColorGrid" Row="0" Height="10" ColumnSpan="2" Column="0" Background="{Binding Path=Color}"/>
+          <ScrollViewer Grid.Row="2" Grid.Column="1" MaxHeight="500">
+            <TextBlock Margin="0,10,10,10" FontSize="14" TextAlignment="Left" TextWrapping="Wrap"
+                       Text="{Binding Text, UpdateSourceTrigger=PropertyChanged}"/>
+          </ScrollViewer>
+          <Image Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Visibility="Collapsed"
+                 VerticalAlignment="Center" Height="70" Width="70" Source="{Binding Image}"/>
+          <Grid Row="1" RowSpan="4" Column="0" MaxHeight="100" MaxWidth="100" VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Viewbox Grid.Row="0" Stretch="Uniform" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
+                     Visibility="{Binding Path=IconErrorVisibility}">
+              <Button Template="{DynamicResource MsgBoxErrorIcon}" Height="150" Width="150" Focusable="false"
+                      Foreground="{Binding Color}"/>
+            </Viewbox>
+            <Viewbox Grid.Row="1" Margin="10" Visibility="{Binding Path=IconInfoVisibility}">
+              <Button Template="{DynamicResource MsgBoxInfoIcon}" Height="150" Width="150" Focusable="false"
+                      Foreground="{Binding Color}"/>
+            </Viewbox>
+            <Viewbox Grid.Row="2" Stretch="Uniform" Margin="10" Visibility="{Binding Path=IconQuestionVisibility}">
+              <Button Template="{DynamicResource MsgBoxQuestionIcon}" Height="150" Width="150" Focusable="false"
+                      Foreground="{Binding Color}"/>
+            </Viewbox>
+            <Viewbox Grid.Row="3" Stretch="Uniform" Margin="10" Visibility="{Binding Path=IconWarningVisibility}">
+              <Button Template="{DynamicResource MsgBoxWarningIcon}" Height="150" Width="150" Focusable="false"
+                      Foreground="{Binding Color}"/>
+            </Viewbox>
+          </Grid>
+          <xctk:WatermarkTextBox PreviewMouseUp="TextBox_OnPreviewMouseUp" Name="TextBox" Grid.Row="3" Grid.ColumnSpan="2"
+                                 Grid.Column="0" Margin="15 10" Width="Auto"
+                                 Watermark="{x:Static localizations:Translate.MessageBox_Введите}" KeepWatermarkOnGotFocus="true"
+                                 Style="{StaticResource {x:Type TextBox}}" FontSize="15" Height="Auto" TextWrapping="Wrap"
+                                 MaxLines="3" MaxHeight="100" VerticalScrollBarVisibility="Auto" AcceptsReturn="true"
+                                 Visibility="{Binding Path=InputVisibility}" Text="{Binding Path=InputString}"/>
+          <ItemsControl x:Name="tStack" Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom" Background="Transparent"
+                        Focusable="false" ItemsSource="{Binding CommandsList}">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" CanVerticallyScroll="true" Margin="8 4"/>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Button Margin="4" Style="{DynamicResource SettingsButton}" HorizontalAlignment="Stretch"
+                        Command="{Binding Command}" Content="{Binding Text}"/>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+          <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
+            <ItemsControl VerticalAlignment="Bottom" Background="Transparent" Focusable="false"
+                          ItemsSource="{Binding CheckboxesList}">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" CanVerticallyScroll="true" Margin="8 4"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <CheckBox Content="{Binding Text}" IsChecked="{Binding IsChecked}"/>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Content="{x:Static localizations:Translate.Копировать}" Style="{StaticResource btnLink}"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 10"
+                    Command="{Binding CopyMessageComand}" Visibility="{Binding CopyButtonVisibility}"/>
+          </StackPanel>
+          <Border Grid.Row="6" Grid.ColumnSpan="2" Grid.Column="0" Background="{DynamicResource WindowsBackground}"
+                  CornerRadius=" 0 0 5 5" Visibility="{Binding BottomBorderVisibility}">
+            <Grid Height="60">
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+              </Grid.RowDefinitions>
+              <Border Background="{DynamicResource DefaultForeground}" Height="0"/>
+              <StackPanel Name="StackPanelButton" Orientation="Horizontal" HorizontalAlignment="Right" Margin="4"
+                          Grid.Row="1">
+                <Button Name="ButtonOk" Margin="10,10,10,10" Width="90" TabIndex="0" FontSize="14"
+                        Content="{x:Static localizations:Translate.MessageBox_Ок}" Visibility="{Binding OkVisibility}"
+                        Command="{Binding OkCommand}"/>
+                <Button Name="ButtonYes" Margin="10,10,10,10" Width="90" TabIndex="1" FontSize="14"
+                        Content="{x:Static localizations:Translate.MessageBox_Да}" Visibility="{Binding YesVisibility}"
+                        Command="{Binding YesCommand}"/>
+                <Button Name="ButtonNo" Margin="10,10,10,10" Width="90" TabIndex="2" FontSize="14"
+                        Content="{x:Static localizations:Translate.Devices_Нет}" Visibility="{Binding NoVisibility}"
+                        Command="{Binding NoCommand}"/>
+                <Button Name="ButtonCancel" Margin="10,10,10,10" Width="90" FontSize="14" TabIndex="3"
+                        Content="{x:Static localizations:Translate.FrmInputMessage_Отмена}"
+                        Visibility="{Binding CancelVisibility}" Command="{Binding CancelCommand}"/>
+              </StackPanel>
+            </Grid>
+          </Border>
+        </Grid>
+      </Border>
+    </Border>
+  </Border>
+</helpers:WindowWithSize>

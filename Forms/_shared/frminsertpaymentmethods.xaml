@@ -1,0 +1,121 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmInsertPaymentMethods"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local="clr-namespace:Gbs.Forms._shared"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        KeyDown="FrmInsertPaymentMethods_OnKeyDown" WindowStartupLocation="CenterScreen"
+                        Title="{x:Static localizations:Translate.FrmInsertPaymentMethods_Оплата}"
+                        SizeToContent="WidthAndHeight" Width="427" MaxWidth="500" Style="{StaticResource sWindow}"
+                        ResizeMode="NoResize" Height="Auto">
+  <FrameworkElement.DataContext>
+    <local:SelectPaymentMethods/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock Grid.Row="0" HorizontalAlignment="Left" Margin="10,15,0,0" TextWrapping="Wrap"
+               Text="{x:Static localizations:Translate.FrmInsertPaymentMethods_ИТОГО}" VerticalAlignment="Top"
+               FontWeight="Bold" FontSize="24"
+               Visibility="{Binding VisibilitySum, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+    <TextBox Name="TextBoxTotalSum" Grid.Row="0" Height="40" Margin="80,10,10,0" TextWrapping="Wrap"
+             VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Top"
+             FontSize="26" IsReadOnly="true" Grid.Column="1" IsTabStop="false" Width="Auto"
+             Text="{Binding SumDocument, StringFormat=N2}" Visibility="{Binding VisibilitySum}"/>
+    <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="10,15,0,0" TextWrapping="Wrap"
+               Text="{x:Static localizations:Translate.КОПЛАТЕ}" VerticalAlignment="Top" FontWeight="Bold"
+               FontSize="24"
+               Visibility="{Binding VisibilitySum, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+    <TextBox Name="TextBoxSumToPay" Grid.Row="1" Height="40" Margin="80,10,10,0" TextWrapping="Wrap"
+             VerticalContentAlignment="Center" HorizontalContentAlignment="Right" VerticalAlignment="Top"
+             FontSize="26" IsReadOnly="true" Grid.Column="1" IsTabStop="false" Width="Auto"
+             Text="{Binding SumToPay, StringFormat=N2}" Visibility="{Binding VisibilitySum}"/>
+    <DataGrid KeyDown="FrmInsertPaymentMethods_OnKeyDown" Loaded="EventSetter_OnHandler" Name="GridPayments"
+              Grid.Row="4" MaxWidth="500" EnableColumnVirtualization="false" EnableRowVirtualization="false"
+              SelectionUnit="Cell" IsSynchronizedWithCurrentItem="True" HeadersVisibility="None"
+              Margin="10,5,10,0" FontSize="20" IsReadOnly="false" HorizontalScrollBarVisibility="Disabled"
+              Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Stretch"
+              HorizontalContentAlignment="Stretch" ItemsSource="{Binding Payments}">
+      <FrameworkElement.Resources>
+        <Style TargetType="{x:Type DataGridCell}">
+          <Setter Property="Control.Background" Value="{x:Null}"/>
+          <Setter Property="Control.BorderBrush" Value="{x:Null}"/>
+          <Setter Property="Control.IsTabStop" Value="false"/>
+          <Setter Property="FrameworkElement.Margin" Value="0,2"/>
+          <Style.Triggers>
+            <Trigger Property="DataGridCell.IsSelected" Value="true">
+              <Setter Property="Control.Background" Value="{x:Null}"/>
+              <Setter Property="Control.BorderBrush" Value="{x:Null}"/>
+              <Setter Property="Control.Foreground" Value="{DynamicResource DefaultForeground}"/>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type DataGridRow}">
+          <Setter Property="Control.Background" Value="{x:Null}"/>
+          <Setter Property="Control.BorderBrush" Value="{x:Null}"/>
+          <Setter Property="Control.Foreground" Value="{DynamicResource DefaultForeground}"/>
+          <Setter Property="FrameworkElement.Margin" Value="0,0"/>
+          <Style.Triggers>
+            <Trigger Property="DataGridRow.IsSelected" Value="true">
+              <Setter Property="Control.Background" Value="{x:Null}"/>
+              <Setter Property="Control.BorderBrush" Value="{x:Null}"/>
+              <Setter Property="Control.Foreground" Value="{DynamicResource DefaultForeground}"/>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </FrameworkElement.Resources>
+      <DataGrid.Columns>
+        <DataGridTemplateColumn Width="Auto" MaxWidth="470" uiElement:Extensions.Guid="4E53B1A2-3CAF-481C-B15D-E51AC06EEE9B">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" MinWidth="200"/>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Focusable="false" Grid.Column="0" FontSize="26" Margin="0 0 30 0" Text="{Binding Method.Name}"/>
+                <xctk:DecimalUpDown Name="method" ShowButtonSpinner="false" Minimum="0" Maximum="10000000" FontSize="26"
+                                    HorizontalAlignment="Stretch" Width="Auto" MinWidth="120" Grid.Column="1" TextAlignment="Right"
+                                    FormatString="N2" MinHeight="40" AllowSpin="false"
+                                    IsReadOnly="{Binding IsReadOnly, UpdateSourceTrigger=PropertyChanged}"
+                                    Value="{Binding Sum, Mode=TwoWay, NotifyOnTargetUpdated=true, NotifyOnSourceUpdated=true, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Name="ButtonSetPayMethod" Margin="5,0" Grid.Column="2" HorizontalAlignment="Center" Content="="
+                        Width="40" Command="{Binding GetTotalSumToPayCommand}"
+                        IsEnabled="{Binding IsEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+              </Grid>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <TextBlock Grid.Row="5" Grid.Column="0" HorizontalAlignment="Left" Margin="10,6.5,0,0" TextWrapping="Wrap"
+               Text="{x:Static localizations:Translate.FrmMainWindow_СДАЧА}" VerticalAlignment="Top"
+               FontWeight="Bold" FontSize="24" Visibility="{Binding VisibilitySum}"/>
+    <TextBox Name="TextBoxDelivery" Grid.Row="5" Height="40" Margin="80,6,10,0" TextWrapping="Wrap"
+             IsTabStop="false" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right"
+             VerticalAlignment="Top" Width="Auto" FontSize="26" IsReadOnly="true" Grid.Column="1"
+             Visibility="{Binding VisibilitySum}" Text="{Binding Delivery, Mode=OneWay, StringFormat=N2}"/>
+    <userControls:ConfirmPanelControl1 x:Name="ConfirmPanelControl1" Grid.Row="6"
+                                       CancelButtonText="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОТМЕНА}"
+                                       Margin="0,0,0,0.5" Grid.ColumnSpan="2" Grid.Column="0" Height="100" VerticalAlignment="Bottom"
+                                       HorizontalAlignment="Stretch" OkButtonCommand="{Binding Path=BuySaleCommand, Mode=TwoWay}"
+                                       IsEnabledOkButton="{Binding IsEnableOkCommand}" OkButtonText="{Binding Path=OkButtonText}"
+                                       CancelButtonCommand="{Binding Path=Close, Mode=TwoWay}"/>
+  </Grid>
+</helpers:WindowWithSize>

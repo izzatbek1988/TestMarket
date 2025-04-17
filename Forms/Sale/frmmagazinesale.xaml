@@ -1,0 +1,344 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.FrmMagazineSale"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:my="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:converter="clr-namespace:Gbs.Helpers.XAML.Converters"
+                        xmlns:global="clr-namespace:Gbs.Core.Entities"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        Closed="FrmMagazineSale_OnClosed" Loaded="FrmMagazineSale_OnLoaded"
+                        Title="{x:Static localizations:Translate.FrmJournalSales_ЖурналПродаж}" Height="576"
+                        Width="1015.724" Style="{StaticResource sWindow}" MinWidth="842" MinHeight="600">
+  <FrameworkElement.DataContext>
+    <local:SaleJournalViewModel/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <xaml:StringToIntConverter x:Key="StringToInt"/>
+    <converter:DecimalToStringConverter x:Key="decimalConverter"/>
+    <ContextMenu x:Key="{x:Static local:SaleJournalViewModel.MoreMenuKey}" FontSize="25">
+      <MenuItem Header="{x:Static localizations:Translate.КопироватьПродажуВКорзину}"
+                Command="{Binding Path=CopySaleCommand}"/>
+    </ContextMenu>
+  </FrameworkElement.Resources>
+  <Grid Margin="0,0,2,0">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="30"/>
+    </Grid.RowDefinitions>
+    <Menu Name="MainMenu" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,0,0,5">
+      <MenuItem Name="MenuItemFile" Header="{x:Static localizations:Translate.FrmMainWindow_Файл}">
+        <MenuItem Name="MenuItemFile_saveAs" Header="{x:Static localizations:Translate.FrmGoodsCatalog_СохранитьКак}"
+                  Command="{Binding ExportFile}" CommandParameter="{Binding ElementName=ListSaleItems}"/>
+        <MenuItem Name="MenuItemFile_print" Header="{x:Static localizations:Translate.FrmGoodCard_Печать}"
+                  Command="{Binding PrintSaleOrder}"/>
+      </MenuItem>
+    </Menu>
+    <userControls:TextBoxWithClearControl x:Name="SearchField" VerticalAlignment="Top" Width="348" Height="40" TextFontSize="24" Grid.Row="1"
+                                          Grid.Column="0" Margin="340,0,0,4" HorizontalAlignment="Left"
+                                          ConfigCommand="{Binding SetVisibilityPanelSearch}"
+                                          TextString="{Binding Path=FilterSales, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+    <userControls:CategorySelectionControl x:Name="CategorySelectionControl" Margin="700,0,0,0" Grid.Row="1" Grid.Column="0"
+                                           Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="246" Height="40" VerticalAlignment="Top">
+      <userControls:CategorySelectionControl.GroupsListFilter>
+        <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">          <!-- constructor argument:
+               GroupsListFilter
+          -->
+
+        </Binding>
+      </userControls:CategorySelectionControl.GroupsListFilter>
+    </userControls:CategorySelectionControl>
+    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
+      <Button Name="ButtonSaleCard" Style="{DynamicResource btnAction}" VerticalAlignment="Top"
+              HorizontalAlignment="Left" Command="{Binding Path=ShowSaleCard}"
+              CommandParameter="{Binding ElementName=ListSaleItems, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconInfo}"/>
+      </Button>
+      <Button Name="ButtonPrint" Style="{DynamicResource btnAction}" VerticalAlignment="Top"
+              HorizontalAlignment="Left" Command="{Binding PrintCommand}"
+              CommandParameter="{Binding ElementName=ListSaleItems, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconPrint}"/>
+      </Button>
+      <Button Name="ButtonReturn" Style="{DynamicResource btnAction}" VerticalAlignment="Top"
+              HorizontalAlignment="Left" Command="{Binding Path=ReturnCommand}"
+              CommandParameter="{Binding ElementName=ListSaleItems, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconReturn}"/>
+      </Button>
+      <Button Name="ButtonDelete" VerticalAlignment="Top" Style="{DynamicResource btnAction}"
+              HorizontalAlignment="Left"
+              CommandParameter="{Binding ElementName=ListSaleItems, Path=SelectedItems}"
+              Command="{Binding Path=DeleteSales}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+      <Button Name="ButtonMore" VerticalAlignment="Top" Style="{DynamicResource btnAction}"
+              HorizontalAlignment="Left" Command="{Binding ShowMenuCommand}"
+              CommandParameter="{Binding ElementName=ListSaleItems, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconMore}"/>
+      </Button>
+    </StackPanel>
+    <ToolBarPanel Orientation="Horizontal" Grid.Row="3" Margin="10,3.5,0.5,0.5">
+      <Label Content="{x:Static localizations:Translate.FrmJournalSales_ВсегоПродаж}"/>
+      <Label ContentStringFormat="N0" Content="{Binding Path=TotalSaleCount, StringFormat=N0}"/>
+      <Label Content="| "/>
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Наименований}"/>
+      <Label ContentStringFormat="N0" Content="{Binding TotalSaleName, StringFormat=N0}"/>
+      <Label Content="| "/>
+      <Label Content="{x:Static localizations:Translate.FrmReturnSales_ВсегоТоваров}"/>
+      <Label ContentStringFormat="N3" Content="{Binding Path=TotalSaleItemsCount}"/>
+      <Label Content="| "/>
+      <Label Content="{x:Static localizations:Translate.FrmJournalSales_НаСумму}"/>
+      <Label ContentStringFormat="N2" Content="{Binding Path=TotalSaleSum}"/>
+      <Label Content="| " Visibility="{Binding VisibilityIncome}"/>
+      <Label Content="{x:Static localizations:Translate.FrmMagazineSale_Прибыль}"
+             Visibility="{Binding VisibilityIncome}"/>
+      <Label ContentStringFormat="N2" Content="{Binding Path=TotalIncome}"
+             Visibility="{Binding VisibilityIncome}"/>
+      <Label Content="|"/>
+      <Button Name="ButtonUpdateData" Style="{DynamicResource btnLink}"
+              Content="{x:Static localizations:Translate.ОбновитьДанные}" VerticalContentAlignment="Center"
+              VerticalAlignment="Center" Command="{Binding ReloadData}"/>
+    </ToolBarPanel>
+    <FrameworkElement Name="FrameWorkElementProxy" Visibility="Collapsed"/>
+    <DataGrid Name="ListSaleItems" RowHeaderWidth="0" AutoGenerateColumns="false" CanUserAddRows="false"
+              IsReadOnly="true" Margin="8 4 4 2" Grid.Row="2" Grid.Column="0"
+              SelectedValue="{Binding SelectedSale}" ItemsSource="{Binding Path=Sale.SaleItemsList}">
+      <FrameworkElement.Resources>
+        <xaml:BindingProxy x:Key="Proxy" Data="{Binding}"/>
+        <ContextMenu x:Key="{x:Static local:SaleJournalViewModel.PrintMenuKey}" FontSize="25">
+          <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Чек}" Command="{Binding PrintCheckCommand}"
+                    CommandParameter="{Binding ElementName=ListSaleItems, Path=SelectedItems}"/>
+          <Separator/>
+          <MenuItem Header="{x:Static localizations:Translate.ActionsHistoryListViewModel_Документ}"
+                    Command="{Binding Path=PrintDocument}"
+                    CommandParameter="{Binding Path=SelectedItem, ElementName=ListSaleItems}"/>
+        </ContextMenu>
+        <ContextMenu x:Key="ContextMenuGrid"/>
+        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+          <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ContextMenuGrid}"/>
+        </Style>
+        <Style x:Key="DTextBlockStyle" TargetType="{x:Type TextBlock}">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected, ElementName=ListSaleItems}" Value="True">
+              <Setter Property="TextBlock.Foreground" Value="White"/>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+        <Style x:Key="NumericDataCell" TargetType="{x:Type DataGridCell}"
+               BasedOn="{StaticResource numberCellStyle}">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Color}" Value="Red">
+              <Setter Property="Control.Foreground" Value="Red"/>
+            </DataTrigger>
+            <Trigger Property="DataGridCell.IsSelected" Value="true">
+              <Setter Property="Control.Foreground" Value="White"/>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </FrameworkElement.Resources>
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=ShowSaleCard}"
+                      CommandParameter="{Binding ElementName=ListSaleItems, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.CellStyle>
+        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource {x:Type DataGridCell}}">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=Color}" Value="Red">
+              <Setter Property="Control.Foreground" Value="Red"/>
+            </DataTrigger>
+            <Trigger Property="DataGridCell.IsSelected" Value="true">
+              <Setter Property="Control.Foreground" Value="White"/>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </DataGrid.CellStyle>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="№" Width="30" x:Name="NumberCollumn"
+                            my:Extensions.Guid="FC8F8FF7-A0BC-4A23-A736-54169A2F6055" Binding="{Binding Path=SaleNumber}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmJournalSales_ДатаВремя}"
+                            my:Extensions.Guid="E2325B80-05F1-4185-8613-3CD1C0432450" Width="100"
+                            Binding="{Binding Path=Document.DateTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmJournalSales_ШтрихКод}"
+                            my:Extensions.Guid="D8B6A482-296F-4280-9E77-ADAF5597CC13" my:Extensions.Tag="Item" Width="100"
+                            Binding="{Binding Path=Item.Good.Barcode}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Категория}"
+                            my:Extensions.Guid="BBCCA332-B99D-4A4E-B745-612954345576" my:Extensions.Tag="Item" Width="100"
+                            ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding Path=Item.Good.Group.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}" my:Extensions.Tag="Item"
+                            my:Extensions.Guid="D3BE898B-10B5-4802-B703-A6F5FBA836A8" Width="200"
+                            ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding Path=Item.DisplayedName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Цена}" Width="80"
+                            my:Extensions.Guid="3D3A0E9A-839B-4333-AAA3-1C0F072CE2DD" my:Extensions.Tag="Item"
+                            CellStyle="{StaticResource NumericDataCell}"
+                            Binding="{Binding Path=Item.SalePrice, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodDiscount_Скидка}" Width="80"
+                            my:Extensions.Guid="A61CDA1A-8850-47FA-84A0-FF4810440C0A" my:Extensions.Tag="Item"
+                            CellStyle="{StaticResource NumericDataCell}"
+                            Binding="{Binding Path=Item.Discount.Value, StringFormat={0:N2}%}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_КолВо}" Width="80" my:Extensions.Tag="Item"
+                            my:Extensions.Guid="4DAA84D8-A2CB-4F4F-8BE4-8FE09DA4B14B"
+                            CellStyle="{StaticResource NumericDataCell}"
+                            Binding="{Binding Item.Quantity, Converter={StaticResource decimalConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" my:Extensions.Tag="Item"
+                            CellStyle="{StaticResource NumericDataCell}" Width="100"
+                            my:Extensions.Guid="A0091D83-FDAA-44AD-9889-DF25762A92E7"
+                            Binding="{Binding Path=Item.TotalSum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" my:Extensions.Tag="Item"
+                            Width="200" my:Extensions.Guid="029C476F-ACD8-43BA-BD43-8D198FD91FB0"
+                            Binding="{Binding Path=Item.Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.ExcelDataViewModel_Описание}" my:Extensions.Tag="Item"
+                            Width="200" my:Extensions.Guid="35DA0D71-4568-49C6-B6F7-9690D607064C"
+                            Binding="{Binding Path=Item.Good.Description}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Остаток}" my:Extensions.Tag="Item"
+                            CellStyle="{StaticResource NumericDataCell}" Width="80"
+                            my:Extensions.Guid="{x:Static global:GlobalDictionaries.StockColumnsUid}"
+                            Binding="{Binding Path=Item.TotalSumStock, Converter={StaticResource decimalConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.Контакт}" Width="200"
+                            my:Extensions.Guid="858C1E63-B80C-4609-998D-E4EE49956AC5" Binding="{Binding Path=Client.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="200"
+                            my:Extensions.Guid="BCCC0B56-F294-485C-938E-E7576ECCCE09" Binding="{Binding Path=User.Alias}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSummaryReport_Прибыль}" my:Extensions.Tag="Item"
+                            Width="200" my:Extensions.Guid="A7AE73E1-A03B-4596-991A-828025773FAC"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=SumIncome, StringFormat=N2}"
+                            Visibility="{Binding Data.VisibilityIncome, Source={StaticResource Proxy}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSummaryReport_Прибыль}" my:Extensions.Tag="Document"
+                            Width="200" my:Extensions.Guid="78384F7C-8458-4ED4-97F8-0D6A923DD9A7"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Path=SumIncome, StringFormat=N2}"
+                            Visibility="{Binding Data.VisibilityIncome, Source={StaticResource Proxy}}"/>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.FrmMainWindow_Товары}" my:Extensions.Tag="Document"
+                                Width="200" my:Extensions.Guid="E19C6CC8-A4D8-4816-BAE2-91657F68FBE6"
+                                ClipboardContentBinding="{Binding TextSaleContent}">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <ItemsControl x:Name="tStack" Grid.Column="0" VerticalAlignment="Bottom" Background="Transparent"
+                            ItemsSource="{Binding SaleContentList}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Top" CanVerticallyScroll="true"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Grid Margin="0 2">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+                      <TextBlock Style="{DynamicResource DTextBlockStyle}" TextWrapping="Wrap" Grid.Column="0" Text="{Binding Name}"/>
+                      <TextBlock Style="{DynamicResource DTextBlockStyle}" Grid.Column="1" Text="{Binding PriceAndQty}"/>
+                    </Grid>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименований}" Width="80"
+                            my:Extensions.Tag="Document" my:Extensions.Guid="4A4B2123-2609-42E2-8073-98D278756383"
+                            CellStyle="{StaticResource NumericDataCell}" Binding="{Binding Path=CountItem, StringFormat=N0}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_КолВо}" Width="80"
+                            my:Extensions.Tag="Document" my:Extensions.Guid="FC4C1691-9524-4694-8B19-C8962CF09C013"
+                            CellStyle="{StaticResource NumericDataCell}"
+                            Binding="{Binding Path=QuantitySum, Converter={StaticResource decimalConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCardSale_СуммаБезСкидки}" Width="80"
+                            my:Extensions.Tag="Document" my:Extensions.Guid="A7CC44E6-6DAD-421A-BCDB-F4B2A5D0CC65"
+                            CellStyle="{StaticResource NumericDataCell}"
+                            Binding="{Binding Path=SumLessDiscount, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodDiscount_СуммаСкидки}" Width="80"
+                            my:Extensions.Tag="Document" my:Extensions.Guid="2128BBD5-EDC4-42FF-AA2B-EB55AF1780B5"
+                            CellStyle="{StaticResource NumericDataCell}" Binding="{Binding Path=SumDiscount, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" Width="80"
+                            my:Extensions.Tag="Document" my:Extensions.Guid="50055A4A-9E6A-4EEF-B09D-D6E709DBCF48"
+                            CellStyle="{StaticResource NumericDataCell}"
+                            Visibility="{Binding Data.VisibilityReceiptView, Source={StaticResource Proxy}}"
+                            Binding="{Binding Path=Sum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCardSale_Оплачено}" Width="80"
+                            my:Extensions.Guid="120088D1-20E6-476B-8307-EA4FCE28674E" my:Extensions.Tag="Document"
+                            CellStyle="{StaticResource NumericDataCell}" Binding="{Binding Path=SumPayment, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCardSale_СпособОплаты}" Width="80"
+                            my:Extensions.Guid="848CF603-9730-4160-A109-78887A702BBC" my:Extensions.Tag="Document"
+                            Binding="{Binding Path=TextMethodPayment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="80"
+                            my:Extensions.Guid="26E77EF6-5646-4A52-AE21-F19BE17F45F4" my:Extensions.Tag="Document"
+                            Binding="{Binding Path=Document.Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMagazineSale_Секция}" Width="80"
+                            my:Extensions.Guid="1269664B-B6D6-4386-BA9A-5611DE5E1F64" my:Extensions.Tag="Document"
+                            Binding="{Binding Path=Document.Section.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" Width="80"
+                            my:Extensions.Guid="C84D5C2E-A938-4C35-A96E-297715BB1F44"
+                            Binding="{Binding Path=Document.Storage.Name}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <Grid Margin="9,50,16.5,0" Height="Auto" Row="1" ColumnSpan="2" Column="0"
+          Visibility="{Binding VisibilityPanelSearch}">
+      <Grid Margin="0,0,8,0" Height="Auto">
+        <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+          <userControls:ClientSelectionControl x:Name="ClientSelectionControl" Margin="0 4" HorizontalAlignment="Left" Width="250" Height="60"
+                                               VerticalAlignment="Top"
+                                               IsCheckedClient="{Binding IsEnabledClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                               Client="{Binding Client, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+          <StackPanel Margin="4 ">
+            <StackPanel Name="PanelSearchIn" Orientation="Horizontal" VerticalAlignment="Top">
+              <Label Content="{x:Static localizations:Translate.FrmSearchClient_ИскатьВ}" HorizontalAlignment="Left"
+                     VerticalAlignment="Center" Height="24" Width="75"/>
+              <Button Click="FindButtonData_OnClick" Name="FindButtonData" Height="24" Style="{DynamicResource btnLink}"
+                      VerticalAlignment="Center" Width="105" Cursor="Hand" Content="{Binding TextSearchButton}">
+                <FrameworkElement.Resources>
+                  <ContextMenu x:Key="ContextMenuGrid"/>
+                </FrameworkElement.Resources>
+              </Button>
+            </StackPanel>
+            <Button Click="FindButton_OnClick" Name="FindButton" Style="{DynamicResource comboboxButton}"
+                    VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="180" VerticalAlignment="Center"
+                    Content="{Binding TextPropButton}">
+              <FrameworkElement.Resources>
+                <ContextMenu x:Key="ContextMenuGrid"/>
+              </FrameworkElement.Resources>
+            </Button>
+          </StackPanel>
+          <StackPanel Margin="4 ">
+            <ComboBox Name="ComboBoxSections" VerticalAlignment="Center" HorizontalAlignment=" Left"
+                      SelectedValuePath="Uid" VerticalContentAlignment="Center" DisplayMemberPath="Name"
+                      ItemsSource="{Binding ListSections}"
+                      SelectedValue="{Binding SectionSelectedUid, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Name="ComboBoxFiscalTypesFilter" VerticalAlignment="Top" HorizontalAlignment="Left"
+                      ItemsSource="{Binding ListTypePayment}" SelectedValue="{Binding SelectedTypePayment}"/>
+          </StackPanel>
+          <StackPanel Margin="4 ">
+            <ComboBox Name="ComboBoxPaymentStatusesFilter" VerticalAlignment="Top" HorizontalAlignment="Left"
+                      IsReadOnly="true" DisplayMemberPath="Value" SelectedValuePath="Key"
+                      ItemsSource="{Binding ListExtraOption}" SelectedValue="{Binding SelectedExtraOption}"/>
+            <ComboBox Name="ComboBoxUsersFilter" VerticalAlignment="Top" HorizontalAlignment="Left"
+                      VerticalContentAlignment="Center" SelectedValuePath="Uid" DisplayMemberPath="Alias"
+                      ItemsSource="{Binding UsersList}" SelectedItem="{Binding SelectedUser}"
+                      SelectedValue="{Binding SelectedUser.Uid}"/>
+          </StackPanel>
+          <StackPanel Margin="4 ">
+            <Button Click="StorageButton_OnClick" Name="StorageButton" Style="{DynamicResource comboboxButton}"
+                    HorizontalAlignment="Left" VerticalAlignment="Top" Width="150"
+                    Content="{Binding ButtonContentStorage}">
+              <FrameworkElement.Resources>
+                <ContextMenu x:Key="ContextMenuGrid"/>
+              </FrameworkElement.Resources>
+            </Button>
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+    </Grid>
+    <userControls:DateFilterControl x:Name="DateFilterControl" Grid.Row="1" Grid.Column="0" Margin="4,0,0,0" HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    ValueDateTimeStart="{Binding ValueDateTimeStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    ValueDateTimeEnd="{Binding ValueDateTimeEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                    CommandOnUpdate="{Binding LoadJournalCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

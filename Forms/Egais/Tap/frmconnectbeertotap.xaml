@@ -1,0 +1,94 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Egais.FrmConnectBeerToTap"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Egais"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:xaml="clr-namespace:Gbs.Helpers.XAML"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:properties="clr-namespace:Gbs.Resources.Localizations"
+                        Activated="FrmConnectBeerToTap_OnActivated" Style="{DynamicResource sWindow}" ResizeMode="NoResize"
+                        Title="{x:Static properties:Translate.КарточкаПодключенияКегаККрану}"
+                        SizeToContent="WidthAndHeight">
+  <FrameworkElement.DataContext>
+    <local:ConnectBeerToTapViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel Margin="0 8 0 0">
+    <StackPanel Orientation="Horizontal" Margin="4 0">
+      <Label Content="{x:Static properties:Translate.Кран}" Margin="0 0 15 0" Width="120"
+             VerticalAlignment="Center"/>
+      <TextBox IsEnabled="false" Width="150" VerticalAlignment="Center" Text="{Binding Info.Tap.Name}"/>
+      <TextBlock Margin="5 0 0 0" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"
+                 Text="{Binding TextForCrpt}" Foreground="{Binding ColorForCrpt}"
+                 Visibility="{Binding VisibilityForCrpt}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="4 0">
+      <Label Content="{x:Static properties:Translate.ПивнаяПродукция}" Margin="0 0 15 0" Width="120"
+             VerticalAlignment="Center"/>
+      <TextBox IsReadOnly="true" Width="300" Text="{Binding Good.Name}"/>
+      <Button Content="{x:Static properties:Translate.PageInventoryStart_Выбрать}"
+              Style="{DynamicResource btnLink}" VerticalAlignment="Center" HorizontalAlignment="Left"
+              Margin="4 0 0 0" Command="{Binding GetGoodCommand}" IsEnabled="{Binding IsEnabledInfo}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="4 0">
+      <Label Content="{x:Static properties:Translate.КодМаркировки}" Margin="0 0 15 0" Width="120"
+             VerticalAlignment="Center"/>
+      <TextBox Width="300" xaml:FocusExtension.IsFocused="true" Text="{Binding Info.MarkedInfo}"
+               IsEnabled="{Binding IsEnabledMarkedInfo}"/>
+      <Button Content="{x:Static properties:Translate.Проверить}" Style="{DynamicResource btnLink}"
+              VerticalAlignment="Center" HorizontalAlignment="Left" Margin="4 0 5 0"
+              Command="{Binding CheckMarkInfoInCrpt}" IsEnabled="{Binding IsEnabledMarkedInfo}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="4 0">
+      <Label Content="{x:Static properties:Translate.СрокГодности}" Margin="0 0 15 0" Width="120"
+             VerticalAlignment="Center"/>
+      <DatePicker SelectedDateFormat="Long" Width="150" IsEnabled="{Binding IsEnabledInfo}"
+                  SelectedDate="{Binding Info.ExpirationDate, UpdateSourceTrigger=PropertyChanged}"/>
+      <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsEnabledInfo}">
+        <Button Content="{x:Static properties:Translate._1День}" FontSize="12" Style="{DynamicResource btnLink}"
+                CommandParameter="1" Command="{Binding SetDateByBtn}"/>
+        <Button Content="{x:Static properties:Translate._7Дней}" FontSize="12" Style="{DynamicResource btnLink}"
+                CommandParameter="7" Command="{Binding SetDateByBtn}"/>
+        <Button Content="{x:Static properties:Translate._10Дней}" FontSize="12" Style="{DynamicResource btnLink}"
+                CommandParameter="10" Command="{Binding SetDateByBtn}"/>
+      </StackPanel>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4 1"
+                Visibility="{Binding VisibilityStorage}">
+      <Label Content="{x:Static properties:Translate.FrmSelectGoodStock_Склад}" Margin="0 0 15 0" Width="120"
+             VerticalAlignment="Center"/>
+      <ComboBox Width="150" Margin="2 0" DisplayMemberPath="Name" IsEnabled="{Binding IsEnabledInfo}"
+                ItemsSource="{Binding Storages}" SelectedItem="{Binding Storage}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="4 2">
+      <Label Content="{x:Static properties:Translate.ОбъемЛ}" Margin="0 0 15 0" HorizontalAlignment="Center"
+             Height="25" VerticalAlignment="Center" Width="120" FontWeight="Bold"/>
+      <xctk:DecimalUpDown Name="QuantityDecimalUpDown" Minimum="0" Margin="2 0" HorizontalAlignment="Right"
+                          VerticalAlignment="Center" Width="75" ShowButtonSpinner="false" VerticalContentAlignment="Center"
+                          IsEnabled="{Binding IsEnabledInfo}" Value="{Binding Info.Quantity}"/>
+      <WrapPanel Margin="5 0 0 0" HorizontalAlignment="Center" IsEnabled="{Binding IsEnabledInfo}">
+        <Button Content="10 л." FontSize="12" Style="{DynamicResource btnLink}" CommandParameter="10"
+                Command="{Binding SetCountByBtn}"/>
+        <Button Content="20 л." FontSize="12" Style="{DynamicResource btnLink}" CommandParameter="20"
+                Command="{Binding SetCountByBtn}"/>
+        <Button Content="20,3 л." FontSize="12" Style="{DynamicResource btnLink}" CommandParameter="20,3"
+                Command="{Binding SetCountByBtn}"/>
+        <Button Content="30 л." FontSize="12" Style="{DynamicResource btnLink}" CommandParameter="30"
+                Command="{Binding SetCountByBtn}"/>
+        <Button Content="50 л." FontSize="12" Style="{DynamicResource btnLink}" CommandParameter="50"
+                Command="{Binding SetCountByBtn}"/>
+      </WrapPanel>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" Margin="4 0">
+      <Label HorizontalAlignment="Left" Width="120" Margin="0 0 15 0" VerticalAlignment="Center"
+             Content="{x:Static properties:Translate.Цена1Литр}" FontWeight="Bold"/>
+      <xctk:DecimalUpDown x:Name="SalePriceDecimalUpDown" Width="75" ShowButtonSpinner="false" Minimum="0" Margin="2 2"
+                          Maximum="100000" TabIndex="3" IsEnabled="{Binding IsEnabledInfo}"
+                          Value="{Binding Info.Price, UpdateSourceTrigger=PropertyChanged}"/>
+    </StackPanel>
+    <userControls:ConfirmPanelControl1 VerticalAlignment="Bottom" OkButtonText="{Binding TextForOkButton}"
+                                       OkButtonCommand="{Binding SaveCommand}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

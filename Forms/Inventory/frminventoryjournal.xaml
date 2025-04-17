@@ -1,0 +1,90 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Inventory.FrmInventoryJournal"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Inventory"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        Style="{StaticResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmMainWindow_ЖурналИнвентаризаций}" Height="450"
+                        Width="800" MinHeight="450" MinWidth="800">
+  <FrameworkElement.DataContext>
+    <local:InventoryJournalViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <Expander Grid.Row="0" Margin="5" Header="{x:Static localizations:Translate.FrmListClients_ФильтрПоиска}">
+      <StackPanel Orientation="Horizontal">
+        <userControls:DateFilterControl Margin="5,10,10,5" Width="340" CommandOnUpdate="{Binding LoadInventoriesCommand}"
+                                        ValueDateTimeStart="{Binding DateStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ValueDateTimeEnd="{Binding DateFinish, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <StackPanel Margin="0, 0" Width="266">
+          <Button VerticalAlignment="Top" Height="30" Margin="10,10,15,10" Content="{Binding ButtonContentStorage}"
+                  Command="{Binding SelectedStorage}"/>
+          <Grid>
+            <Label Content="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Статус}" Margin="10,0,0,0"
+                   HorizontalAlignment="Left" Width="70"/>
+            <ComboBox Margin="80,0,14,0" DisplayMemberPath="Value" SelectedValuePath="Key"
+                      ItemsSource="{Binding DictionaryStatus}" SelectedValue="{Binding StatusSelected}"/>
+          </Grid>
+        </StackPanel>
+      </StackPanel>
+    </Expander>
+    <DataGrid Name="InventoryJournalDataGrid" Grid.Row="1" Grid.Column="0" Margin="5,5,5,0"
+              HeadersVisibility="Column" ItemsSource="{Binding Path=InventoriesItemsList}">
+      <UIElement.InputBindings>
+        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding EditInventoryCommand}"
+                      CommandParameter="{Binding ElementName=InventoryJournalDataGrid, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="№" Width="40" Binding="{Binding Path=InventoryDocument.Number}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmJournalSales_ДатаВремя}" Width="90"
+                            Binding="{Binding Path=InventoryDocument.DateTime}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" Width="100"
+                            Binding="{Binding Path=InventoryDocument.Storage.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="200"
+                            Binding="{Binding Path=InventoryDocument.Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Статус}" Width="100"
+                            Binding="{Binding Status}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="150"
+                            Binding="{Binding Path=UserAlias}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="0">
+      <Button Style="{DynamicResource btnAction}" Cursor="Hand" Command="{Binding Path=AddInventoryCommand}"
+              CommandParameter="{Binding ElementName=InventoryJournalDataGrid, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Path=EditInventoryCommand}"
+              CommandParameter="{Binding ElementName=InventoryJournalDataGrid, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconEdit}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Path=PrintInventoryCommand}"
+              CommandParameter="{Binding ElementName=InventoryJournalDataGrid, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconPrint}"/>
+      </Button>
+      <Button x:Name="btnDelete" Style="{DynamicResource btnAction}"
+              Command="{Binding Path=DeleteInventoryCommand}"
+              CommandParameter="{Binding ElementName=InventoryJournalDataGrid, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+    <WrapPanel Grid.Row="2" Grid.Column="0" Margin="5, 0" Orientation="Horizontal" Height="Auto"
+               VerticalAlignment="Bottom">
+      <Label Content="{x:Static localizations:Translate.Инвентаризаций}"/>
+      <Label ContentStringFormat="N0" Content="{Binding Path=InventoriesItemsList.Count}"/>
+      <Label Content="|" Visibility="Collapsed"/>
+    </WrapPanel>
+  </Grid>
+</helpers:WindowWithSize>

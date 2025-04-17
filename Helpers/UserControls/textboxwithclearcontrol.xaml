@@ -1,0 +1,54 @@
+<UserControl x:Class="Gbs.Helpers.UserControls.TextBoxWithClearControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+             xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+             xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
+             Focusable="true" IsTabStop="true" SnapsToDevicePixels="true" MinWidth="100"
+             HorizontalAlignment="Stretch" Margin="4" Height="28" Width="Auto"
+             FocusManager.FocusedElement="{Binding ElementName=SearchTextBox}">
+  <Border BorderThickness="1" CornerRadius="2" HorizontalAlignment="Stretch"
+          BorderBrush="{DynamicResource DefaultForeground40}">
+    <Border.Background>
+      <SolidColorBrush Color="{DynamicResource ListMainBackgroundColor}" Opacity="0.8"/>
+    </Border.Background>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <xctk:WatermarkTextBox x:Name="SearchTextBox" Focusable="true" AcceptsTab="false"
+                             Watermark="{x:Static localizations:Translate.TextBoxWithClearControl_Поиск}" MaxLines="1"
+                             Grid.Column="0" Foreground="{DynamicResource DefaultForeground}" HorizontalAlignment="Stretch"
+                             TextWrapping="NoWrap" VerticalAlignment="Stretch" Background="Transparent"
+                             KeepWatermarkOnGotFocus="false" CaretBrush="{DynamicResource DefaultForeground}" MinWidth="150"
+                             BorderThickness="0"
+                             Text="{Binding Path=TextString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type userControls:TextBoxWithClearControl}}}"
+                             FontSize="{Binding Path=TextFontSize, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type userControls:TextBoxWithClearControl}}}"/>
+      <Viewbox Grid.Column="1">
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40" IsTabStop="false"
+                Style="{DynamicResource btnTransparent}" Background="Transparent" BorderBrush="Transparent"
+                FontSize="24 "
+                Command="{Binding ClearCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type userControls:TextBoxWithClearControl}}}">
+          <Image Source="{DynamicResource IconClose}"/>
+        </Button>
+      </Viewbox>
+      <Viewbox Grid.Column="2"
+               Visibility="{Binding Path=ConfigButtonVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type userControls:TextBoxWithClearControl}}}">
+        <StackPanel Orientation="Horizontal">
+          <Border BorderThickness=" 1 0 0 0" Cursor="" BorderBrush="{DynamicResource DefaultForeground60}"/>
+          <Button x:Name="ConfigBtn" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="40"
+                  IsTabStop="false" Padding="6" Style="{StaticResource btnTransparent}"
+                  Background="{DynamicResource Background40}" BorderBrush="Transparent" FontSize="24"
+                  Command="{Binding ConfigCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type userControls:TextBoxWithClearControl}}}">
+            <Image Source="{DynamicResource IconSearchConfig}"/>
+          </Button>
+        </StackPanel>
+      </Viewbox>
+    </Grid>
+  </Border>
+</UserControl>

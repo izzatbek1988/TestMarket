@@ -1,0 +1,110 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.EntityGroupEdit.GoodGroup.FrmGroupEditCategories"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.EntityGroupEdit.GoodGroup"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.FrmGroupEditCategories_ГрупповоеРедактированиеКатегорийТоваров}"
+                        Width="482.735" ResizeMode="NoResize" SizeToContent="Height">
+  <FrameworkElement.DataContext>
+    <local:CategoriesGroupEditViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="45"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="0"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <userControls:CategorySelectionControl x:Name="CategorySelectionControl" Grid.Row="0" Grid.Column="0" FontSizeContent="18" Margin="5"
+                                           Height="Auto" Width="Auto">
+      <userControls:CategorySelectionControl.GroupsListFilter>
+        <Binding Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">          <!-- constructor argument:
+               GroupsListFilter
+          -->
+
+        </Binding>
+      </userControls:CategorySelectionControl.GroupsListFilter>
+    </userControls:CategorySelectionControl>
+    <CheckBox Name="CheckBoxUnits" Content="{x:Static localizations:Translate.FrmGoodGroupCard_ЕдиницыИзмерения}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalAlignment="Top"
+              RenderTransformOrigin="0.603,0.038" Height="20" Width="214" VerticalContentAlignment="Center"
+              Grid.Column="0" Grid.Row="1" IsChecked="{Binding IsEditUnit, UpdateSourceTrigger=PropertyChanged}"/>
+    <ComboBox FontSize="14" SelectedValuePath="Uid" DisplayMemberPath="FullName" Margin="258,6,10.5,5"
+              Grid.Row="1" ItemsSource="{Binding GoodUnits}"
+              IsEnabled="{Binding ElementName=CheckBoxUnits, Path=IsChecked}" SelectedValue="{Binding UnitsUid}"/>
+    <CheckBox Name="CheckBoxTax" Content="{x:Static localizations:Translate.НалоговаяСтавка}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalContentAlignment="Center"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="182" Grid.Column="0"
+              Grid.Row="2" IsChecked="{Binding IsEditNds, UpdateSourceTrigger=PropertyChanged}"/>
+    <ComboBox Grid.Row="2" SelectedValuePath="Key" DisplayMemberPath="Value.Name" Margin="258,6,10.5,5"
+              ItemsSource="{Binding TaxTypes}" SelectedValue="{Binding TaxRateNumber}"
+              IsEnabled="{Binding ElementName=CheckBoxTax, Path=IsChecked}"/>
+    <CheckBox Name="CheckBoxTaxRate" Content="{x:Static localizations:Translate.FrmGoodGroupCard_НомерСекции}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalContentAlignment="Center"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="182" Grid.Column="0"
+              Grid.Row="3" IsChecked="{Binding IsEditTaxNum, UpdateSourceTrigger=PropertyChanged}"/>
+    <xctk:IntegerUpDown Grid.Row="3" Margin="360,6,15,5" Maximum="20" Minimum="1" DefaultValue="1"
+                        Value="{Binding KkmSectionNumber, UpdateSourceTrigger=PropertyChanged}"
+                        IsEnabled="{Binding ElementName=CheckBoxTaxRate, Path=IsChecked}"/>
+    <CheckBox Name="CheckBoxTaxSystem"
+              Content="{x:Static localizations:Translate.FrmGoodGroupCard_СистемаНалогообложения}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalContentAlignment="Center"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="251" Grid.Column="0"
+              Grid.Row="4" Visibility="{Binding VisibilityRuParameter}"
+              IsChecked="{Binding IsEditRuTaxSystem, UpdateSourceTrigger=PropertyChanged}"/>
+    <ComboBox Grid.Row="4" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="258,6,10.5,5"
+              ItemsSource="{Binding Path=RuTaxSystems}" Visibility="{Binding VisibilityRuParameter}"
+              SelectedValue="{Binding RuTaxSystem}"
+              IsEnabled="{Binding ElementName=CheckBoxTaxSystem, Path=IsChecked}"/>
+    <CheckBox Name="CheckBoxFreePrice" Content="{x:Static localizations:Translate.СвободнаяЦена}"
+              HorizontalAlignment="Left" Margin="14,0,0,0" FontSize="14" Visibility="Collapsed"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="195" Grid.Column="0"
+              Grid.Row="6" IsChecked="{Binding IsEditFreePrice, UpdateSourceTrigger=PropertyChanged}"/>
+    <ComboBox Grid.Row="6" Visibility="Collapsed" SelectedValuePath="Key" DisplayMemberPath="Value"
+              Margin="220,1,10,44" ItemsSource="{Binding Path=DictionaryEdit}"
+              SelectedValue="{Binding OptionFreePrice}"
+              IsEnabled="{Binding ElementName=CheckBoxFreePrice, Path=IsChecked}"/>
+    <CheckBox Name="CheckBoxCount" Content="{x:Static localizations:Translate.ЗапрашиватьКоличество}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalContentAlignment="Center"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="251" Grid.Column="0"
+              Grid.Row="6" IsChecked="{Binding IsEditRequestCount, UpdateSourceTrigger=PropertyChanged}"/>
+    <ComboBox Grid.Row="6" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="258,6,10.5,5"
+              ItemsSource="{Binding Path=DictionaryEdit}" SelectedValue="{Binding OptionRequestCount}"
+              IsEnabled="{Binding ElementName=CheckBoxCount, Path=IsChecked}"/>
+    <CheckBox Content="{x:Static localizations:Translate.FrmGroupEditCategories_УдалитьИзБазыДанных}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalContentAlignment="Center"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="251" Grid.Column="0"
+              Grid.Row="7" IsChecked="{Binding IsDeletedGroup, UpdateSourceTrigger=PropertyChanged}"/>
+    <CheckBox Name="CheckBoxParent" Content="{x:Static localizations:Translate.ИспользоватьСвойстваРодителя}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalContentAlignment="Center"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="251" Grid.Column="0"
+              Grid.Row="8" IsChecked="{Binding IsEditParent, UpdateSourceTrigger=PropertyChanged}"/>
+    <ComboBox Grid.Row="8" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="258,6,10.5,5"
+              ItemsSource="{Binding Path=DictionaryEdit}" SelectedValue="{Binding OptionParent}"
+              IsEnabled="{Binding ElementName=CheckBoxParent, Path=IsChecked}"/>
+    <CheckBox Name="CheckBoxMarking" Content="{x:Static localizations:Translate.ТипМаркируемойПродукции}"
+              HorizontalAlignment="Left" Margin="14,10,0,0" FontSize="14" VerticalContentAlignment="Center"
+              VerticalAlignment="Top" RenderTransformOrigin="0.603,0.038" Height="20" Width="251" Grid.Column="0"
+              Grid.Row="9" Visibility="{Binding VisibilityRuParameter}"
+              IsChecked="{Binding IsEditMarking, UpdateSourceTrigger=PropertyChanged}"/>
+    <ComboBox Grid.Row="9" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="258,6,10.5,5"
+              ItemsSource="{Binding Path=RuMarkedProductionDictionary, Mode=OneWay}"
+              Visibility="{Binding VisibilityRuParameter}" SelectedValue="{Binding RuMarkedProduction}"
+              IsEnabled="{Binding ElementName=CheckBoxMarking, Path=IsChecked}"/>
+    <userControls:ConfirmPanelControl1 Grid.Row="10" OkButtonText="{x:Static localizations:Translate.FrmActionForEditGood_ВЫПОЛНИТЬ}"
+                                       Margin="-2,4,0,0" Height="100" VerticalAlignment="Top" OkButtonCommand="{Binding DoEdit}"/>
+  </Grid>
+</helpers:WindowWithSize>

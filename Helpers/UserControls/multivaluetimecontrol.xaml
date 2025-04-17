@@ -1,0 +1,32 @@
+<UserControl x:Class="Gbs.Helpers.UserControls.MultiValueTimeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Gbs.Helpers.UserControls"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+             Name="ctrl" Height="Auto">
+  <Grid Name="root">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <local:MultiValueControl Grid.Row="0" AddValueCommand="{Binding ElementName=ctrl, Path=ShowTimeInputCommand}">
+      <local:MultiValueControl.ValuesList>
+        <Binding ElementName="ctrl" Path="Values" Mode="TwoWay"/>
+      </local:MultiValueControl.ValuesList>
+    </local:MultiValueControl>
+    <StackPanel Margin="5" Grid.Row="1" Height="27" Grid.Column="0" Orientation="Horizontal"
+                Visibility="{Binding ElementName=ctrl, Path=IsTimeInputVisibility}">
+      <Label Content="{x:Static localizations:Translate.MultiValueTimeControl_Время}"/>
+      <xctk:TimePicker Width="80" Value="{Binding ElementName=ctrl, Path=TimeValueToAdd}"/>
+      <Button Style="{DynamicResource btnLink}"
+              Content="{x:Static localizations:Translate.FrmMainWindow_Добавить}" Margin="5"
+              Command="{Binding ElementName=ctrl, Path=AddTimeCommand}"/>
+      <Button Style="{DynamicResource btnLink}"
+              Content="{x:Static localizations:Translate.FrmInputMessage_Отмена}" Margin="5"
+              Command="{Binding ElementName=ctrl, Path=CancelTimeInputCommand}"/>
+    </StackPanel>
+  </Grid>
+</UserControl>

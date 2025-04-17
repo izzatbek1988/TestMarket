@@ -1,0 +1,59 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.SendWaybills.FrmMoveList"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.SendWaybills"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        ResizeMode="NoResize" Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.СписокПеремещений}" Height="450" Width="800">
+  <FrameworkElement.DataContext>
+    <local:MoveListViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="161*"/>
+      <RowDefinition Height="50*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="60"/>
+    </Grid.ColumnDefinitions>
+    <DataGrid Name="DataGridMove" Margin="5" Grid.Row="0" Grid.Column="0" SelectionMode="Extended"
+              ItemsSource="{Binding Sends}">
+      <UIElement.InputBindings>
+        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=AddSendWaybill}"
+                      CommandParameter="{Binding ElementName=DataGridMove, Path=SelectedItems}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.PageJournalGood_ДатаВремя}" Width="1*"
+                            Binding="{Binding Document.Document.DateTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.Отправитель}" Width="2*"
+                            Binding="{Binding Document.SenderPointName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillsList_Товаров}" Width="1*"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding TotalCount}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWriteOffJournal_РозничнаяСумма}" Width="1*"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding TotalSaleSum}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmWaybillCard_ЗакупочнаяX0aСумма}" Width="1*"
+                            uiElement:Extensions.Guid="43450469-B88F-4A65-BA2A-44085EEA77D9"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding TotalBuySum}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Row="0" Grid.Column="1" Margin="0, 5">
+      <Button HorizontalAlignment="Center" VerticalAlignment="Top" Width="50" Height="50"
+              Style="{DynamicResource btnAction}" Command="{Binding DeleteCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=DataGridMove}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+    <userControls:ConfirmPanelControl1 VerticalAlignment="Bottom"
+                                       OkButtonText="{x:Static localizations:Translate.FrmSearchGoods_ДОБАВИТЬ}" Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       CancelButtonText="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОТМЕНА}" Grid.Row="1"
+                                       Height="100" Margin="0,0,0,0" OkButtonCommand="{Binding Path=AddSendWaybill}"
+                                       OkButtonParameter="{Binding ElementName=DataGridMove, Path=SelectedItems}"/>
+  </Grid>
+</helpers:WindowWithSize>

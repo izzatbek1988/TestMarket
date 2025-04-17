@@ -1,0 +1,60 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Cafe.FrmOrderCombine"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Cafe"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:global="clr-namespace:Gbs.Core.Entities"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" Title="{x:Static localizations:Translate.ОбъединениеЗаказов}"
+                        MinHeight="420" MinWidth="570" Width="570" Height="440">
+  <FrameworkElement.DataContext>
+    <local:OrderCombineViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <DataGrid Name="DataGridOrdersCombine" Grid.Row="0" SelectionMode="Extended" ItemsSource="{Binding Orders}">
+      <DataGrid.RowStyle>
+        <Style TargetType="{x:Type DataGridRow}">
+          <Style.Setters>
+            <Setter Property="UIElement.IsEnabled" Value="true"/>
+          </Style.Setters>
+          <Style.Triggers>
+            <Trigger Property="DataGridRow.IsSelected" Value="true">
+              <Setter Property="Control.Background" Value="{DynamicResource SelectionBackground}"/>
+              <Setter Property="Control.Foreground" Value="{DynamicResource SelectionForeground}"/>
+              <Setter Property="TextBlock.Foreground" Value="{DynamicResource SelectionForeground}"/>
+              <Setter Property="TextElement.Foreground" Value="{DynamicResource SelectionForeground}"/>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </DataGrid.RowStyle>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="№" Width="40" Binding="{Binding Document.Number}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmActionsHistoryList_ДатаВремя}" Width="100"
+                            Binding="{Binding Document.DateTime, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" Width="80"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Sum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Столик}" Width="60"
+                            uiElement:Extensions.Guid="{x:Static global:GlobalDictionaries.NumTableUidString}"
+                            Binding="{Binding NumTable}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmCafe_ActiveOrders_Гостей}" Width="60"
+                            uiElement:Extensions.Guid="{x:Static global:GlobalDictionaries.CountGuestUidString}"
+                            Binding="{Binding CountGuest}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="200"
+                            Binding="{Binding Document.Comment}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <userControls:ConfirmPanelControl1 VerticalAlignment="Bottom" Grid.Row="1"
+                                       OkButtonText="{x:Static localizations:Translate.ОБЪЕДИНИТЬ}"
+                                       OkButtonCommand="{Binding CombineOrderCommand}"
+                                       OkButtonParameter="{Binding ElementName=DataGridOrdersCombine, Path=SelectedItems}"
+                                       CancelButtonCommand="{Binding CancelCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

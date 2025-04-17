@@ -1,0 +1,117 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Settings.Devices.FrmConnectionSettings"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Settings.Devices"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        Style="{DynamicResource sWindow}" MinWidth="250" SizeToContent="WidthAndHeight"
+                        ResizeMode="NoResize"
+                        Title="{x:Static localizations:Translate.PageBarcodeScanner_НастройкиПодключения}">
+  <FrameworkElement.DataContext>
+    <local:ConnectionSettingsViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid Margin="5 5 5 0">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal" Visibility="{Binding ConnectionTypeSelectorVisibility}">
+      <Label Content="{x:Static localizations:Translate.FrmConnectionSettings_ТипПодключения}"/>
+      <ComboBox Width="120" Height="23" DisplayMemberPath="Value" SelectedValuePath="Key"
+                ItemsSource="{Binding Path=ConnectionTypesDictionary}"
+                SelectedValue="{Binding Path=SelectedConnectionType}"/>
+    </StackPanel>
+    <Expander Grid.Row="1" Header="{x:Static localizations:Translate.FrmConnectionSettings_Подключение}"
+              IsExpanded="true" Visibility="{Binding LanConnectionVisibility}">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static localizations:Translate.FrmClientCard_Адрес}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Width="Auto" Margin="3"
+                 Text="{Binding Path=Connection.UrlAddress}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static localizations:Translate.FrmComPortSettings_Порт}"/>
+        <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Margin="3" HorizontalAlignment="Right" Width="80"
+                            Value="{Binding Path=Connection.PortNumber}"/>
+      </Grid>
+    </Expander>
+    <Expander Grid.Row="2" Header="{x:Static localizations:Translate.FrmAuthorization_Авторизация}"
+              IsExpanded="true" Visibility="{Binding AuthVisibility}">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static localizations:Translate.PageDataBase_Логин}"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Margin="10,3,3,3" Width="Auto"
+                 Text="{Binding Path=Connection.UserLogin}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static localizations:Translate.FrmAuthorization_Пароль}"/>
+        <xctk:WatermarkPasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" Name="PasswordBox" Grid.Row="1" Grid.Column="1"
+                                   Margin="10,3,3,3"/>
+      </Grid>
+    </Expander>
+    <Expander Grid.Row="3" Header="{x:Static localizations:Translate.FrmComPortSettings_НастройкиCOMПорта}"
+              IsExpanded="true" Visibility="{Binding ComPortVisibility}">
+      <Grid Width="244">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static localizations:Translate.FrmComPortSettings_Порт}"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" Height="23" HorizontalAlignment="Left"
+                  ItemsSource="{Binding Path=PortsInSystem}" SelectedItem="{Binding Path=ComPort.PortName}"/>
+        <Expander Header="{x:Static localizations:Translate.FrmGoodsCatalog_Параметры}" Grid.Row="1"
+                  Grid.ColumnSpan="2" Grid.Column="0">
+          <StackPanel Orientation="Vertical" Margin="0">
+            <StackPanel Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmComPortSettings_Скорость}" Width="83"/>
+              <ComboBox ItemsSource="{Binding Path=PortSpeedList}" SelectedItem="{Binding Path=ComPort.Speed}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmConnectionSettings_БитыДанных}" Width="83"/>
+              <ComboBox ItemsSource="{Binding BitDataList}" SelectedItem="{Binding ComPort.DataBit}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmConnectionSettings_Четность}" Width="83"/>
+              <ComboBox SelectedValuePath="Key" DisplayMemberPath="Value" ItemsSource="{Binding ParityList}"
+                        SelectedValue="{Binding ComPort.Parity}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmConnectionSettings_Управление}" Width="83"/>
+              <ComboBox SelectedValuePath="Key" DisplayMemberPath="Value" ItemsSource="{Binding HandshakesList}"
+                        SelectedValue="{Binding ComPort.Handshake}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmConnectionSettings_СтопБиты}" Width="83"/>
+              <ComboBox SelectedValuePath="Key" DisplayMemberPath="Value" ItemsSource="{Binding Path=StopBitList}"
+                        SelectedValue="{Binding Path=ComPort.StopBit}"/>
+            </StackPanel>
+          </StackPanel>
+        </Expander>
+      </Grid>
+    </Expander>
+    <Button Grid.Row="4" Style="{DynamicResource btnOk}"
+            Content="{x:Static localizations:Translate.FrmSelectGoodStock_СОХРАНИТЬ}" Margin="5" Height="40"
+            Width="150" Command="{Binding Path=SaveSettingsCommand}"/>
+  </Grid>
+</helpers:WindowWithSize>

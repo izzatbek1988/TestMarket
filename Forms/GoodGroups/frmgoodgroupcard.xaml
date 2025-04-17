@@ -1,0 +1,151 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.GoodGroups.FrmGoodGroupCard"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        xmlns:goodGroups="clr-namespace:Gbs.Forms.GoodGroups"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        Title="{x:Static localizations:Translate.FrmGoodGroupCard_КатегорияТоваров}"
+                        SizeToContent="WidthAndHeight" ResizeMode="NoResize" Style="{StaticResource sWindow}"
+                        FocusManager.FocusedElement="{Binding ElementName=TxtName}">
+  <FrameworkElement.DataContext>
+    <goodGroups:GroupCardViewModel/>
+  </FrameworkElement.DataContext>
+  <StackPanel>
+    <StackPanel Orientation="Horizontal">
+      <Label Content="{x:Static localizations:Translate.FrmGoodModificationCard_Название}"
+             HorizontalAlignment="Left" Margin="10 5 0 05" VerticalAlignment="Center" Height="25" Width="150"/>
+      <TextBox x:Name="TxtName" HorizontalAlignment="Left" Height="25" Margin="10,5 0 5" TextWrapping="Wrap"
+               VerticalContentAlignment="Center" VerticalAlignment="Center" Width="235"
+               Text="{Binding Path=Group.Name, UpdateSourceTrigger=PropertyChanged}"/>
+    </StackPanel>
+    <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsEnabledEditGroup}">
+      <Label Content="{x:Static localizations:Translate.FrmGoodGroupCard_РодительскаяКатегория}"
+             HorizontalAlignment="Left" Margin="10,0 0 0" VerticalAlignment="Center"
+             VerticalContentAlignment="Center" Height="25" Width="150"/>
+      <Button x:Name="BtnSelectParent" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center"
+              Width="235" Height="25" VerticalContentAlignment="Center" Content="{Binding Path=ParentName}"
+              Command="{Binding Path=SelectParent}"/>
+    </StackPanel>
+    <CheckBox Content="{x:Static localizations:Translate.FrmGoodGroupCard_ИспользоватьДанныеРодительскойКатегории}"
+              Margin="10,5" VerticalContentAlignment="Center" Height="24" VerticalAlignment="Center"
+              IsEnabled="{Binding IsEnabledEditGroup}" IsChecked="{Binding IsDataParent}"/>
+    <TabControl Margin="10,0,10,0" MinWidth="420" HorizontalAlignment="Left" Width="420" MinHeight="300"
+                Padding="2 4 2 8">
+      <TabItem Header="{x:Static localizations:Translate.FrmGoodGroupCard_СвойстваКатегории}" Padding="8">
+        <StackPanel MinWidth="400" IsEnabled="{Binding IsEnabledTab}">
+          <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsEnabledEditGroup}">
+            <Label Content="{x:Static localizations:Translate.FrmGoodGroupCard_ТипТоваров}" HorizontalAlignment="Left"
+                   Margin="5,10,0,0" VerticalAlignment="Center" Height="25" Width="130"/>
+            <ComboBox x:Name="CmoGoodsType" SelectedValuePath="Key" DisplayMemberPath="Value"
+                      HorizontalAlignment="Center" Margin="5,10,0,0" VerticalAlignment="Center" Width="210" Height="25"
+                      ItemsSource="{Binding GoodsTypes}" SelectedValue="{Binding Type}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsEnabledEditGroup}">
+            <Label Content="{x:Static localizations:Translate.FrmGoodGroupCard_ЕдиницыИзмерения}"
+                   HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Center" Height="25" Width="130"/>
+            <ComboBox x:Name="cmoUnits" SelectedValuePath="Uid" DisplayMemberPath="FullName" HorizontalAlignment="Left"
+                      Height="25" VerticalContentAlignment="Center" Margin="5,5,0,0" VerticalAlignment="Center"
+                      Width="210" ItemsSource="{Binding Path=GoodUnits}" SelectedValue="{Binding Path=Group.UnitsUid}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <Label Content="{x:Static localizations:Translate.НалоговаяСтавка}" VerticalAlignment="Center"
+                   Margin="5 5 0 0" Height="25" Width="130"/>
+            <ComboBox SelectedValuePath="Key" DisplayMemberPath="Value.Name" VerticalAlignment="Center"
+                      VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="5,5,0,0" Width="210"
+                      Height="25" ItemsSource="{Binding TaxTypes}" SelectedValue="{Binding Path=Group.TaxRateNumber}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" IsEnabled="{Binding IsEnabledDecimalPlace}">
+            <Label Content="{x:Static localizations:Translate.FrmGoodGroupCard_ЗнаковПослеЗапятой}"
+                   HorizontalAlignment="Left" Margin="5,5,0,0" VerticalContentAlignment="Center"
+                   VerticalAlignment="Center" Height="25" Width="130"/>
+            <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Center" Width="60" Minimum="0"
+                                Maximum="10" Height="25" Text="0" TextAlignment="Left" Value="{Binding Path=Group.DecimalPlace}"/>
+          </StackPanel>
+          <CheckBox VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="5,5,0,0"
+                    VerticalAlignment="Center" Height="35" IsChecked="{Binding Path=Group.NeedComment}"
+                    IsEnabled="{Binding IsEnabledComment, UpdateSourceTrigger=PropertyChanged}">
+            <TextBlock Text="{x:Static localizations:Translate.FrmGoodGroupCard_ПриПродажеТоваровНеобходимВводДопИнформацииXAСерийныйНомерКомментарий}"
+                       TextWrapping="Wrap"/>
+          </CheckBox>
+          <CheckBox HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Center" Height="20"
+                    VerticalContentAlignment="Center" IsChecked="{Binding Path=Group.IsRequestCount}"
+                    IsEnabled="{Binding IsEnabledProp}">
+            <TextBlock Text="{x:Static localizations:Translate.ЗапрашиватьКолВоПриДобавленииТоваровВДокумент}"
+                       TextWrapping="Wrap"/>
+          </CheckBox>
+          <CheckBox Content="{x:Static localizations:Translate.FrmGoodGroupCard_РазрешитьПродажуПоСвободнойЦене}"
+                    HorizontalAlignment="Left" Margin="5,5,0,0" VerticalContentAlignment="Center"
+                    VerticalAlignment="Center" Height="20" IsChecked="{Binding Path=Group.IsFreePrice}"
+                    IsEnabled="{Binding IsEnabledFreePrice}"/>
+          <CheckBox Content="{x:Static localizations:Translate.ТоварыНеПодлежатПродажеСоставныеЧасти}"
+                    HorizontalAlignment="Left" Margin="5,5,0,0" VerticalContentAlignment="Center"
+                    VerticalAlignment="Center" Height="20" IsChecked="{Binding Path=Group.IsCompositeGood}"
+                    IsEnabled="{Binding IsEnabledEditGroup}"/>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.FrmGoodGroupCard_НастройкиККМ}" Padding=" 8">
+        <StackPanel IsEnabled="{Binding IsEnabledTab}">
+          <StackPanel Orientation="Horizontal">
+            <Label VerticalAlignment="Center" Margin="5 5 0 0" Width="170" Height="25"
+                   Content="{x:Static localizations:Translate.FrmGoodGroupCard_НомерСекции}"/>
+            <xctk:IntegerUpDown HorizontalAlignment="Left" Margin="5 5 0 0" VerticalAlignment="Center" Width="60" Height="25"
+                                Maximum="20" Minimum="1" DefaultValue="1" Value="{Binding Path=Group.KkmSectionNumber}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Visibility="{Binding RussiaVisibility}">
+            <Label Width="170" Margin="5 5 0 0" Height="25" VerticalContentAlignment="Center"
+                   Content="{x:Static localizations:Translate.FrmGoodGroupCard_СистемаНалогообложения}"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <ComboBox HorizontalAlignment="Left" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="5 5 0 0"
+                      VerticalAlignment="Center" Width="200" Height="25" ItemsSource="{Binding Path=RuTaxSystems}"
+                      SelectedValue="{Binding Group.RuTaxSystem}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Visibility="{Binding RussiaVisibility}">
+            <Label Margin="5 5 0 0" Height="25" VerticalContentAlignment="Center"
+                   Content="{x:Static localizations:Translate.FrmGoodGroupCard_ПризнакПредметаРасчета}"
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Width="170"/>
+            <ComboBox DisplayMemberPath="Value" SelectedValuePath="Key" Height="25" HorizontalAlignment="Left"
+                      Margin="5 5 0 0" VerticalAlignment="Center" Width="200"
+                      SelectedValue="{Binding Path=Group.RuFfdGoodsType}" ItemsSource="{Binding Path=RuFfdGoodsTypes}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Visibility="{Binding MarkedVisibility}">
+            <Label Margin="5 5 0 0" Height="25" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                   Content="{x:Static localizations:Translate.МаркируемаяПродукция}" Width="170"/>
+            <ComboBox DisplayMemberPath="Value" SelectedValuePath="Key" Height="25" HorizontalAlignment="Left"
+                      Margin="5 5 0 0" VerticalAlignment="Center" Width="200"
+                      SelectedValue="{Binding RuMarkedProductionType, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding Path=RuMarkedProductionTypes}"/>
+          </StackPanel>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="{x:Static localizations:Translate.PageImageGood_Изображение}" Padding=" 8">
+        <Grid>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="317*"/>
+            <ColumnDefinition Width="60"/>
+          </Grid.ColumnDefinitions>
+          <Border Grid.Column="0" Margin="5" BorderThickness="1" BorderBrush="Black">
+            <Button Margin="5" Command="{Binding AddImageCommand}">
+              <Image Source="{Binding Image.Image}"/>
+            </Button>
+          </Border>
+          <StackPanel Grid.Column="1">
+            <Button Margin="0, 5, 5, 5" Style="{DynamicResource btnAction}" Height="50" VerticalAlignment="Top"
+                    HorizontalAlignment="Right" Width="50" Command="{Binding AddImageCommand}">
+              <Image Source="{DynamicResource IconAdd}"/>
+            </Button>
+            <Button Margin="0, 0, 5, 0" VerticalAlignment="Top" Height="50" RenderTransformOrigin="0.659,2.124"
+                    Style="{DynamicResource btnAction}" HorizontalAlignment="Right" Width="50"
+                    Command="{Binding DeleteImageCommand}">
+              <Image Source="{DynamicResource IconDelete}"/>
+            </Button>
+          </StackPanel>
+        </Grid>
+      </TabItem>
+    </TabControl>
+    <userControls:ConfirmPanelControl1 OkButtonCommand="{Binding SaveGroup}" CancelButtonCommand="{Binding CloseCard}"/>
+  </StackPanel>
+</helpers:WindowWithSize>

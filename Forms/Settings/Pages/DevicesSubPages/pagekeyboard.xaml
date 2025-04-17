@@ -1,0 +1,87 @@
+<Page x:Class="Gbs.Forms.Settings.Pages.PageKeyboard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Gbs.Forms.Settings.Pages"
+      xmlns:uc="clr-namespace:Gbs.Helpers.UserControls"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      Title="PageHotKeys">
+  <FrameworkElement.DataContext>
+    <local:HotKeysViewModel/>
+  </FrameworkElement.DataContext>
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel>
+      <Expander Header="{x:Static localizations:Translate.ЭкраннаяКлавиатура}">
+        <StackPanel>
+          <CheckBox Content="{x:Static localizations:Translate.ВключитьЭкраннуюКлавиатуру}" Margin="3"
+                    IsChecked="{Binding IsEnabledVirtualKeyboard, UpdateSourceTrigger=PropertyChanged}"/>
+          <CheckBox Content="{x:Static localizations:Translate.ПоказыватьТолькоПриКликеНаПолеВвода}" Margin="3"
+                    Visibility="{Binding VisibilityVirtualKeyboardSetting}"
+                    IsChecked="{Binding Settings.Keyboard.VirtualKeyboard.ActivateOnlyByClick}"/>
+          <StackPanel Orientation="Horizontal" Margin="3" Visibility="{Binding VisibilityVirtualKeyboardSetting}">
+            <Label Content="{x:Static localizations:Translate.РазмерКнопок}"/>
+            <xctk:IntegerUpDown Maximum="100" Minimum="30" Width="50" Increment="10"
+                                Value="{Binding Settings.Keyboard.VirtualKeyboard.ButtonSize}"/>
+            <Label Content="{x:Static localizations:Translate.Пикселей}"/>
+          </StackPanel>
+          <CheckBox Content="{x:Static localizations:Translate.ПодстраиватьсяПодТипВводимыхДанных}" Margin="3"
+                    Visibility="{Binding VisibilityVirtualKeyboardSetting}"
+                    IsChecked="{Binding Settings.Keyboard.VirtualKeyboard.AutoAdaptiveForInputType}"/>
+        </StackPanel>
+      </Expander>
+      <Expander Header="{x:Static localizations:Translate.ГорячиеКлавиши}" IsExpanded="false">
+        <StackPanel>
+          <Button Style="{StaticResource btnLink}" Content="{x:Static localizations:Translate.СброситьПоУмолчанию}"
+                  HorizontalAlignment="Right" Margin="5 5 5 0" Command="{Binding SeDefaultCommand}"/>
+          <Label Content="{x:Static localizations:Translate.ОбщийНабор}" HorizontalAlignment="Center"
+                 FontWeight="Bold" FontSize="14"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ГотовоСохранить}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.OkAction, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.FrmInputMessage_Отмена}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.CancelAction, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.Добавить}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.AddItem, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.Редактировать}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.EditItem, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.Удалить}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.DeleteItem, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.Печатать}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.Print, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ВыбратьКонтактПокупателя}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.SelectClient, UpdateSourceTrigger=PropertyChanged}"/>
+          <Label Content="{x:Static localizations:Translate.ГлавнаяФорма}" HorizontalAlignment="Center"
+                 FontWeight="Bold" FontSize="14"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.СледующаяКорзина}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.NextBasket, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ПредыдущаяКорзина}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.PrevBasket, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.СкидкаНаПозицию}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.DiscountForItem, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.СкидкаНаЧек}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.DiscountForCheck, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ПоискПоКодуМаркировки}"
+                            Visibility="{Binding VisibilityHotKeysForRu}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.SearchByMarkCode, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ПолученоДенСредств}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.InsertPayments, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ИзбранныеТовары}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.FavoritesGoods, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ОткрытьРежимКафе}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.ShowCafeForm, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.СнятьXОтчетНаККМ}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.KkmGetXReport, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.СнятьZОтчетНаККМ}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.KkmGetZReport, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.СнятьДенСредства}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.CashOut, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ВнестиДенСредства}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.CashIn, UpdateSourceTrigger=PropertyChanged}"/>
+          <uc:HotKeyTextBox ActionName="{x:Static localizations:Translate.ФискалПоследнююПродажу}"
+                            Hotkey="{Binding Settings.Keyboard.HotKeys.FiscalLastSaleAction, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+      </Expander>
+    </StackPanel>
+  </ScrollViewer>
+</Page>

@@ -1,0 +1,211 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Clients.FrmListClients"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Clients"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:my="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                        Loaded="FrmListClients_OnLoaded" Activated="FrmListClients_OnActivated"
+                        Closed="FrmListClients_OnClosed" WindowStartupLocation="CenterScreen"
+                        Title="{x:Static localizations:Translate.FrmListClients_Контакты}" Height="576" Width="842"
+                        Style="{StaticResource sWindow}" MinWidth="842" MinHeight="600"
+                        FocusManager.FocusedElement="{Binding ElementName=SerachTb}">
+  <FrameworkElement.DataContext>
+    <local:CatalogClientsModelView/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Menu VerticalAlignment="Top" Grid.Row="0">
+      <MenuItem Header="{x:Static localizations:Translate.FrmListClients_Файл}">
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodsCatalog_ЗагрузитьИзExcel}"
+                  Command="{Binding Path=ExcelImportCommand}"/>
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodsCatalog_СохранитьКак}"
+                  Command="{Binding ExportFile}" CommandParameter="{Binding ElementName=ClientsList}"/>
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodCard_Печать}" Command="{Binding PrintClients}"/>
+        <Separator Visibility="{Binding VisibilityMenuPlanFix}"/>
+        <MenuItem Header="{x:Static localizations:Translate.FrmListClients_ВыгрузитьКонтактыВПланФикс}"
+                  Command="{Binding AddRangeClientInPlanFix}" Visibility="{Binding VisibilityMenuPlanFix}"/>
+        <Separator Visibility="{Binding FindOrgByInnVisibility}"/>
+        <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_ПоискКомпанииПоИНН}"
+                  Visibility="{Binding FindOrgByInnVisibility}" Command="{Binding FindOrgByInn}"/>
+      </MenuItem>
+    </Menu>
+    <Grid Row="1" Margin="4">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      <userControls:TextBoxWithClearControl x:Name="SerachTb" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Width="350" Height="40"
+                                            TextFontSize="24" HorizontalAlignment="Left" ConfigCommand="{Binding SetVisibilityPanelSearch}"
+                                            TextString="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+      <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+        <Button x:Name="btnAddGood" Style="{DynamicResource btnAction}" VerticalAlignment="Top"
+                HorizontalAlignment="Left" Command="{Binding AddCommand}">
+          <Image Source="{DynamicResource IconAdd}"/>
+        </Button>
+        <Button Style="{DynamicResource btnAction}" VerticalAlignment="Top" HorizontalAlignment="Left"
+                Command="{Binding EditCommand}"
+                CommandParameter="{Binding ElementName=ClientsList, Path=SelectedItems}">
+          <Image Source="{DynamicResource IconEdit}"/>
+        </Button>
+        <Button Style="{DynamicResource btnAction}" HorizontalAlignment="Center" VerticalAlignment="Top"
+                Command="{Binding Path=JoinClientsCommand}"
+                CommandParameter="{Binding ElementName=ClientsList, Path=SelectedItems}">
+          <Image Source="{DynamicResource IconMerge}"/>
+        </Button>
+        <Button x:Name="btnDeleteGood" VerticalAlignment="Top" Style="{DynamicResource btnAction}"
+                HorizontalAlignment="Left" Command="{Binding DeleteCommand}"
+                CommandParameter="{Binding ElementName=ClientsList, Path=SelectedItems}">
+          <Image Source="{DynamicResource IconDelete}"/>
+        </Button>
+      </StackPanel>
+      <ToolBarPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0">
+        <Label Content="{x:Static localizations:Translate.FrmListClients_Контактов}"/>
+        <Label Content="{Binding ClientsList.Count}"/>
+        <Label Content="|"/>
+        <Label Content="{x:Static localizations:Translate.FrmListClients_СуммаПокупок}"/>
+        <Label ContentStringFormat="N2" Content="{Binding SumSaleClients}"/>
+        <Label Content="|"/>
+        <Label Content="{x:Static localizations:Translate.FrmListClients_СуммаДолга}"/>
+        <Label ContentStringFormat="N2" Content="{Binding SumCreditClients}"/>
+        <Label Content="|"/>
+        <Label Content="{x:Static localizations:Translate.FrmListClients_СуммаБаллов}"/>
+        <Label ContentStringFormat="N2" Content="{Binding SumBonusesClients}"/>
+        <Label Content="|"/>
+        <Button Name="ButtonUpdateData" Style="{DynamicResource btnLink}"
+                Content="{x:Static localizations:Translate.ОбновитьДанные}"
+                Command="{Binding Path=UpdateDataCommand}"/>
+      </ToolBarPanel>
+      <DataGrid Name="ClientsList" IsReadOnly="true" AutoGenerateColumns="false" CanUserAddRows="false"
+                Grid.Row="1" Grid.Column="0" SelectedValue="{Binding SelectedClient}"
+                ItemsSource="{Binding ClientsList}">
+        <FrameworkElement.Resources>
+          <ContextMenu x:Key="ContextMenuGrid"/>
+          <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+            <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ContextMenuGrid}"/>
+          </Style>
+        </FrameworkElement.Resources>
+        <UIElement.InputBindings>
+          <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=EditCommand}"
+                        CommandParameter="{Binding ElementName=ClientsList, Path=SelectedItems}"/>
+        </UIElement.InputBindings>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmClientCard_Группа}"
+                              my:Extensions.Guid="05723FCB-54CA-4941-A260-43387F0FC2AF" Width="100"
+                              Binding="{Binding Client.Client.Group.Name}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmClientCard_ДисконтнаяКарта}"
+                              my:Extensions.Guid="58DF72E4-F818-4330-B7E2-FE56FB37B4E6" Width="125"
+                              Binding="{Binding Client.Client.Barcode}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListClients_ФИОКонтакта}"
+                              my:Extensions.Guid="124DF921-512F-46B5-8823-4736813171FD"
+                              ElementStyle="{DynamicResource WrappedCell}" Width="200" Binding="{Binding Client.Client.Name}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListClients_Телефон}"
+                              my:Extensions.Guid="7ECA3171-84F6-4D3D-8898-B6D6C3D45B66" Width="100"
+                              Binding="{Binding Client.Client.Phone}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.ExcelDataViewModel_Описание}"
+                              my:Extensions.Guid="F26A110C-09B8-4A75-A998-CDDB33C4FAB3" Width="100"
+                              Binding="{Binding Client.Client.Comment}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListClients_lblСуммаПокупок}" Width="125"
+                              my:Extensions.Guid="0A9CB015-3D09-41B3-931E-F292F6E2B0C5"
+                              CellStyle="{DynamicResource numberCellStyle}"
+                              Binding="{Binding Client.TotalSalesSum, StringFormat=N2}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListClients_Долг}" Width="100"
+                              my:Extensions.Guid="43449BEF-A652-4ECA-88B7-B6C5494F67A4"
+                              CellStyle="{DynamicResource numberCellStyle}"
+                              Binding="{Binding Client.TotalCreditSum, StringFormat=N2}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListClients_Баллы}" Width="100"
+                              my:Extensions.Guid="14E605C2-DA84-4BD7-B3CD-3C036568632F"
+                              CellStyle="{DynamicResource numberCellStyle}"
+                              Binding="{Binding Client.TotalBonusSum, StringFormat=N2}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListClients_Адрес}" Width="150"
+                              my:Extensions.Guid="6231F076-9BFB-44EB-B33A-02840BF711F6" Binding="{Binding Client.Client.Address}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListClients_EMail}" Width="100"
+                              my:Extensions.Guid="8E30EEF3-9885-4612-8B3B-906515335E9C" Binding="{Binding Client.Client.Email}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.ExcelClientsViewModel_День_рождения}" Width="100"
+                              my:Extensions.Guid="59AA32B0-80D0-47FC-AF89-F911E932E7D2"
+                              Binding="{Binding Client.Client.Birthday, StringFormat=dd.MM.yyyy}"/>
+          <DataGridTextColumn Header="{x:Static localizations:Translate.FrmSearchGoods_ДатаДобавления}" Width="100"
+                              my:Extensions.Guid="50E3DE16-80D1-4756-B20F-74959DCF679C"
+                              Binding="{Binding Client.Client.DateAdd, StringFormat=dd.MM.yyyy}"/>
+        </DataGrid.Columns>
+      </DataGrid>
+      <Grid Row="0" Column="0" Margin="2,52,1,0">
+        <StackPanel Height="56" Margin="0 0" Orientation="Horizontal" Visibility="{Binding VisibilityPanelSearch}">
+          <StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+              <Label Content="{x:Static localizations:Translate.FrmSearchClient_ИскатьВ}" HorizontalAlignment="Left"
+                     VerticalAlignment="Center" Height="25" Width="70"/>
+              <Button Click="FindButton_OnClick" Name="FindButton" Height="25" Style="{DynamicResource btnLink}"
+                      Margin="5,0,0,0" VerticalAlignment="Center" Width="130" Cursor="Hand"
+                      Content="{Binding TextPropButton}">
+                <FrameworkElement.Resources>
+                  <ContextMenu x:Key="ContextMenuGrid"/>
+                </FrameworkElement.Resources>
+              </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <Label Content="{x:Static localizations:Translate.FrmListClients_Группа}" HorizontalAlignment="Left"
+                     Width="70"/>
+              <ComboBox SelectedIndex="0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="130" Height="25"
+                        Margin="5,0,0,0" DisplayMemberPath="Name" ItemsSource="{Binding Path=ListGroups}"
+                        SelectedValue="{Binding Path=SelectedGroup}"/>
+            </StackPanel>
+          </StackPanel>
+          <StackPanel Margin="10 0 0 0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+              <Label Content="{x:Static localizations:Translate.FrmListClients_lblСуммаПокупок}" Height="25"
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Margin="0"/>
+              <ComboBox HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Center" Width="40" SelectedIndex="0"
+                        Height="25" SelectedValue="{Binding SelectedFilterSaleSum, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding FilterItems_sales}"
+                        Text="{Binding SaleSumFilterConditionText, UpdateSourceTrigger=PropertyChanged}"/>
+              <xctk:DecimalUpDown HorizontalAlignment="Left" Height="25" Margin="5 0" Minimum="0" VerticalAlignment="Center"
+                                  Width="65" ShowButtonSpinner="false"
+                                  Value="{Binding FilterSaleSum, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 5 0 0">
+              <Label Content="{x:Static localizations:Translate.FrmClientCard_СуммаДолга}" Height="25"
+                     HorizontalAlignment="Left" VerticalAlignment="Center" Width="100" Margin="0"/>
+              <ComboBox HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Center" Width="40" SelectedIndex="0"
+                        Height="25" SelectedValue="{Binding SelectedFilterCreditSum, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding FilterItems_credits}"
+                        Text="{Binding CreditSumFilterConditionText, UpdateSourceTrigger=PropertyChanged}"/>
+              <xctk:DecimalUpDown HorizontalAlignment="Left" Height="25" Margin="5 0" Minimum="0" VerticalAlignment="Center"
+                                  Width="65" ShowButtonSpinner="false"
+                                  Value="{Binding FilterCreditSum, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+          </StackPanel>
+          <StackPanel Margin="10 0 0 0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+              <Label Content="{x:Static localizations:Translate.СуммаБаллов}" Height="25" HorizontalAlignment="Left"
+                     VerticalAlignment="Center" Width="100" Margin="0"/>
+              <ComboBox HorizontalAlignment="Left" Margin="5 0 0 0" VerticalAlignment="Center" Width="40" SelectedIndex="0"
+                        Height="25" SelectedValue="{Binding SelectedFilterBonusesSum, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding FilterItems_bonuses}"
+                        Text="{Binding BonusesSumFilterConditionText, UpdateSourceTrigger=PropertyChanged}"/>
+              <xctk:DecimalUpDown HorizontalAlignment="Left" Height="25" Margin="5 0" Minimum="0" VerticalAlignment="Center"
+                                  Width="65" ShowButtonSpinner="false"
+                                  Value="{Binding FilterBonusesSum, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <ComboBox HorizontalAlignment="Left" Margin="0 5 0 0" VerticalAlignment="Center" Height="25" Width="215"
+                      SelectedIndex="0" SelectedValuePath="Key" DisplayMemberPath="Value"
+                      SelectedValue="{Binding SelectedFilterEqual, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding ListFilterEqual}" IsEnabled="{Binding IsEnabledParameters}"/>
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+    </Grid>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,19 @@
+﻿// Decompiled with JetBrains decompiler
+// Type: Gbs.Helpers.Offers
+// Assembly: Market, Version=6.6.12.2634, Culture=neutral, PublicKeyToken=null
+// MVID: 1F63B1D6-03C1-4223-9A1B-4EA2EB09E32F
+// Assembly location: C:\Program Files (x86)\F-Lab\Market 6\Market.exe
+
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
+#nullable disable
+namespace Gbs.Helpers
+{
+  [XmlRoot(ElementName = "offers")]
+  public class Offers
+  {
+    [XmlElement(ElementName = "offer")]
+    public List<Gbs.Helpers.Offer> Offer { get; set; } = new List<Gbs.Helpers.Offer>();
+  }
+}

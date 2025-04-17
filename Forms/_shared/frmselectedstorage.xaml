@@ -1,0 +1,47 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms._shared.FrmSelectedStorage"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:local="clr-namespace:Gbs.Forms._shared"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        Style="{DynamicResource sWindow}" Title="{x:Static localizations:Translate.ВыборСкладов}"
+                        ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+  <FrameworkElement.DataContext>
+    <local:StorageSelectedViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <DataGrid Grid.Row="0" Height="395" Margin="10 10 10 0" Width="380" FontSize="14" HeadersVisibility="None"
+              ItemsSource="{Binding StoragesList}">
+      <FrameworkElement.ContextMenu>
+        <ContextMenu>
+          <MenuItem Header="{x:Static localizations:Translate.FrmSelectedStorage_ВыбратьВсе}"
+                    Command="{Binding AllSelectedCommand}"/>
+          <MenuItem Header="{x:Static localizations:Translate.FrmSelectedStorage_ОтменитьВсе}"
+                    Command="{Binding AllUnSelectedCommand}"/>
+        </ContextMenu>
+      </FrameworkElement.ContextMenu>
+      <DataGrid.Columns>
+        <DataGridTemplateColumn Width="1*" uiElement:Extensions.Guid="F17ABAB5-5EA5-4973-8BE4-4391DC89A29C">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <Grid>
+                <CheckBox Content="{Binding Storage.Name}"
+                          IsChecked="{Binding IsChecked, UpdateSourceTrigger=PropertyChanged}"/>
+              </Grid>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <userControls:ConfirmPanelControl1 Grid.Row="1" OkButtonText="{x:Static localizations:Translate.PageInventoryStart_Выбрать}"
+                                       CancelButtonCommand="{Binding Path=Close}" OkButtonCommand="{Binding Path=SelectedStorage}"/>
+  </Grid>
+</helpers:WindowWithSize>

@@ -1,0 +1,95 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Reports.SummaryReport.Other.FrmListPaymentsActions"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Reports.SummaryReport.Other"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        Style="{DynamicResource sWindow}" MinHeight="350" MinWidth="750"
+                        Title="{x:Static localizations:Translate.FrmListPaymentsActions_РасходыДоходы}" Height="500"
+                        Width="915">
+  <FrameworkElement.DataContext>
+    <local:PaymentsActionListViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="28"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="301*"/>
+      <RowDefinition Height="27"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition Width="65.5"/>
+    </Grid.ColumnDefinitions>
+    <Menu VerticalAlignment="Top" FontSize="12" Height="28" Grid.ColumnSpan="2" Margin="0,0,-0.5,0">
+      <MenuItem Header="{x:Static localizations:Translate.FrmMainWindow_Файл}">
+        <MenuItem Header="{x:Static localizations:Translate.FrmGoodsCatalog_СохранитьКак}"
+                  Command="{Binding ExportFile}" CommandParameter="{Binding ElementName=PaymentsGrid}"/>
+      </MenuItem>
+    </Menu>
+    <Expander Grid.Column="0" Grid.Row="1" Header="{x:Static localizations:Translate.FrmListClients_Фильтр}"
+              IsExpanded="true" Margin="5, 5 5 0">
+      <StackPanel Orientation="Horizontal">
+        <userControls:DateFilterControl Margin="5" Width="340" CommandOnUpdate="{Binding LoadPaymentsCommand}"
+                                        ValueDateTimeStart="{Binding DateStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        ValueDateTimeEnd="{Binding DateFinish, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 2 0 0">
+          <ComboBox DisplayMemberPath="Name" SelectedValuePath="Uid" SelectedIndex="0" Width="150" Margin="5,5,0,5"
+                    Height="24" VerticalAlignment="Top" ItemsSource="{Binding Groups}"
+                    SelectedValue="{Binding SelectedGroup.Uid, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedGroup, UpdateSourceTrigger=PropertyChanged}"/>
+          <ComboBox DisplayMemberPath="Alias" SelectedValuePath="Uid" SelectedIndex="0" Width="150" Margin="5,5,0,5"
+                    Height="24" VerticalAlignment="Top" ItemsSource="{Binding Users}"
+                    SelectedItem="{Binding SelectedUser, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedValue="{Binding SelectedUser.Uid}"/>
+          <ComboBox Visibility="Visible" DisplayMemberPath="Name" SelectedValuePath="Uid" SelectedIndex="0" Width="150"
+                    Margin="5 5 0 5" ItemsSource="{Binding Sections}"
+                    SelectedItem="{Binding SelectedSection, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedValue="{Binding SelectedSection.Uid}"/>
+        </StackPanel>
+      </StackPanel>
+    </Expander>
+    <DataGrid Name="PaymentsGrid" Grid.Column="0" Grid.Row="2" Margin="5,5,5,5" ItemsSource="{Binding Payments}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmJournalSales_ДатаВремя}" Width="100"
+                            Binding="{Binding Payment.Date, StringFormat='{0:dd.MM.yyyy HH:mm}'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Сумма}" Width="100"
+                            CellStyle="{DynamicResource numberCellStyle}" Binding="{Binding Sum, StringFormat=N2}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.Client_Категория}" Width="150"
+                            Binding="{Binding Group.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmRemoveCash_Комментарий}" Width="150"
+                            Binding="{Binding Payment.Comment}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmListPaymentsActions_Счет}" Width="150"
+                            Binding="{Binding Account.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.Контакт}" Width="150"
+                            Binding="{Binding Payment.Client.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmUserStatistic_Сотрудник}" Width="150"
+                            Binding="{Binding Payment.User.Alias}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMagazineSale_Секция}" Width="100"
+                            Binding="{Binding Payment.Section.Name}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <ToolBarPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" Margin="5,0,0,0">
+      <Label Content="{x:Static localizations:Translate.FrmListPaymentsActions_ВсегоЗаписей}"/>
+      <Label Content="{Binding Payments.Count}"/>
+      <Label Content="| "/>
+      <Label Content="{x:Static localizations:Translate.FrmListPaymentsActions_НаСумму}"/>
+      <Label ContentStringFormat="N2" Content="{Binding Path=TotalSum, StringFormat=N2}"/>
+    </ToolBarPanel>
+    <StackPanel Grid.Column="1" Grid.Row="2" Margin="0,0,-0.5,0">
+      <Button Margin="5, 10" Style="{DynamicResource btnAction}" Height="50" VerticalAlignment="Top"
+              HorizontalAlignment="Left" Width="50" Command="{Binding Path=AddPayments}"
+              CommandParameter="{Binding ElementName=ReturnGrid, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button Margin="5, 0" Style="{DynamicResource btnAction}" Height="50" VerticalAlignment="Top"
+              HorizontalAlignment="Left" Width="50" Command="{Binding Path=DeletePayments}"
+              CommandParameter="{Binding ElementName=PaymentsGrid, Path=SelectedItems}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </StackPanel>
+  </Grid>
+</helpers:WindowWithSize>

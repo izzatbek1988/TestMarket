@@ -1,0 +1,188 @@
+<Page x:Class="Gbs.Forms.Settings.Pages.DevicesSubPages.PageAcquiringTerminal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Gbs.Forms.Settings.Pages.DevicesSubPages"
+      xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+      xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+      Title="PageAcquiringTerminal">
+  <FrameworkElement.DataContext>
+    <local:AcquiringTerminalPageViewModel/>
+  </FrameworkElement.DataContext>
+  <ScrollViewer>
+    <StackPanel Width="380">
+      <Expander Margin="5 5 5 0" Header="{x:Static localizations:Translate.ТерминалЭквайринга}" Width="370">
+        <Grid Margin="5">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Label Content="{x:Static localizations:Translate.PageCheckPrinter_Тип}" Grid.Row="0" Grid.Column="0"/>
+          <ComboBox Grid.Row="0" Grid.Column="1" Height="22" Width="200" HorizontalAlignment="Left"
+                    SelectedValuePath="Key" DisplayMemberPath="Value" Margin="0,2,0,3"
+                    ItemsSource="{Binding Path=TerminalTypes}" SelectedValue="{Binding Path=TerminalType}"/>
+          <Button Grid.Row="1" Grid.Column="1" Height="20" HorizontalContentAlignment="Left"
+                  Style="{DynamicResource btnLink}"
+                  Content="{x:Static localizations:Translate.ПоказатьПапкуСДрайвером}" Margin="0,0.5,35,3.5"
+                  Cursor="Hand" Visibility="{Binding VisibilityButtonShowDriver}"
+                  Command="{Binding Path=ShowFolderDriver}"/>
+          <Grid Row="2" ColumnSpan="2" Column="0" Visibility="{Binding Path=SettingsVisibility}">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="150"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Visibility="{Binding VisibilityMerchantId}">
+              <Label Content="Merchant id"/>
+              <TextBox Width="202" Margin="75 0 0 0"
+                       Text="{Binding DeviceConfig.AcquiringTerminal.Description, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" IsExpanded="true" Margin="5"
+                      Header="{x:Static localizations:Translate.PageAcquiringTerminal_НастройкаПодключения}">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Button Content="{x:Static localizations:Translate.PageBarcodeScanner_Настроить}" Width="120"
+                        HorizontalAlignment="Left" Margin="3" Command="{Binding Path=ConfigConnectionCommand}"/>
+                <Button Grid.Row="0" Content="{x:Static localizations:Translate.PageDataBase_ПроверитьСвязь}" Width="96"
+                        HorizontalAlignment="Left" Margin="175,3,0,3" Style="{DynamicResource btnLink}"
+                        Command="{Binding Path=TestConnectionCommand}"/>
+              </Grid>
+            </Expander>
+            <Expander Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                      Header="{x:Static localizations:Translate.PageAcquiringTerminal_ПечатьСлипЧека}" Margin="5">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Row="0">
+                  <HeaderedContentControl.Header>
+                    <CheckBox Content="{x:Static localizations:Translate.PageAcquiringTerminal_ПечататьИзФайла}"
+                              IsChecked="{Binding DeviceConfig.AcquiringTerminal.PrintSlipFromFile}"/>
+                  </HeaderedContentControl.Header>
+                  <StackPanel Orientation="Vertical" Margin="5"
+                              IsEnabled="{Binding DeviceConfig.AcquiringTerminal.PrintSlipFromFile}">
+                    <StackPanel Orientation="Horizontal">
+                      <Label Content="{x:Static localizations:Translate.FrmExcelClients_ПутьКФайлу}" Width="85"
+                             VerticalAlignment="Center"/>
+                      <userControls:TextBoxFolderPathControl Width="220" Height="30" SelectFolderCommand="{Binding SelectSlipFilePathCommand}"
+                                                             FolderPath="{Binding DeviceConfig.AcquiringTerminal.SlipFilePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                      <Label Content="{x:Static localizations:Translate.Кодировка}" Width="85" VerticalAlignment="Center"/>
+                      <ComboBox Width="160" Height="30" DisplayMemberPath="Value" SelectedValuePath="Key"
+                                ItemsSource="{Binding EncodingDirectory}"
+                                SelectedValue="{Binding DeviceConfig.AcquiringTerminal.SlipEncoding}"/>
+                    </StackPanel>
+                  </StackPanel>
+                </GroupBox>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                  <Label Content="{x:Static localizations:Translate.PageAcquiringTerminal_КолВоСлипЧеков}"/>
+                  <xctk:IntegerUpDown Margin="20 0" Height="20" Minimum="0" Maximum="3"
+                                      Value="{Binding DeviceConfig.AcquiringTerminal.SlipPrintCounts}"/>
+                </StackPanel>
+              </Grid>
+            </Expander>
+          </Grid>
+        </Grid>
+      </Expander>
+      <Expander Margin="5 5 5 0"
+                Header="{x:Static localizations:Translate.PageIntegrations_СистемаБыстрыхПлатежейОплатаПоQRКоду}"
+                Visibility="{Binding VisibilitySBP}">
+        <StackPanel>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="100*"/>
+              <ColumnDefinition Width="124*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="{x:Static localizations:Translate.FrmConnectionSettings_ТипПодключения}" Margin="5,5,5,5"
+                   Grid.Column="0"/>
+            <ComboBox Grid.Column="1" Margin="5,6" FontSize="12" VerticalContentAlignment="Center"
+                      SelectedValuePath="Type" DisplayMemberPath="TypeName" Width="Auto"
+                      ItemsSource="{Binding DictionarySbpTypes}"
+                      SelectedValue="{Binding SbpType, UpdateSourceTrigger=PropertyChanged}"/>
+          </Grid>
+          <StackPanel Visibility="{Binding SbpSettingVisibility}">
+            <Button Visibility="Collapsed"
+                    Content="{x:Static localizations:Translate.PageBarcodeScanner_ПроверкаСвязи}"
+                    Style="{DynamicResource btnLink}" HorizontalAlignment="Right" Margin="0 -5 60 5"
+                    Command="{Binding TestConnectionSBPCommand}"/>
+            <Grid Visibility="{Binding PayMasterSettingVisibility}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="124*"/>
+              </Grid.ColumnDefinitions>
+              <Label Content="{x:Static localizations:Translate.КодТочкиПродаж}" Margin="5,5,5,5" Grid.Column="0"/>
+              <TextBox Grid.Column="1" Margin="5,6" FontSize="12" VerticalContentAlignment="Center" Width="Auto"
+                       Text="{Binding DeviceConfig.SBP.PayQrClientID, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Visibility="{Binding PayQrDeviceIdVisibility}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="124*"/>
+              </Grid.ColumnDefinitions>
+              <Label Content="{x:Static localizations:Translate.PageIntegrations_ИдентификаторТочки}" Margin="5,5,5,5"
+                     Grid.Column="0"/>
+              <TextBox Grid.Column="1" Margin="5,6" VerticalContentAlignment="Center" FontSize="12" Width="Auto"
+                       Text="{Binding DeviceConfig.SBP.PayQrDeviceID, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="124*"/>
+              </Grid.ColumnDefinitions>
+              <Label Content="{x:Static localizations:Translate.СекретныйКлюч}" Margin="5,5,5,5" Grid.Column="0"/>
+              <xctk:WatermarkPasswordBox PasswordChanged="PasswordBox_OnPasswordChanged" Name="PasswordBox" Grid.Column="1" Margin="5,6"
+                                         VerticalContentAlignment="Center" FontSize="12" Width="Auto"/>
+            </Grid>
+            <Grid Visibility="{Binding OpenBankVisibility}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="124*"/>
+              </Grid.ColumnDefinitions>
+              <Label Content="{x:Static localizations:Translate.АдресAPI}" Margin="5,5,5,5" Grid.Column="0"/>
+              <TextBox Grid.Column="1" Margin="5,6" VerticalContentAlignment="Center" FontSize="12" Width="Auto"
+                       Text="{Binding DeviceConfig.SBP.PayQrURL, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Visibility="{Binding NewPayVisibility}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="124*"/>
+              </Grid.ColumnDefinitions>
+              <Label Content="{x:Static localizations:Translate.НазваниеКассы}" Margin="5,0,5,5" Grid.Column="0"/>
+              <StackPanel Grid.Column="1" Margin="5,0" Orientation="Horizontal">
+                <ComboBox VerticalContentAlignment="Center" FontSize="12" VerticalAlignment="Center" Width="125"
+                          SelectedValuePath="KeyKassa" DisplayMemberPath="Name" ItemsSource="{Binding ListNewPayKassa}"
+                          SelectedValue="{Binding SelectedIdKassa, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="{x:Static localizations:Translate.FrmSummaryReport_Обновить}"
+                        Style="{DynamicResource btnLink}" Command="{Binding ReloadListAccount}"/>
+              </StackPanel>
+            </Grid>
+            <CheckBox Content="{x:Static localizations:Translate.ПечататьQRКодНаЧеке}"
+                      IsChecked="{Binding DeviceConfig.SBP.IsPrintQrForCheck, UpdateSourceTrigger=PropertyChanged}"
+                      Visibility="{Binding DebugVisibility}"/>
+          </StackPanel>
+        </StackPanel>
+      </Expander>
+    </StackPanel>
+  </ScrollViewer>
+</Page>

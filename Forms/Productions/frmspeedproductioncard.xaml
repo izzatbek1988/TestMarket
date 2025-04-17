@@ -1,0 +1,88 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Productions.FrmSpeedProductionCard"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:Gbs.Forms.Productions"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        xmlns:uiElement="clr-namespace:Gbs.Helpers.Extensions.UIElement"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        Style="{DynamicResource sWindow}" Title="{x:Static localizations:Translate.БыстроеПроизводство}"
+                        Height="450" Width="800">
+  <FrameworkElement.DataContext>
+    <local:SpeedProductionViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="28"/>
+      <RowDefinition Height="90"/>
+    </Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" VerticalAlignment="Center">
+      <Label Content="{x:Static localizations:Translate.FrmSelectGoodStock_Склад}" FontSize="24"
+             VerticalContentAlignment="Center" Margin="5"/>
+      <ComboBox Height="Auto" Width="404" Margin="10" FontSize="24" DisplayMemberPath="Name"
+                ItemsSource="{Binding Storages}" SelectedItem="{Binding Storage}"/>
+    </StackPanel>
+    <DataGrid Name="ItemsProductionGrid" Grid.Row="1" Margin="10,10,0,0" Grid.Column="0"
+              ItemsSource="{Binding Basket.Items}">
+      <FrameworkElement.Resources>
+        <ContextMenu x:Key="ContextMenuGrid"/>
+        <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}">
+          <Setter Property="FrameworkElement.ContextMenu" Value="{StaticResource ContextMenuGrid}"/>
+        </Style>
+      </FrameworkElement.Resources>
+      <UIElement.InputBindings>
+        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Basket.EditQuantityCommand}"
+                      CommandParameter="{Binding SelectedItems, ElementName=ItemsProductionGrid}"/>
+      </UIElement.InputBindings>
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmAuthorization_ШтрихКод}" Width="150"
+                            uiElement:Extensions.Guid="C3B5568E-3070-4D4A-9AAE-C710DDFAF91F" Binding="{Binding Good.Barcode}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Категория}" Width="150"
+                            uiElement:Extensions.Guid="D27A9806-0AA3-4D0D-AC50-281B8883A094"
+                            Binding="{Binding Good.Group.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Наименование}" Width="200"
+                            ElementStyle="{DynamicResource WrappedCell}" Binding="{Binding DisplayedName}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmGoodsQuantity_Количество}" Width="100"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            uiElement:Extensions.Guid="6F7B3161-5329-4BAB-A114-3157286930CC" Binding="{Binding Quantity}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <ToolBarPanel Grid.Row="2" Grid.Column="0" Margin="10, 0" Orientation="Horizontal">
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Наименований}"/>
+      <Label Content="{Binding Path=Basket.Items.Count}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.FrmMainWindow_Товаров}"/>
+      <Label ContentStringFormat="N2" Content="{Binding Path=Basket.TotalQuantity}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.FrmListClients_НаСуммуРозница}"/>
+      <Label ContentStringFormat="N2" Content="{Binding Basket.TotalSum}"/>
+    </ToolBarPanel>
+    <userControls:ConfirmPanelControl1 VerticalAlignment="Bottom" OkButtonText="{x:Static localizations:Translate.ПРОИЗВЕСТИ}"
+                                       Grid.Column="0"
+                                       CancelButtonText="{x:Static localizations:Translate.FrmInsertPaymentMethods_ОТМЕНА}" Grid.Row="2"
+                                       Height="100" Grid.ColumnSpan="2" Margin="0,0,0,1" Grid.RowSpan="2"
+                                       OkButtonCommand="{Binding Path=DoProductionCommand}"/>
+    <WrapPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="0 5 0 0">
+      <Button Style="{DynamicResource btnAction}" Command="{Binding AddCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=InventoryJournalDataGrid}">
+        <Image Source="{DynamicResource IconAdd}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Basket.EditQuantityCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=ItemsProductionGrid}">
+        <Control Template="{DynamicResource QuantityIconControl}"/>
+      </Button>
+      <Button Style="{DynamicResource btnAction}" Command="{Binding Basket.DeleteItemCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=ItemsProductionGrid}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+    </WrapPanel>
+  </Grid>
+</helpers:WindowWithSize>

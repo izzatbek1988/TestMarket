@@ -1,0 +1,28 @@
+<Window x:Class="Gbs.Forms.Settings.FrmHotKeysConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gbs.Forms.Settings"
+        xmlns:uc="clr-namespace:Gbs.Helpers.UserControls"
+        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+        Style="{StaticResource sWindow}" Title="FrmHotKeysConfig" Height="274.26" Width="460.059">
+  <FrameworkElement.DataContext>
+    <local:HotKyesViewModel/>
+  </FrameworkElement.DataContext>
+  <Grid>
+    <uc:HotKeyTextBox Width="100" Height="30" Hotkey="{Binding Path=HotKey}"/>
+    <DataGrid Visibility="Collapsed">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.PageJournalGood_Действие2}" Width="*"/>
+        <DataGridTemplateColumn Header="{x:Static localizations:Translate.FrmHotKeysConfig_Сочетание}" Width="*">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <uc:HotKeyTextBox/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
+</Window>

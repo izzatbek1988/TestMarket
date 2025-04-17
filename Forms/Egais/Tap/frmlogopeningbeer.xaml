@@ -1,0 +1,80 @@
+<helpers:WindowWithSize x:Class="Gbs.Forms.Egais.FrmLogOpeningBeer"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:helpers="clr-namespace:Gbs.Helpers"
+                        xmlns:converters="clr-namespace:Gbs.Helpers.XAML.Converters"
+                        xmlns:userControls="clr-namespace:Gbs.Helpers.UserControls"
+                        xmlns:egais="clr-namespace:Gbs.Forms.Egais"
+                        xmlns:localizations="clr-namespace:Gbs.Resources.Localizations"
+                        MinHeight="300" MinWidth="400" Style="{DynamicResource sWindow}"
+                        Title="{x:Static localizations:Translate.ЖурналВскрытияПивныхКег}" Height="450" Width="800">
+  <FrameworkElement.DataContext>
+    <egais:LogOpeningBeerViewModel/>
+  </FrameworkElement.DataContext>
+  <FrameworkElement.Resources>
+    <converters:DecimalToStringConverter x:Key="decimalConverter"/>
+    <converters:PriceToStringConverter x:Key="priceConverter"/>
+  </FrameworkElement.Resources>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="26"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="60"/>
+    </Grid.ColumnDefinitions>
+    <Expander Header="{x:Static localizations:Translate.FrmListClients_Фильтр}" Margin="5 5 0 0">
+      <StackPanel>
+        <userControls:DateFilterControl Width="340" HorizontalAlignment="Left" Margin="0 0 0 5"
+                                        ValueDateTimeStart="{Binding ValueDateTimeStart, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                        CommandOnUpdate="{Binding SearchCommand}"
+                                        ValueDateTimeEnd="{Binding ValueDateTimeEnd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+      </StackPanel>
+    </Expander>
+    <DataGrid Name="TapDataGrid" Margin="5 5 0 0" SelectionMode="Single" Grid.Row="1" Grid.Column="0"
+              ItemsSource="{Binding ItemsBeers}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.ДатаВскрытия}" Width="120"
+                            Binding="{Binding Info.ConnectingDateTime, StringFormat='dd.MM.yyyy HH:mm'}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.ПивнаяПродукция}" Width="150"
+                            Binding="{Binding Good.Name}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.КодМаркировки}" Width="120"
+                            Binding="{Binding Info.MarkedInfo}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.FrmMainWindow_Цена}" Width="120"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            Binding="{Binding Info.Price, Converter={StaticResource priceConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.ОбъемЛ}" Width="120"
+                            CellStyle="{DynamicResource numberCellStyle}"
+                            Binding="{Binding Info.Quantity, Converter={StaticResource decimalConverter}}"/>
+        <DataGridTextColumn Header="{x:Static localizations:Translate.СрокГодности}" Width="120"
+                            Binding="{Binding Info.ExpirationDate, StringFormat=dd.MM.yyyy}"/>
+      </DataGrid.Columns>
+    </DataGrid>
+    <StackPanel Grid.Column="1" HorizontalAlignment="Center" Margin="0 1 0 0" Grid.Row="1">
+      <Button Style="{DynamicResource btnAction}"
+              CommandParameter="{Binding ElementName=TapDataGrid, Path=SelectedItems}"
+              Command="{Binding DeleteCommand}">
+        <Image Source="{DynamicResource IconDelete}"/>
+      </Button>
+      <Button Name="ButtonMore" Style="{DynamicResource btnAction}" Visibility="Collapsed"
+              Command="{Binding ShowMenuCommand}"
+              CommandParameter="{Binding SelectedItems, ElementName=TapDataGrid}">
+        <Image Source="{DynamicResource IconMore}"/>
+      </Button>
+    </StackPanel>
+    <ToolBarPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5 0 0 0">
+      <Label Content="{x:Static localizations:Translate.Кег}"/>
+      <Label ContentStringFormat="N0" Content="{Binding ItemsBeers.Count}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.Объем}"/>
+      <Label ContentStringFormat="N2" Content="{Binding TotalQuantity}"/>
+      <Label Content="|"/>
+      <Label Content="{x:Static localizations:Translate.FrmListPaymentsActions_НаСумму}"/>
+      <Label ContentStringFormat="N2" Content="{Binding TotalSum}"/>
+    </ToolBarPanel>
+  </Grid>
+</helpers:WindowWithSize>
